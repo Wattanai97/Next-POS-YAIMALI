@@ -21,7 +21,7 @@ export default function LoginPage() {
     });
 
     if (res?.ok) {
-      router.replace("/");
+      router.replace("/orders");
     } else {
       alert("Invalid username or password!");
     }

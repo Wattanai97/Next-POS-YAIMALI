@@ -43,7 +43,10 @@ export default function Navbar() {
               <span className="mx-3">role:</span>
               <span>{session.user.role}</span>
             </div>
-            <Button variant="default" onClick={() => router.push(`/orders`)}>
+            <Button variant="default" className="bg-red-500 hover:bg-red-700" onClick={() => router.push(`/`)}>
+              แดชบอร์ด
+            </Button>
+            <Button variant="default" className="bg-slate-950" onClick={() => router.push(`/orders`)}>
               เปิด POS
             </Button>
             <Button
