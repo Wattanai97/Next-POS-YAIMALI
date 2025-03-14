@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { Calendar, Home, Inbox, Settings } from "lucide-react";
+import { useState } from "react";
+import { Calendar, Home, Inbox, Settings, Menu } from "lucide-react";
+import Link from "next/link";
 import {
-  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -11,70 +11,67 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-// Menu items.
+// เมนูต่างๆ
 const items = [
-  {
-    title: "แดชบอร์ด",
-    url: "/",
-    icon: Home,
-  },
-  {
-    title: "ดูออเดอร์ตามวัน",
-    url: "/api/fetchorders",
-    icon: Inbox,
-  },
-  {
-    title: "สรุปยอดขายตามวัน",
-    url: "/",
-    icon: Calendar,
-  },
-  {
-    title: "Settings",
-    url: "/",
-    icon: Settings,
-  },
+  { title: "แดชบอร์ด", url: "/", icon: Home },
+  { title: "ดูออเดอร์ตามวัน", url: "/report", icon: Inbox },
+  { title: "สรุปยอดขายตามวัน", url: "/", icon: Calendar },
+  { title: "Settings", url: "/", icon: Settings },
 ];
 
 export function AppSidebar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // ฟังก์ชันเปิด/ปิด Sidebar
-
   return (
     <>
-      <div>
-        {/* ปุ่มเปิด Sidebar */}
-        <button onClick={() => setIsOpen((prev) => !prev)}>
-          {""}
-        </button>
-        {!isOpen && (
-          <div>
-            <Sidebar id="sidebar">
-              <SidebarContent>
-                <SidebarGroup>
-                  <SidebarGroupLabel>POS Heaun-yai-mali</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {items.map((item) => (
-                        <SidebarMenuItem key={item.title}>
-                          <SidebarMenuButton
-                            asChild
-                            onClick={() => setIsOpen((prev) => !prev)} // ปิด Sidebar เมื่อคลิกที่เมนู
-                          >
-                            <a href={item.url}>
-                              <item.icon />
-                              <span>{item.title}</span>
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              </SidebarContent>
-            </Sidebar>
-          </div>
-        )}
+      {/* ปุ่มเปิด Sidebar */}
+      <button
+        className="fixed top-16 left-4 z-[100] p-2 bg-gray-800 text-white rounded-md"
+        onClick={() => setIsOpen(true)}
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-[90] transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-56 sm:w-72 bg-slate-950 text-white z-[100] shadow-lg transition-transform duration-300 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <SidebarContent className="h-full flex flex-col">
+          {/* หัวข้อ Sidebar */}
+          <SidebarGroup>
+            <SidebarGroupLabel className="p-4 text-lg font-bold mb-6">
+              POS Heaun-yai-mali
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={item.url}
+                        className="flex items-center gap-2 p-3 hover:bg-gray-700 rounded-md transition"
+                        onClick={() => setTimeout(() => setIsOpen(false), 200)}
+                      >
+                        <item.icon size={20} />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
       </div>
     </>
   );

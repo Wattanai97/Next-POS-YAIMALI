@@ -166,7 +166,9 @@ export default function POSPage() {
       const orderData = {
         items: cart.map((item) => ({
           product: item.product.name, // ใช้ name แทน ObjectId
-          quantity: item.quantity, // ส่งจำนวนของสินค้า
+          quantity: item.quantity,
+          price: item.product.price,
+          category: item.product.category, // ส่งจำนวนของสินค้า
         })),
         total: calculateTotal(), // คำนวณยอดรวม
       };
@@ -190,14 +192,14 @@ export default function POSPage() {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-4">
       {/* FilterType */}
-      <div className="mt-2.5 mx-2.5">
+      <div className="xxs:container xxs:mx-auto mt-2.5 mx-2.5">
         {(["All", "Foods", "Drinks"] as FilterType[]).map((type) => (
           <button
             key={type}
             onClick={() => handleClickActiveButton(type)}
-            className={`px-4 mx-0.5 py-1 bg-slate-950 text-white rounded-md transition-all
+            className={`xxs:px-2 xxs:py-0.5 py mx-0.5 py-1 bg-slate-950 text-white rounded-md transition-all
             ${
               activeButton === type
                 ? "bg-opacity-50 shadow-inner shadow-cyan-200/100 underline decoration-white"
@@ -210,9 +212,14 @@ export default function POSPage() {
       </div>
 
       {/* Menu and Cart */}
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        <div>
-          <h2 className="mx-3 text-lg font-semibold">Menu</h2>
+      <div className="flex justify-around me-6">
+        <span className="mx-3 text-lg font-semibold text-white">Menu</span>
+        <span className="text-lg font-semibold text-white xxs:hidden sm:block">
+          Cart
+        </span>
+      </div>
+      <div className="xxs:grid xxs:grid-cols sm:grid sm:grid-cols-2 gap-4 mt-4">
+        <div className="xxs:gird md:grid md:grid-cols-2">
           {filteredProducts.map((product) => (
             <Card key={product._id.toString()} className="p-0.5 m-0.5">
               <CardContent>
@@ -230,8 +237,13 @@ export default function POSPage() {
             </Card>
           ))}
         </div>
+
         <div>
-          <h2 className="text-lg font-semibold">Cart</h2>
+          <div className="flex justify-center">
+            <span className="text-lg font-semibold text-white xxs:block sm:hidden">
+              Cart
+            </span>
+          </div>
           {cart.map((item) => (
             <Card key={item.product._id.toString()} className="p-0.5 m-2">
               <CardContent>
@@ -251,8 +263,10 @@ export default function POSPage() {
             </Card>
           ))}
           {cart.length > 0 && (
-            <div className="mx-2.5 flex">
-              <p className="text-lg font-bold">Total: ฿{calculateTotal()}</p>
+            <div className="m-2.5 flex">
+              <p className="text-lg font-bold text-slate-200">
+                Total: ฿{calculateTotal()}
+              </p>
               <button
                 onClick={() => {
                   handleBuy();

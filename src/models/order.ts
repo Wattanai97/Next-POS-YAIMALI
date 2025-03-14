@@ -9,12 +9,18 @@ const counterSchema = new mongoose.Schema({
 const Counter =
   mongoose.models.Counter || mongoose.model("Counter", counterSchema);
 
-// ปรับ Order Interface ให้รองรับ num
+// ปรับ Order Interface ให้รองรับ num และ customerCount
 interface IOrder extends Document {
   num: number; // เพิ่ม field num
-  items: { product: string; quantity: number }[];
+  items: {
+    product: string;
+    quantity: number;
+    price: number;
+    category: string;
+  }[];
   total: number;
   createdAt: Date;
+  customerCount: number; // จำนวนลูกค้าเข้าร้าน
 }
 
 const OrderSchema = new mongoose.Schema<IOrder>({
@@ -22,14 +28,17 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   items: [
     {
       product: { type: String, required: true },
+      price: { type: Number, required: true },
+      category: { type: String, required: true },
       quantity: { type: Number, required: true },
     },
   ],
   total: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
+  customerCount: { type: Number, default: 0 },
 });
 
-// ใช้ pre-save middleware เพื่อให้ num เพิ่มขึ้นอัตโนมัติ
+// ใช้ pre-save middleware เพื่อให้ num และ customerCount คำนวณอัตโนมัติ
 OrderSchema.pre("save", async function (next) {
   if (!this.isNew) return next(); // ให้ทำงานเฉพาะตอนสร้างใหม่เท่านั้น
 
@@ -40,9 +49,16 @@ OrderSchema.pre("save", async function (next) {
       { new: true, upsert: true } // ถ้าไม่มีให้สร้างใหม่
     );
     this.num = counter.seq; // กำหนดค่า `num` ให้กับออเดอร์นี้
+
+    // คำนวณจำนวนลูกค้าเข้าร้าน โดยเช็ค category "Foods" และรวม quantity
+    this.customerCount = this.items
+      .filter((item) => item.category === "Foods")
+      .reduce((acc, item) => acc + item.quantity, 0);
+
     next();
   } catch (error) {
-    console.log(error);
+    console.error("Error in pre-save middleware:", error);
+    throw error; // ใช้ throw แทน next(error)
   }
 });
 

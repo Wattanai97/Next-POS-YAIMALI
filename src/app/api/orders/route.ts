@@ -17,10 +17,19 @@ export async function POST(req: Request) {
 
     // สร้างคำสั่งซื้อ
     const order = new Order({
-      items: items.map((item: { product: string; quantity: number }) => ({
-        product: item.product, // ใช้ชื่อสินค้า (string) แทน ObjectId
-        quantity: item.quantity,
-      })),
+      items: items.map(
+        (item: {
+          product: string;
+          quantity: number;
+          price: number;
+          category: string;
+        }) => ({
+          product: item.product, // ใช้ชื่อสินค้า (string) แทน ObjectId
+          quantity: item.quantity,
+          price: item.price,
+          category: item.category,
+        })
+      ),
       total,
       createdAt: new Date(),
     });

@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     }
     console.log(`Success to get Orders => ${AllOrders}`);
     return NextResponse.json(
-      { message: "Get Orders Success", orders: AllOrders },
+      { message: "Get Orders Success", orders: AllOrders || []},
       { status: 200 }
     );
   } catch (error) {

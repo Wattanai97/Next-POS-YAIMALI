@@ -21,7 +21,7 @@ export default function Navbar() {
     <nav className="bg-gray-900 text-white py-3 px-6 flex justify-between items-center mb-2">
       {/* Left Side */}
       <div className="text-xl font-bold">
-        <Link href="/">POS System</Link>
+        <Link href="/orders">POS System</Link>
       </div>
 
       {/* Right Side - Desktop */}
@@ -38,16 +38,17 @@ export default function Navbar() {
         ) : (
           <>
             <div className="flex">
-              <span className="hidden md:inline mx-1">ยินดีต้อนรับ</span>
-              <p className="text-center">user {session.user.username}</p>
-              <span className="mx-3">role:</span>
+              <span className="hidden md:inline mx-1">Hi :</span>
+              <p className="text-center">User {session.user.username}</p>
+              <span className="mx-3">Role :</span>
               <span>{session.user.role}</span>
             </div>
-            <Button variant="default" className="bg-red-500 hover:bg-red-700" onClick={() => router.push(`/`)}>
-              แดชบอร์ด
-            </Button>
-            <Button variant="default" className="bg-slate-950" onClick={() => router.push(`/orders`)}>
-              เปิด POS
+            <Button
+              variant="default"
+              className="bg-red-500 hover:bg-red-600"
+              onClick={() => router.push(`/`)}
+            >
+              Dashboard
             </Button>
             <Button
               variant="destructive"
@@ -97,11 +98,11 @@ export default function Navbar() {
               <Button
                 variant="default"
                 onClick={() => {
-                  router.push(`/orders/1`);
+                  router.push(`/`);
                   handleClose();
                 }}
               >
-                เปิด POS
+                Dashboard
               </Button>
               <Button
                 variant="destructive"
