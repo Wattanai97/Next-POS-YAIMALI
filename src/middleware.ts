@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
 
   const isAuthPage =
     pathname.startsWith("/auth/login") || pathname.startsWith("/auth/register");
-  const isProtectedPage = pathname === "/" || pathname.startsWith("/orders");
+  const isProtectedPage = pathname === "/" || pathname.startsWith("/orders") || pathname.startsWith("/report");
 
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/", req.url));
@@ -30,5 +30,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/orders/:path*", "/auth/login", "/auth/register"],
+  matcher: ["/", "/orders/:path*", "/auth/login", "/auth/register","/report/:path*"],
 };

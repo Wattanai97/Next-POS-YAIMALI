@@ -20,8 +20,8 @@ export default function SalesReportPage() {
     );
   };
 
-  const formatDateUTC = (date: Date) =>
-    new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  const formatDate = (date: Date) =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate())
       .toISOString()
       .split("T")[0];
 
@@ -34,8 +34,7 @@ export default function SalesReportPage() {
     return selectedDate
       ? sortedOrders.filter(
           (order) =>
-            formatDateUTC(new Date(order.createdAt)) ===
-            formatDateUTC(selectedDate)
+            formatDate(new Date(order.createdAt)) === formatDate(selectedDate)
         )
       : sortedOrders;
   }, [orders, selectedDate]);
