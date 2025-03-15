@@ -1,6 +1,7 @@
 import { type Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class", // 👈 ต้องกำหนดให้ใช้ "class"
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -15,7 +16,7 @@ const config: Config = {
         xs: "330px",
         sm: "500px",
         md: "879px",
-        lg:"1000px"
+        lg: "1000px",
       },
       colors: {
         background: "hsl(var(--background))",

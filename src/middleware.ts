@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
 
   const isAuthPage =
     pathname.startsWith("/auth/login") || pathname.startsWith("/auth/register");
-  const isProtectedPage = pathname === "/" || pathname.startsWith("/orders") || pathname.startsWith("/report");
+  const isProtectedPage = pathname === "/" || pathname.startsWith("/orders") || pathname.startsWith("/report") || pathname.startsWith("/auth/register");
 
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/", req.url));

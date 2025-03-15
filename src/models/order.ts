@@ -52,7 +52,7 @@ OrderSchema.pre("save", async function (next) {
 
     // คำนวณจำนวนลูกค้าเข้าร้าน โดยเช็ค category "Foods" และรวม quantity
     this.customerCount = this.items
-      .filter((item) => item.category === "Foods")
+      .filter((item) => item.category === "Foods" && item.price > 60) // ✅ เพิ่มเงื่อนไข price > 60
       .reduce((acc, item) => acc + item.quantity, 0);
 
     next();

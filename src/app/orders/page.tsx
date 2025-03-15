@@ -112,6 +112,7 @@ export default function POSPage() {
   );
   const [filterType, setFilterType] = useState<FilterType>("All");
   const [activeButton, setActiveButton] = useState<FilterType>("All");
+  const [loading,setLoading] = useState<boolean>(false)
 
   const handleClickActiveButton = (type: FilterType) => {
     setActiveButton(type);
@@ -159,38 +160,53 @@ export default function POSPage() {
     );
   };
   const handleBuy = async () => {
+    setLoading(true)
     if (cart.length === 0) return alert("Cart is empty!");
     const BASE_API_URL = process.env.NEXTAUTH_URL || "http://localhost:3000";
-    try {
-      // เตรียมข้อมูล order ที่จะส่งไปยัง API
-      const orderData = {
-        items: cart.map((item) => ({
-          product: item.product.name, // ใช้ name แทน ObjectId
-          quantity: item.quantity,
-          price: item.product.price,
-          category: item.product.category, // ส่งจำนวนของสินค้า
-        })),
-        total: calculateTotal(), // คำนวณยอดรวม
-      };
-
-      // ส่งข้อมูลไปที่ API
-      const res = await fetch(`${BASE_API_URL}/api/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
-
-      // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
-      if (!res.ok) throw new Error("Failed to place order");
-
-      alert("Order placed successfully!");
-      setCart([]); // เคลียร์ cart หลังจากซื้อเสร็จ
-    } catch (error) {
-      console.error(error);
-      alert("Error placing order");
+    const Confirm = await confirm(" ยืนยันการขายใช่ไหม ?")
+    if (Confirm) {
+      try {
+        // เตรียมข้อมูล order ที่จะส่งไปยัง API
+        const orderData = {
+          items: cart.map((item) => ({
+            product: item.product.name, // ใช้ name แทน ObjectId
+            quantity: item.quantity,
+            price: item.product.price,
+            category: item.product.category, // ส่งจำนวนของสินค้า
+          })),
+          total: calculateTotal(), // คำนวณยอดรวม
+        };
+  
+        // ส่งข้อมูลไปที่ API
+        const res = await fetch(`${BASE_API_URL}/api/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        });
+  
+        // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
+        if (!res.ok) throw new Error("Failed to place order");
+  
+        alert("Order placed successfully!");
+        setCart([]); // เคลียร์ cart หลังจากซื้อเสร็จ
+      } catch (error) {
+        console.error(error);
+        alert("Error placing order");
+      }finally{
+        setLoading(false)
+      }
+    }else{
+      return null
     }
+    
   };
-
+  if (loading) {
+    return (
+      <p className="text-center my-4 text-3xl font-bold text-white">
+        Loading...
+      </p>
+    );
+  }
   return (
     <div className="px-4">
       {/* FilterType */}
@@ -218,8 +234,11 @@ export default function POSPage() {
           Cart
         </span>
       </div>
-      <div className="xxs:grid xxs:grid-cols sm:grid sm:grid-cols-2 gap-4 mt-4">
-        <div className="xxs:gird md:grid md:grid-cols-2">
+
+      {/* Container สำหรับ Menu และ Cart */}
+      <div className="xxs:flex xxs:flex-col sm:grid sm:grid-cols-2 gap-4 mt-4">
+        {/* Menu Section (เพิ่ม grid-cols-1 md:grid-cols-2) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-0.5">
           {filteredProducts.map((product) => (
             <Card key={product._id.toString()} className="p-0.5 m-0.5">
               <CardContent>
@@ -238,14 +257,15 @@ export default function POSPage() {
           ))}
         </div>
 
-        <div>
+        {/* Cart Section */}
+        <div className="flex flex-col min-h-0 max-h-[400px] overflow-auto border-2 border-white rounded-md p-2 ">
           <div className="flex justify-center">
             <span className="text-lg font-semibold text-white xxs:block sm:hidden">
               Cart
             </span>
           </div>
           {cart.map((item) => (
-            <Card key={item.product._id.toString()} className="p-0.5 m-2">
+            <Card key={item.product._id.toString()} className="p-0.5 mx-4 my-0.5">
               <CardContent>
                 <h3>{item.product.name}</h3>
                 <div className="flex justify-between">
@@ -271,12 +291,12 @@ export default function POSPage() {
                 onClick={() => {
                   handleBuy();
                 }}
-                className="bg-black mx-2 text-white bg-opacity-50 px-3 font-bold py-0.5 rounded-md"
+                className="bg-black mx-2 text-white bg-opacity-50 px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
               >
                 Buy
               </button>
               <button
-                className="bg-red-600  text-white bg-opacity-50 px-3 font-bold py-0.5 rounded-md"
+                className="bg-red-600 text-white bg-opacity-50 px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
                 onClick={() => {
                   setCart([]);
                 }}

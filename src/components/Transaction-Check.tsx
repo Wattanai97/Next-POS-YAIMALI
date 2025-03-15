@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "./ui/button";
 import {
   Table,
   TableHeader,
@@ -54,10 +55,12 @@ export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage] = useState<number>(4);
   const displayedOrders = useMemo(() => {
-    return orders.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    );
+    return [...orders]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ) // เรียงวันที่ล่าสุดมาก่อน
+      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   }, [orders, currentPage, itemsPerPage]);
 
   const totalPages = useMemo(
@@ -65,27 +68,28 @@ export default function Dashboard() {
     [orders, itemsPerPage]
   );
   // ฟังก์ชันเปลี่ยนหน้า
-  const changePage = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
   // End Page Control
   // Page Control For Table
-  const [tableCurrentPage, setTableCurrentPage] = useState<number>(1);
-  const [tableItemsPerPage] = useState<number>(10);
 
   // คำนวณรายการสำหรับตารางแยกจาก Card View
-  const tableDisplayedOrders = useMemo(() => {
-    return orders.slice(
-      (tableCurrentPage - 1) * tableItemsPerPage,
-      tableCurrentPage * tableItemsPerPage
-    );
-  }, [orders, tableCurrentPage, tableItemsPerPage]);
+  const [tableCurrentPage, setTableCurrentPage] = useState<number>(1);
+  const [tableItemsPerPage] = useState<number>(15);
+
+  const TabledisplayedOrders = useMemo(() => {
+    return [...orders]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ) // เรียงวันที่ล่าสุดมาก่อน
+      .slice(
+        (tableCurrentPage - 1) * tableItemsPerPage,
+        tableCurrentPage * tableItemsPerPage
+      ); // ใช้ tableCurrentPage แทน currentPage
+  }, [orders, tableCurrentPage, tableItemsPerPage]); // ต้องใช้ tableCurrentPage ใน dependencies
 
   const tableTotalPages = useMemo(
     () => Math.ceil(orders.length / tableItemsPerPage),
-    [orders, tableItemsPerPage]
+    [orders, tableItemsPerPage] // ใช้ tableItemsPerPage
   );
 
   const changeTablePage = (newPage: number) => {
@@ -127,7 +131,7 @@ export default function Dashboard() {
   }, [session]);
   if (loading) {
     return (
-      <p className="text-center my-4 text-3xl font-bold text-black">
+      <p className="text-center my-4 text-3xl font-bold text-white">
         Loading...
       </p>
     );
@@ -137,62 +141,74 @@ export default function Dashboard() {
       <div className="mx-2 p-0.5 grid gap-2.5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
         {/* Transaction Bill View */}
         {displayedOrders?.length > 0 ? (
-          displayedOrders?.map((txn) => (
-            <Card key={txn.num} className="lg:col-span-1">
-              <CardContent className="p-3">
-                <div className="border-b py-2">
-                  <h2 className="text-lg text-center font-semibold">
-                    เตี๋ยวซิ้นหอม
-                  </h2>
-                  <p className="text-sm font-semibold">Order #{txn.num}</p>
-                  <div className="mx-1">
-                    {txn.items.map((e, index) => (
-                      <div key={index} className="flex justify-between">
-                        <p className="text-lg font-semibold">{e.product}</p>
-                        <p className="text-xs text-slate-700">*{e.quantity}</p>
-                      </div>
-                    ))}
+          [...displayedOrders]
+            .map((txn) => ({
+              ...txn,
+              parsedDate: new Date(txn.createdAt).getTime(), // แปลงเป็น timestamp
+            }))
+            .sort((a, b) => b.parsedDate - a.parsedDate) // เรียงจากใหม่ -> เก่า
+            .map((txn) => (
+              <Card
+                key={txn.num}
+                className="lg:col-span-1 min-h-[300px] max-h-[300px] overflow-y-auto"
+              >
+                <CardContent className="p-3">
+                  <div className="border-b py-2">
+                    <h2 className="text-lg text-center font-semibold">
+                      เตี๋ยวซิ้นหอม
+                    </h2>
+                    <p className="text-sm font-semibold">Order #{txn.num}</p>
+                    <div className="mx-1">
+                      {txn.items.map((e, index) => (
+                        <div key={index} className="flex justify-between">
+                          <p className="text-lg font-semibold">{e.product}</p>
+                          <p className="text-xs text-slate-700">
+                            *{e.quantity}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-between">
+                      <p className="mx-0.5 text-sm font-semibold mt-2">
+                        วันที่: {formatThaiShortDate(txn.createdAt)}
+                      </p>
+                      <p className="mx-0.5 text-sm font-semibold mt-2">
+                        Total: {txn.total}฿
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <p className="mx-0.5 text-sm font-semibold mt-2">
-                      วันที่: {formatThaiShortDate(txn.createdAt)}
-                    </p>
-                    <p className="mx-0.5 text-sm font-semibold mt-2">
-                      Total: {txn.total}฿
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))
+                </CardContent>
+              </Card>
+            ))
         ) : (
           <p className="text-center text-gray-500">No orders found.</p>
         )}
       </div>
       <div className="flex justify-center">
-        <div className="flex xxs:mx-1 xxs:gap-2 gap-4 mt-4">
-          <button
-            onClick={() => changePage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-600 text-white rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="text-white">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() => changePage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-600 text-white rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-4 space-x-2">
+            <Button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              ⬅️ ก่อนหน้า
+            </Button>
+            <span className="px-4 py-2 font-semibold text-white ">
+              หน้า {currentPage} / {totalPages}
+            </span>
+            <Button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              ถัดไป ➡️
+            </Button>
+          </div>
+        )}
       </div>
       {/* Transaction Table view */}
       <div className="p-6 xxs:grid xxs:grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap-6">
-        {tableDisplayedOrders?.length > 0 ? (
+        {TabledisplayedOrders?.length > 0 ? (
           <Card className="w-full overflow-hidden lg:col-span-2">
             <CardContent className="p-2">
               <h2 className="text-xl text-center font-bold mb-2">
@@ -209,7 +225,7 @@ export default function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {tableDisplayedOrders.map((item, index) => (
+                    {TabledisplayedOrders.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell>{item.num}</TableCell>
                         <TableCell>{item.customerCount}</TableCell>
@@ -225,25 +241,25 @@ export default function Dashboard() {
                 </Table>
               </div>
               {/* Pagination ของตาราง */}
-              <div className="flex justify-center mt-4">
-                <button
-                  onClick={() => changeTablePage(tableCurrentPage - 1)}
-                  disabled={tableCurrentPage === 1}
-                  className="px-3 py-1 bg-gray-600 text-white rounded disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                <span className="mx-3 text-black">
-                  Page {tableCurrentPage} of {tableTotalPages}
-                </span>
-                <button
-                  onClick={() => changeTablePage(tableCurrentPage + 1)}
-                  disabled={tableCurrentPage === tableTotalPages}
-                  className="px-3 py-1 bg-gray-600 text-white rounded disabled:opacity-50"
-                >
-                  Next
-                </button>
-              </div>
+              {tableTotalPages > 1 && (
+                <div className="flex justify-center mt-4 space-x-2">
+                  <Button
+                    disabled={tableCurrentPage === 1}
+                    onClick={() => changeTablePage(tableCurrentPage - 1)}
+                  >
+                    ⬅️ ก่อนหน้า
+                  </Button>
+                  <span className="px-4 py-2 font-semibold text-dark dark:text-white">
+                    หน้า {tableCurrentPage} / {tableTotalPages}
+                  </span>
+                  <Button
+                    disabled={tableCurrentPage === tableTotalPages}
+                    onClick={() => changeTablePage(tableCurrentPage + 1)}
+                  >
+                    ถัดไป ➡️
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         ) : (
