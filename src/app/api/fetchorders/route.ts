@@ -22,14 +22,20 @@ export async function GET(req: NextRequest) {
       JSON.stringify({ message: "Get Orders Success", orders }),
       { status: 200, headers: corsHeaders }
     );
-  } catch (error: any) {
-    return new NextResponse(
-      JSON.stringify({
-        message: "Internal Server Error",
-        error: error.message,
-      }),
-      { status: 500, headers: corsHeaders }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return new NextResponse(
+        JSON.stringify({
+          message: "Internal Server Error",
+          error: error.message,
+        }),
+        { status: 500, headers: corsHeaders }
+      );
+    }
+    return new NextResponse(JSON.stringify({ message: "Unknown Error" }), {
+      status: 500,
+      headers: corsHeaders,
+    });
   }
 }
 
