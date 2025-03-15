@@ -1,15 +1,21 @@
 import mongoose, { Document, Model } from "mongoose";
 
+// กำหนดประเภทของ category เป็น enum ที่มีค่าคงที่
+enum Category {
+  Foods = "Foods",
+  Drinks = "Drinks",
+}
+
 interface IProduct extends Document {
   name: string;
   price: number;
-  category: {};
+  category: Category; // ใช้ enum
 }
 
 const ProductSchema = new mongoose.Schema<IProduct>({
   name: { type: String, required: true },
   price: { type: Number, required: true },
-  category: { type: String, enum: ["noodle", "drink"], required: true },
+  category: { type: String, enum: Category, required: true }, // ใช้ enum ใน schema
 });
 
 const Product: Model<IProduct> =

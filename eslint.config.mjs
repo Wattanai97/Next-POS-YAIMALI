@@ -9,8 +9,16 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
+const eslintConfig = {
+  extends: [
+    ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ],
+  rules: {
+    // ปิดการใช้งาน rule ที่ไม่ต้องการ
+    '@typescript-eslint/no-empty-object-type': 'off', // ปิด rule การใช้งาน empty object type
+    '@typescript-eslint/no-unused-vars': 'warn', // แสดง warning หากมีตัวแปรที่ไม่ได้ใช้งาน
+    // เพิ่มหรือปรับแต่งกฎอื่น ๆ ที่คุณต้องการ
+  },
+};
 
 export default eslintConfig;
