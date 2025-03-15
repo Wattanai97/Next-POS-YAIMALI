@@ -31,7 +31,7 @@ declare module "next-auth" {
   }
 }
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {  // เพิ่ม export ที่นี่
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -94,6 +94,5 @@ const authOptions: NextAuthOptions = {
   },
 };
 
-// แก้ไขตรงนี้เพื่อส่ง handler ให้ Next.js
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
