@@ -90,9 +90,10 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt", // ใช้ JWT สำหรับ session
+    strategy: "jwt",
   },
 };
 
-const handler = NextAuth(authOptions); // ใช้ authOptions แทนที่การกำหนดใหม่
-export { handler }; // เปลี่ยนจากการใช้ GET และ POST เป็นแค่ export handler
+// เพิ่ม export GET และ POST
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
