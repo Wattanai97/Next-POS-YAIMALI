@@ -14,7 +14,6 @@ export default function SalesReportPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [expandedOrders, setExpandedOrders] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  
 
   const toggleDetails = (orderNum: number) => {
     setExpandedOrders((prev) =>
@@ -61,7 +60,7 @@ export default function SalesReportPage() {
     (currentPage - 1) * ORDERS_PER_PAGE,
     currentPage * ORDERS_PER_PAGE
   );
-  
+
   return (
     <div className="p-5 max-w-4xl mx-auto">
       <Card>

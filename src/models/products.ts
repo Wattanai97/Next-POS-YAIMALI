@@ -1,9 +1,9 @@
-import mongoose ,{Document ,Model} from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 
-interface IProduct extends Document{
-    name:string,
-    price:number,
-    category : {}
+interface IProduct extends Document {
+  name: string;
+  price: number;
+  category: {};
 }
 
 const ProductSchema = new mongoose.Schema<IProduct>({
@@ -12,6 +12,7 @@ const ProductSchema = new mongoose.Schema<IProduct>({
   category: { type: String, enum: ["noodle", "drink"], required: true },
 });
 
-const Product:Model<IProduct> = mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
+const Product: Model<IProduct> =
+  mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
 
 export default Product;

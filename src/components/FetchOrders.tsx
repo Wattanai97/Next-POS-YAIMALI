@@ -8,7 +8,8 @@ export default function FetchOrders() {
 
   useEffect(() => {
     async function fetchOrders() {
-        const API_BASE_URL = process.env.NEXTAUTH_URL || "http://localhost:3000"
+      const API_BASE_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
       try {
         const response = await fetch(`${API_BASE_URL}/api/fetchorders`); // ✅ เรียก API
         const data = await response.json();

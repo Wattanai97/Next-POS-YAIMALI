@@ -8,7 +8,9 @@ export default function Home() {
     <SidebarProvider>
       <AppSidebar />
       <div className="text-black my-4 font-bold w-screen">
-        <p className="text-center text-white xxs:text-lg sm:text-2xl md:text-3xl mb-4 font-bold">Dashboard</p>
+        <p className="text-center text-white xxs:text-lg sm:text-2xl md:text-3xl mb-4 font-bold">
+          Dashboard
+        </p>
         <Dashboard />
       </div>
     </SidebarProvider>

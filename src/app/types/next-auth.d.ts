@@ -10,13 +10,13 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      username?: string | null;  // เพิ่ม username
+      username?: string | null; // เพิ่ม username
     };
   }
 
   interface JWT {
     user?: {
-      username?: string | null;  // เพิ่ม username
+      username?: string | null; // เพิ่ม username
     };
   }
 }

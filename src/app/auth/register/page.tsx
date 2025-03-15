@@ -11,7 +11,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const APIBASEURL = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  const APIBASEURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
   const handleRegister = async () => {
     setLoading(true);
     const res = await fetch(`${APIBASEURL}/api/auth/register`, {
@@ -31,19 +31,22 @@ export default function RegisterPage() {
   return (
     <div>
       <div className="xxs:mx-10 xs:mx-14 sm:mx-28 md:mx-44 flex flex-col items-center gap-4">
-        <h2 className="xxs:text-xl sm:text-2xl md:text-3xl font-bold text-white">Register</h2>
-        
+        <h2 className="xxs:text-xl sm:text-2xl md:text-3xl font-bold text-white">
+          Register
+        </h2>
+
         <Input
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)} className="text-white placeholder:text-white"
-
+          onChange={(e) => setUsername(e.target.value)}
+          className="text-white placeholder:text-white"
         />
         <Input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)} className="text-white placeholder:text-white"
+          onChange={(e) => setPassword(e.target.value)}
+          className="text-white placeholder:text-white"
         />
         <Button onClick={handleRegister} disabled={loading}>
           Register

@@ -24,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${itim.className} antialiased bg-slate-950 bg-opacity-80`}>
+      <body
+        className={`${itim.className} antialiased bg-slate-950 bg-opacity-80`}
+      >
         <Providers>
           <ThemeProvider>
             <Navbar />

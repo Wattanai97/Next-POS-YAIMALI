@@ -30,7 +30,9 @@ export default function LoginPage() {
 
   return (
     <div className="xxs:mx-10 xs:mx-14 sm:mx-28 md:mx-44 flex flex-col items-center gap-4">
-      <h2 className="text-white xxs:text-xl sm:text-2xl md:text-3xl font-bold">Login</h2>
+      <h2 className="text-white xxs:text-xl sm:text-2xl md:text-3xl font-bold">
+        Login
+      </h2>
       <Input
         placeholder="Username"
         value={username}

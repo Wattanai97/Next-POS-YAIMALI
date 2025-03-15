@@ -1,18 +1,14 @@
 "use client";
 import { useState, useMemo } from "react";
-// import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import mongoose from "mongoose";
-
 interface Product {
   _id: mongoose.Types.ObjectId;
   name: string;
   price: number;
   category: "All" | "Foods" | "Drinks";
 }
-
 type FilterType = "All" | "Foods" | "Drinks";
-
 export default function POSPage() {
   const [products] = useState<Product[]>([
     {
@@ -112,7 +108,7 @@ export default function POSPage() {
   );
   const [filterType, setFilterType] = useState<FilterType>("All");
   const [activeButton, setActiveButton] = useState<FilterType>("All");
-  const [loading,setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClickActiveButton = (type: FilterType) => {
     setActiveButton(type);
@@ -160,10 +156,11 @@ export default function POSPage() {
     );
   };
   const handleBuy = async () => {
-    setLoading(true)
+    setLoading(true);
     if (cart.length === 0) return alert("Cart is empty!");
-    const BASE_API_URL = process.env.NEXTAUTH_URL || "http://localhost:3000";
-    const Confirm = await confirm(" ยืนยันการขายใช่ไหม ?")
+    const BASE_API_URL =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const Confirm = confirm(" ยืนยันการขายใช่ไหม ?");
     if (Confirm) {
       try {
         // เตรียมข้อมูล order ที่จะส่งไปยัง API
@@ -176,29 +173,28 @@ export default function POSPage() {
           })),
           total: calculateTotal(), // คำนวณยอดรวม
         };
-  
+
         // ส่งข้อมูลไปที่ API
         const res = await fetch(`${BASE_API_URL}/api/orders`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(orderData),
         });
-  
+
         // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
         if (!res.ok) throw new Error("Failed to place order");
-  
+
         alert("Order placed successfully!");
         setCart([]); // เคลียร์ cart หลังจากซื้อเสร็จ
       } catch (error) {
         console.error(error);
         alert("Error placing order");
-      }finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
-    }else{
-      return null
+    } else {
+      return null;
     }
-    
   };
   if (loading) {
     return (
@@ -265,7 +261,10 @@ export default function POSPage() {
             </span>
           </div>
           {cart.map((item) => (
-            <Card key={item.product._id.toString()} className="p-0.5 mx-4 my-0.5">
+            <Card
+              key={item.product._id.toString()}
+              className="p-0.5 mx-4 my-0.5"
+            >
               <CardContent>
                 <h3>{item.product.name}</h3>
                 <div className="flex justify-between">
