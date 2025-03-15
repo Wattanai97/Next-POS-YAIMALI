@@ -71,16 +71,16 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token = { ...token, ...user }; // 🟢 ใช้ spread operator แทนการกำหนดค่าแยก
+        token = { ...token, ...user };
       }
       console.log("🔹 JWT Token:", token);
       return token;
     },
     async session({ session, token }) {
       session.user = {
-        id: String(token.id), // 🟢 ใช้ String() ป้องกันปัญหา Type
-        username: String(token.username), // 🟢 ป้องกัน undefined
-        role: String(token.role), // 🟢 ป้องกัน undefined
+        id: String(token.id),
+        username: String(token.username),
+        role: String(token.role),
       };
       return session;
     },
@@ -94,6 +94,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// เพิ่ม export GET และ POST
+// เพิ่มการ export สำหรับ HTTP methods
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
