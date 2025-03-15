@@ -1,24 +1,19 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig } from "eslint";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = {
-  extends: [
-    ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default defineConfig({
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      parserOptions: {
+        project: "./tsconfig.json",
+      },
+      rules: {
+        '@typescript-eslint/no-empty-object-type': 'off',
+        '@typescript-eslint/no-unused-vars': 'warn',
+        // เพิ่มกฎอื่นๆ ที่คุณต้องการ
+      },
+    },
   ],
-  rules: {
-    // ปิดการใช้งาน rule ที่ไม่ต้องการ
-    '@typescript-eslint/no-empty-object-type': 'off', // ปิด rule การใช้งาน empty object type
-    '@typescript-eslint/no-unused-vars': 'warn', // แสดง warning หากมีตัวแปรที่ไม่ได้ใช้งาน
-    // เพิ่มหรือปรับแต่งกฎอื่น ๆ ที่คุณต้องการ
-  },
-};
-
-export default eslintConfig;
+  // ขยายการใช้งาน base config
+  extends: ["next/core-web-vitals", "next/typescript"],
+});

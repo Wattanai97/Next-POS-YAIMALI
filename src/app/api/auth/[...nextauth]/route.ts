@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import User from "@/models/user";
 import { connectDB } from "@/lib/db";
+import GoogleProvider from "next-auth/providers/google";
 
 // 🟢 Custom User Type
 interface CustomUser {
@@ -67,6 +68,12 @@ export const authOptions: NextAuthOptions = {
         } as CustomUser;
       },
     }),
+
+    // เพิ่ม GoogleProvider หากต้องการ
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -86,7 +93,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/login",
+    signIn: "/auth/login", // หน้า login ของคุณ
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -94,5 +101,5 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions); // ใช้ authOptions แทนที่การกำหนดใหม่
 export { handler as GET, handler as POST };
