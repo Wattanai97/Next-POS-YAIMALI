@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     console.log("⏳ เริ่มทำงานที่ API fetchorders");
 

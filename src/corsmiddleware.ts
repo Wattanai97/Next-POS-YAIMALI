@@ -1,5 +1,4 @@
 import Cors from "cors";
-import { NextResponse } from "next/server";
 
 // สร้าง middleware CORS
 const cors = Cors({
