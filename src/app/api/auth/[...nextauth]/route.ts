@@ -95,4 +95,4 @@ export const authOptions: NextAuthOptions = {
 };
 
 const handler = NextAuth(authOptions); // ใช้ authOptions แทนที่การกำหนดใหม่
-export { handler as GET, handler as POST };
+export { handler }; // เปลี่ยนจากการใช้ GET และ POST เป็นแค่ export handler

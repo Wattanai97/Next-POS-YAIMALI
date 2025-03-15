@@ -10,14 +10,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
-    rules: {
-      '@typescript-eslint/no-empty-object-type': 'off', // ปิด rule การใช้งาน empty object type
-      '@typescript-eslint/no-unused-vars': 'warn', // แสดง warning หากมีตัวแปรที่ไม่ได้ใช้งาน
-      // เพิ่มหรือปรับแต่งกฎอื่น ๆ ที่คุณต้องการ
-    },
-  },
+  ...compat.extends("next/core-web-vitals", "next/typescript")
 ];
 
 export default eslintConfig;
