@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token = { ...token, ...user };
+        token = { ...token, ...user }; // สร้าง token ใหม่จาก user
       }
       return token;
     },
@@ -87,12 +87,5 @@ export const authOptions: NextAuthOptions = {
       };
       return session;
     },
-  },
-  pages: {
-    signIn: "/auth/login",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
   },
 };
