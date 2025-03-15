@@ -13,7 +13,9 @@ export default function FetchOrders() {
       const API_BASE_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
       try {
-        const response = await fetch(`${API_BASE_URL}/api/fetchorders`);
+        const response = await fetch(`${API_BASE_URL}/api/fetchorders`, {
+          cache: "no-store",
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
