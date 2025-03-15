@@ -12,6 +12,7 @@ export default function FetchOrders() {
     async function fetchOrders() {
       const API_BASE_URL =
         process.env.NEXT_PUBLIC_API_URL || "https://pos-yaimali.vercel.app";
+      console.log("API_BASE_URL:", API_BASE_URL); // พิมพ์ค่าของ API_BASE_URL
       try {
         const response = await fetch(`${API_BASE_URL}/api/fetchorders`, {
           cache: "no-store",
@@ -20,8 +21,8 @@ export default function FetchOrders() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Data fetched:", data); // เพิ่มการตรวจสอบข้อมูลที่ได้จาก API
         setOrders(data.orders);
+        console.log("✅ ดึงข้อมูลสำเร็จ:", data);
       } catch (error) {
         setError("❌ ดึงข้อมูลไม่สำเร็จ");
         console.error("❌ ดึงข้อมูลไม่สำเร็จ", error);

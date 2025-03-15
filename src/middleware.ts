@@ -3,14 +3,11 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
-  console.log("🔹 Request Headers:", req.headers);
-
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
     raw: true,
   });
-  console.log("🔹 Middleware Token:", token);
 
   const { pathname } = req.nextUrl;
 
@@ -19,13 +16,14 @@ export async function middleware(req: NextRequest) {
   const isProtectedPage =
     pathname === "/" ||
     pathname.startsWith("/orders") ||
-    pathname.startsWith("/report") ||
-    pathname.startsWith("/auth/register");
+    pathname.startsWith("/report");
 
+  // ถ้า login แล้วเข้า auth page ให้ redirect ไปหน้า Dashboard
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
+  // ถ้าไม่มี token และเข้าไปที่หน้า protected ให้ redirect ไปหน้า login
   if (!token && isProtectedPage) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
