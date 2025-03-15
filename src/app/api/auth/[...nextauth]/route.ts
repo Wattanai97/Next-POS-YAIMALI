@@ -1,3 +1,4 @@
+// src/app/api/auth/[...nextauth]/route.ts
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -30,7 +31,7 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -71,9 +72,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token = { ...token, ...user };
+        token = { ...token, ...user }; // 🟢 ใช้ spread operator แทนการกำหนดค่าแยก
       }
-      console.log("🔹 JWT Token:", token);
       return token;
     },
     async session({ session, token }) {
@@ -94,6 +94,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// เพิ่มการ export สำหรับ HTTP methods
+// แก้ไขตรงนี้เพื่อส่ง handler ให้ Next.js
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
