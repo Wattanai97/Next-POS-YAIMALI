@@ -2,23 +2,45 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
 
-export async function GET() {
-  await connectDB();
-  console.log(`Connect to Database Success`);
+export async function GET(req: Request) {
   try {
-    const AllOrders = await Order.find({});
-    if (!AllOrders) {
-      return NextResponse.json(
-        { message: "Orders is missing or Cannot get Orders in Database!" },
-        { status: 400 }
-      );
+    console.log("⏳ เริ่มทำงานที่ API fetchorders");
+
+    // เชื่อมต่อฐานข้อมูล
+    await connectDB();
+
+    // ดึงข้อมูลคำสั่งซื้อ
+    const orders = await Order.find({});
+    if (!orders.length) {
+      return new NextResponse(JSON.stringify({ message: "No orders found!" }), {
+        status: 404,
+        headers: corsHeaders,
+      });
     }
-    console.log(`Success to get Orders => ${AllOrders}`);
-    return NextResponse.json(
-      { message: "Get Orders Success", orders: AllOrders || [] },
-      { status: 200 }
+
+    return new NextResponse(
+      JSON.stringify({ message: "Get Orders Success", orders }),
+      { status: 200, headers: corsHeaders }
     );
-  } catch (error) {
-    console.log(`Error =>`, error);
+  } catch (error: any) {
+    return new NextResponse(
+      JSON.stringify({
+        message: "Internal Server Error",
+        error: error.message,
+      }),
+      { status: 500, headers: corsHeaders }
+    );
   }
+}
+
+// CORS Headers
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*", // หรือใส่เป็นโดเมนของคุณ
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+// Handle OPTIONS request
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: corsHeaders });
 }
