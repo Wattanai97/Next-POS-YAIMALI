@@ -11,7 +11,7 @@ export default function FetchOrders() {
   useEffect(() => {
     async function fetchOrders() {
       const API_BASE_URL =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_API_URL || "https://pos-yaimali.vercel.app";
       try {
         const response = await fetch(`${API_BASE_URL}/api/fetchorders`, {
           cache: "no-store",
