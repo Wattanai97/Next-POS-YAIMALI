@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
         headers: corsHeaders,
       });
     }
-
     return new NextResponse(
       JSON.stringify({ message: "Get Orders Success", orders }),
       { status: 200, headers: corsHeaders }

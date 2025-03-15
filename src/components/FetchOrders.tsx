@@ -20,13 +20,13 @@ export default function FetchOrders() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        console.log("Data fetched:", data); // เพิ่มการตรวจสอบข้อมูลที่ได้จาก API
         setOrders(data.orders);
-        console.log("✅ ดึงข้อมูลสำเร็จ:", data);
       } catch (error) {
         setError("❌ ดึงข้อมูลไม่สำเร็จ");
         console.error("❌ ดึงข้อมูลไม่สำเร็จ", error);
       } finally {
-        setLoading(false); // ไม่ว่าจะสำเร็จหรือไม่ให้หยุดการโหลด
+        setLoading(false);
       }
     }
 
