@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     console.log("⏳ เริ่มทำงานที่ API fetchorders");
 
