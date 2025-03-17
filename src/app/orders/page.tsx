@@ -39,13 +39,13 @@ export default function POSPage() {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
       name: "เกาเหลาหมู ธรรมดา",
-      price: 70,
+      price: 65,
     },
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
       name: "เกาเหลาหมู พิเศษ",
-      price: 80,
+      price: 75,
     },
     {
       _id: new mongoose.Types.ObjectId(),
@@ -100,6 +100,12 @@ export default function POSPage() {
       category: "Drinks",
       name: "น้ำเปล่า",
       price: 10,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Drinks",
+      name: "น้ำโค้ก",
+      price: 20,
     },
   ]);
 

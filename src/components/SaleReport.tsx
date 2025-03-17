@@ -11,6 +11,7 @@ const ORDERS_PER_PAGE = 10;
 
 export default function SalesReportPage() {
   const orders = useOrderStore((state) => state.orders);
+  const [tempDate, setTempDate] = useState<Date | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [expandedOrders, setExpandedOrders] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,17 +69,34 @@ export default function SalesReportPage() {
           <CardTitle>📊 รายงานยอดขาย</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between">
-            <label className="font-semibold">เลือกวันที่: </label>
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => {
-                setSelectedDate(date);
+          <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <div className="flex flex-col md:flex-row md:items-center gap-2">
+              <label className="font-semibold">เลือกวันที่: </label>
+              <DatePicker
+                selected={tempDate}
+                onChange={(date) => setTempDate(date)}
+                dateFormat="dd/MM/yyyy"
+                className="border p-2 rounded w-full md:w-auto"
+              />
+              <Button
+                onClick={() => {
+                  setSelectedDate(tempDate);
+                  setCurrentPage(1);
+                }}
+              >
+                ✅ ยืนยันวันที่
+              </Button>
+            </div>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSelectedDate(null);
+                setTempDate(null);
                 setCurrentPage(1);
               }}
-              dateFormat="dd/MM/yyyy"
-              className="border p-2 rounded w-full md:w-auto mt-2 md:mt-0"
-            />
+            >
+              📅 ดูทุกรายการ
+            </Button>
           </div>
 
           <div className="bg-gray-100 dark:text-slate-950 p-4 rounded-lg text-center font-semibold text-lg">

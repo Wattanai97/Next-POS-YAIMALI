@@ -7,10 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+const ORDERS_PER_PAGE = 10;
+
 export default function SalesReportPage() {
   const orders = useOrderStore((state) => state.orders);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [expandedOrders, setExpandedOrders] = useState<number[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const toggleDetails = (orderNum: number) => {
     setExpandedOrders((prev) =>
@@ -20,10 +23,11 @@ export default function SalesReportPage() {
     );
   };
 
-  const formatDate = (date: Date) =>
-    new Date(date.getFullYear(), date.getMonth(), date.getDate())
-      .toISOString()
-      .split("T")[0];
+  const formatDate = (date: Date) => {
+    return `${String(date.getDate()).padStart(2, "0")}/${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}/${date.getFullYear()}`;
+  };
 
   const filteredOrders = useMemo(() => {
     if (!Array.isArray(orders)) return [];
@@ -34,7 +38,8 @@ export default function SalesReportPage() {
     return selectedDate
       ? sortedOrders.filter(
           (order) =>
-            formatDate(new Date(order.createdAt)) === formatDate(selectedDate)
+            new Date(order.createdAt).toDateString() ===
+            selectedDate.toDateString()
         )
       : sortedOrders;
   }, [orders, selectedDate]);
@@ -49,6 +54,13 @@ export default function SalesReportPage() {
   );
   const totalOrders = filteredOrders.length;
 
+  // Pagination Logic
+  const totalPages = Math.ceil(totalOrders / ORDERS_PER_PAGE);
+  const displayedOrders = filteredOrders.slice(
+    (currentPage - 1) * ORDERS_PER_PAGE,
+    currentPage * ORDERS_PER_PAGE
+  );
+
   return (
     <div className="p-5 max-w-4xl mx-auto">
       <Card>
@@ -60,8 +72,11 @@ export default function SalesReportPage() {
             <label className="font-semibold">เลือกวันที่: </label>
             <DatePicker
               selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="yyyy-MM-dd"
+              onChange={(date) => {
+                setSelectedDate(date);
+                setCurrentPage(1);
+              }}
+              dateFormat="dd/MM/yyyy"
               className="border p-2 rounded w-full md:w-auto mt-2 md:mt-0"
             />
           </div>
@@ -71,47 +86,67 @@ export default function SalesReportPage() {
             {totalCustomers} คน | 🛒 ออเดอร์: {totalOrders} รายการ
           </div>
 
-          {filteredOrders.length === 0 ? (
-            <p className="text-center text-gray-500 mt-4">
-              ไม่มีออเดอร์ในวันที่เลือก
-            </p>
-          ) : (
-            filteredOrders.map((order) => (
-              <Card key={order.num} className="mt-4">
-                <CardContent>
-                  <p>
-                    📅 วันที่: {new Date(order.createdAt).toLocaleDateString()}
-                  </p>
-                  <p>🛒 ออเดอร์ที่ {order.num}</p>
-                  <p>💰 ยอดรวม: ฿{order.total}</p>
-                  <p>👥 ลูกค้า: {order.customerCount} คน</p>
+          <div className="mt-4 max-h-[500px] overflow-auto">
+            {displayedOrders.length === 0 ? (
+              <p className="text-center text-gray-500 mt-4">
+                ไม่มีออเดอร์ในวันที่เลือก
+              </p>
+            ) : (
+              displayedOrders.map((order) => (
+                <Card key={order.num} className="mt-4">
+                  <CardContent>
+                    <p>📅 วันที่: {formatDate(new Date(order.createdAt))}</p>
+                    <p>🛒 ออเดอร์ที่ {order.num}</p>
+                    <p>💰 ยอดรวม: ฿{order.total}</p>
+                    <p>👥 ลูกค้า: {order.customerCount} คน</p>
+                    <Button
+                      className="mt-2"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => toggleDetails(order.num)}
+                    >
+                      {expandedOrders.includes(order.num)
+                        ? "🔽 ซ่อนรายละเอียด"
+                        : "🔍 ดูรายละเอียด"}
+                    </Button>
+                    {expandedOrders.includes(order.num) && (
+                      <div className="mt-3 border-t pt-2">
+                        <p className="font-semibold">📦 รายการสินค้า:</p>
+                        <ul className="mt-2">
+                          {order.items.map((item, index) => (
+                            <li key={index} className="border-b py-1">
+                              🍜 {item.product} ({item.quantity}x) - ฿
+                              {item.price}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
 
-                  <Button
-                    className="mt-2"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => toggleDetails(order.num)}
-                  >
-                    {expandedOrders.includes(order.num)
-                      ? "🔽 ซ่อนรายละเอียด"
-                      : "🔍 ดูรายละเอียด"}
-                  </Button>
-
-                  {expandedOrders.includes(order.num) && (
-                    <div className="mt-3 border-t pt-2">
-                      <p className="font-semibold">📦 รายการสินค้า:</p>
-                      <ul className="mt-2">
-                        {order.items.map((item, index) => (
-                          <li key={index} className="border-b py-1">
-                            🍜 {item.product} ({item.quantity}x) - ฿{item.price}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-4 space-x-2">
+              <Button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                ⬅️ ก่อนหน้า
+              </Button>
+              <span className="px-4 py-2 font-semibold">
+                หน้า {currentPage} / {totalPages}
+              </span>
+              <Button
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                ถัดไป ➡️
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>
