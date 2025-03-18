@@ -23,7 +23,11 @@ export default function SalesReportPage() {
         : [...prev, orderNum]
     );
   };
-
+  const formatTime = (date: Date) => {
+    return `${String(date.getHours()).padStart(2, "0")}:${String(
+      date.getMinutes()
+    ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")} น.`;
+  };
   const formatDate = (date: Date) => {
     return `${String(date.getDate()).padStart(2, "0")}/${String(
       date.getMonth() + 1
@@ -114,6 +118,7 @@ export default function SalesReportPage() {
                 <Card key={order.num} className="mt-4">
                   <CardContent>
                     <p>📅 วันที่: {formatDate(new Date(order.createdAt))}</p>
+                    <p>⏰ เวลา: {formatTime(new Date(order.createdAt))}</p>
                     <p>🛒 ออเดอร์ที่ {order.num}</p>
                     <p>💰 ยอดรวม: ฿{order.total}</p>
                     <p>👥 ลูกค้า: {order.customerCount} คน</p>
