@@ -62,6 +62,18 @@ export default function POSPage() {
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
+      name: "กะเพราเนื้อ ธรรมดา",
+      price: 70,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Foods",
+      name: "กะเพราเนื้อ พิเศษ",
+      price: 80,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Foods",
       name: "ข้าวสวย",
       price: 10,
     },
