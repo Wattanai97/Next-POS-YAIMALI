@@ -74,7 +74,7 @@ export default function POSPage() {
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
-      name: "เส้น+กะเพราเนื้อ พิเศษ",
+      name: "เส้น+กะเพราเนื้อ ธรรมดา",
       price: 70,
     },
     {
