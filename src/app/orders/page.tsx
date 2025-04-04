@@ -62,19 +62,37 @@ export default function POSPage() {
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
-      name: "กะเพราเนื้อ ธรรมดา",
+      name: "ข้าวกะเพราเนื้อ ธรรมดา",
       price: 70,
     },
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
-      name: "กะเพราเนื้อ พิเศษ",
+      name: "ข้าวกะเพราเนื้อ พิเศษ",
+      price: 80,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Foods",
+      name: "เส้น+กะเพราเนื้อ พิเศษ",
+      price: 70,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Foods",
+      name: "เส้น+กะเพราเนื้อ พิเศษ",
       price: 80,
     },
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Foods",
       name: "ข้าวสวย",
+      price: 10,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Foods",
+      name: "ไข่ดาว",
       price: 10,
     },
     {
@@ -92,8 +110,20 @@ export default function POSPage() {
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Drinks",
+      name: "ชาไทยปั่น",
+      price: 59,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Drinks",
       name: "ชาเขียว",
       price: 49,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Drinks",
+      name: "ชาเขียวปั่น",
+      price: 59,
     },
     {
       _id: new mongoose.Types.ObjectId(),
@@ -104,8 +134,20 @@ export default function POSPage() {
     {
       _id: new mongoose.Types.ObjectId(),
       category: "Drinks",
+      name: "นมสดยายมะลิปั่น",
+      price: 59,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Drinks",
       name: "โกโก้",
       price: 49,
+    },
+    {
+      _id: new mongoose.Types.ObjectId(),
+      category: "Drinks",
+      name: "โกโก้ปั่น",
+      price: 59,
     },
     {
       _id: new mongoose.Types.ObjectId(),
