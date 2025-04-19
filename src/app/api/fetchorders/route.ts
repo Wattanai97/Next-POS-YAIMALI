@@ -5,10 +5,8 @@ import Order from "@/models/order";
 export async function GET(req: NextRequest) {
   try {
     console.log("⏳ เริ่มทำงานที่ API fetchorders");
-
     // เชื่อมต่อฐานข้อมูล
     await connectDB();
-
     // ดึงข้อมูลคำสั่งซื้อ
     const orders = await Order.find({});
     if (!orders.length) {

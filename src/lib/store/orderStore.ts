@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface IOrder {
+export interface IOrder {
   num: number;
   items: {
     product: string;
@@ -15,10 +15,10 @@ interface IOrder {
 
 interface OrderState {
   orders: IOrder[];
-  setOrders: (orders: IOrder[]) => void;
+  setOrders: (data: IOrder[]) => void;
 }
 
 export const useOrderStore = create<OrderState>((set) => ({
-  orders: [], // เริ่มต้นเป็นอาเรย์ว่าง
-  setOrders: (orders) => set({ orders }),
+  orders: [],
+  setOrders: (data: IOrder[]) => set({ orders: data }),
 }));

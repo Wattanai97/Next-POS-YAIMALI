@@ -1,15 +1,12 @@
 "use client";
-
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DialogTitle, DialogDescription } from "@/components/ui/dialog"; // ✅ Import DialogTitle, DialogDescription
 import { ThemeToggle } from "./theme-toggle";
-
 export default function Navbar() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -19,11 +16,11 @@ export default function Navbar() {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <nav className="bg-slate-400 dark:bg-slate-800 text-black bg-opacity-100 backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
+    <nav className="bg-slate-400/30 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
       {/* Left Side */}
-      <div className="text-xl font-bold">
-        <Link className="me-4" href="/orders">
-          POS System
+      <div className="text-xl font-bold flex">
+        <Link className="me-4 mt-1" href="/orders">
+          POS
         </Link>
         <ThemeToggle />
       </div>
@@ -32,20 +29,12 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-4">
         {!session?.user?.username ? (
           <>
-            <Button
-              asChild
-              variant="outline"
-              className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 "
-            >
+            <button className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 ">
               <Link href="/auth/register">สมัครสมาชิก</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 "
-            >
+            </button>
+            <button className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 ">
               <Link href="/auth/login">เข้าสู่ระบบ</Link>
-            </Button>
+            </button>
           </>
         ) : (
           <>
@@ -55,23 +44,25 @@ export default function Navbar() {
               <span className="mx-3">Role :</span>
               <span>{session.user.role}</span>
             </div>
-            <Button
-              variant="default"
-              className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 hover:bg-gray-600"
+            <button
+              className="bg-green-700 text-lime-50 dark:text-white rounded-md px-2 py-0.5 border
+               border-solid border-white hover:transition-transform hover:translate-y-1 duration-150 delay-75 hover:bg-red-600
+               dark:bg-black dark:hover:bg-blue-700"
               onClick={() => router.push(`/`)}
             >
               Dashboard
-            </Button>
-            <Button
-              variant="destructive"
-              className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
+            </button>
+            <button
+              className="bg-black hover:bg-red-600/100 text-white rounded-md px-2 py-0.5 border
+               border-solid border-white hover:transition-transform hover:translate-y-1 duration-300 delay-200
+               dark:bg-red-600 dark:hover:bg-green-500"
               onClick={async () => {
                 await signOut({ redirect: false });
                 router.replace("/auth/login"); // ✅ Logout แล้วไปที่หน้า login ทันที
               }}
             >
               ออกจากระบบ
-            </Button>
+            </button>
           </>
         )}
       </div>
@@ -79,9 +70,9 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
-          <Button variant="ghost" className="md:hidden">
+          <button className="md:hidden">
             <Menu className="w-6 h-6" />
-          </Button>
+          </button>
         </SheetTrigger>
 
         <SheetContent side="right" className="flex flex-col gap-4 mt-0.5 p-4">
@@ -93,27 +84,23 @@ export default function Navbar() {
 
           {!session?.user.username ? (
             <>
-              <Button
-                asChild
-                variant="outline"
+              <button
                 className="mt-8 text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
                 onClick={handleClose}
               >
                 <Link href="/auth/register">สมัครสมาชิก</Link>
-              </Button>
-              <Button
+              </button>
+              <button
                 className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
-                asChild
                 onClick={handleClose}
               >
                 <Link href="/auth/login">เข้าสู่ระบบ</Link>
-              </Button>
+              </button>
             </>
           ) : (
             <>
               <span className="text-lg">ยินดีต้อนรับ</span>
-              <Button
-                variant="default"
+              <button
                 className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 hover:bg-gray-600"
                 onClick={() => {
                   router.push(`/`);
@@ -121,9 +108,8 @@ export default function Navbar() {
                 }}
               >
                 Dashboard
-              </Button>
-              <Button
-                variant="destructive"
+              </button>
+              <button
                 className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
                 onClick={async () => {
                   await signOut({ redirect: false });
@@ -132,7 +118,7 @@ export default function Navbar() {
                 }}
               >
                 ออกจากระบบ
-              </Button>
+              </button>
             </>
           )}
         </SheetContent>

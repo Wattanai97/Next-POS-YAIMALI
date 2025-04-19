@@ -1,12 +1,11 @@
-import FetchOrders from "@/components/FetchOrders";
 import type { Metadata } from "next";
-
+// import { useOrderStore } from "@/lib/store/orderStore";
 import Providers from "./providers";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Itim } from "next/font/google";
-
+import FetchOrders from "@/components/FetchOrders";
 const itim = Itim({
   subsets: ["latin"],
   weight: ["400"],
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${itim.className} antialiased bg-slate-950 bg-opacity-80`}
+        className={`${itim.className} antialiased bg-gay-700/40 bg-opacity-70 dark:bg-black dark:bg-opacity-50`}
       >
         <Providers>
           <ThemeProvider>
