@@ -7,8 +7,8 @@ export async function GET(req: NextRequest) {
     console.log("⏳ เริ่มทำงานที่ API fetchorders");
     // เชื่อมต่อฐานข้อมูล
     await connectDB();
-    // ดึงข้อมูลคำสั่งซื้อ
-    const orders = await Order.find({ status: statusType.PAID });
+    // ดึงข้อมูลคำสั่งซื้อที่พักไว้
+    const orders = await Order.find({ status: statusType.HOLD });
     if (!orders.length) {
       return new NextResponse(JSON.stringify({ message: "No orders found!" }), {
         status: 404,

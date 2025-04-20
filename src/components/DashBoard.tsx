@@ -7,7 +7,7 @@ import CardViewTransactions from "./extendcompdashboard/CardViewTransactions";
 import LoadingSpinner from "./LoadingSpiner";
 export default function Dashboard() {
   const { orders } = useOrderStore();
-  if (orders.length === 0 || !orders) <LoadingSpinner/>
+  if (orders.length === 0 || !orders) <LoadingSpinner />;
   return (
     <div>
       {/* Order Card,Transactionbill View */}

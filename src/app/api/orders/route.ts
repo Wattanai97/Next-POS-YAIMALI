@@ -5,7 +5,7 @@ import { connectDB } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const { items, total } = await req.json();
+    const { items, total, status } = await req.json();
     // ตรวจสอบว่ามี items และ total หรือไม่
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
@@ -28,6 +28,7 @@ export async function POST(req: Request) {
           category: item.category,
         })
       ),
+      status,
       total,
       createdAt: new Date(),
     });

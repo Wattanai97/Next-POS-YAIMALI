@@ -1,14 +1,18 @@
 import mongoose, { Document, Model } from "mongoose";
-
+export enum statusType {
+  HOLD = "hold",
+  PAID = "paid",
+}
 // สร้าง Counter Schema สำหรับเก็บลำดับล่าสุด เลขที่บิล
 const counterSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true }, // name = order
   seq: { type: Number, default: 0 }, // จำนวนเลขที่บิล
 });
 // สร้าง mongoose model Conuter ที่เก็บ name order และ seq สำหรับรันเลขบิลใบเสร็จ
-const Counter = mongoose.models.Counter || mongoose.model("Counter", counterSchema);
+const Counter =
+  mongoose.models.Counter || mongoose.model("Counter", counterSchema);
 
-// Interface กำหนด Type และรูปแบบโครงสร้างข้อมูลของใบเสร็จ  
+// Interface กำหนด Type และรูปแบบโครงสร้างข้อมูลของใบเสร็จ
 interface IOrder extends Document {
   num: number; // เลขที่บิล อ้างอิงจาก seq ใน model Conuters
   items: {
@@ -17,6 +21,7 @@ interface IOrder extends Document {
     price: number;
     category: string;
   }[];
+  status: statusType;
   total: number;
   createdAt: Date;
   customerCount: number; // จำนวนลูกค้าเข้าร้าน
@@ -34,6 +39,11 @@ const OrderSchema = new mongoose.Schema<IOrder>({
     },
   ],
   total: { type: Number, required: true }, // total เก็บยอดซื้อรวมของ Order นี้ ซึ่งจะไปคำนวนอีกที
+  status: {
+    type: String,
+    enum: ["hold", "paid"],
+    // default: statusType.PAID,
+  },
   createdAt: { type: Date, default: Date.now },
   customerCount: { type: Number, default: 0 }, // เก็บจำนวนลูกค้าที่เข้าร้านด้วยเพิ่มจาก Order ที่เพิ่มเข้ามาหาจาก type ที่เป็น Food และ price > 60 ตัวนี้จะนับเป็นลูกค้า 1 คน
 });
