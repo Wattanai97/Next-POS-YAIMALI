@@ -16,6 +16,7 @@ const Counter =
 interface IOrder extends Document {
   num: number; // เลขที่บิล อ้างอิงจาก seq ใน model Conuters
   items: {
+    productId: string; // 
     product: string;
     quantity: number;
     price: number;
@@ -32,6 +33,7 @@ const OrderSchema = new mongoose.Schema<IOrder>({
   // items เก็บข้อมูลรายละเอียดสินค้า เช่นชื่ออาหาร ราคา หมวดหมู่ จำนวนที่สั่งซื้อ required:true คือ ต้องมีข้อมูลเท่านั้น และเก็บเป็น Array
   items: [
     {
+      productId: { type: String, required: true }, 
       product: { type: String, required: true },
       price: { type: Number, required: true },
       category: { type: String, required: true },

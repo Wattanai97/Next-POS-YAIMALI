@@ -3,6 +3,8 @@ import { statusType } from "@/models/order";
 export interface IOrder {
   num: number;
   items: {
+    productId: string;
+    productId: string; // ← เพิ่มตรงนี้
     product: string;
     quantity: number;
     price: number;

@@ -17,11 +17,13 @@ export async function POST(req: Request) {
     const order = new Order({
       items: items.map(
         (item: {
+          productId: string;
           product: string;
           quantity: number;
           price: number;
           category: string;
         }) => ({
+          productId: item.productId,
           product: item.product, // ใช้ชื่อสินค้า (string) แทน ObjectId
           quantity: item.quantity,
           price: item.price,
@@ -34,11 +36,7 @@ export async function POST(req: Request) {
     });
 
     await order.save();
-
-    return NextResponse.json(
-      { message: "Order created!", orderId: order._id },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: "Order created!" }, { status: 201 });
   } catch (error) {
     console.error("Order creation error:", error);
     return NextResponse.json(

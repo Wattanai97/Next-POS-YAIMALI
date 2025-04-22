@@ -10,10 +10,13 @@ export async function GET(req: NextRequest) {
     // ดึงข้อมูลคำสั่งซื้อที่พักไว้
     const orders = await Order.find({ status: statusType.HOLD });
     if (!orders.length) {
-      return new NextResponse(JSON.stringify({ message: "No orders found!" }), {
-        status: 404,
-        headers: corsHeaders,
-      });
+      return new NextResponse(
+        JSON.stringify({ message: "No hold orders found!", orders: [] }),
+        {
+          status: 200,
+          headers: corsHeaders,
+        }
+      );
     }
     console.log(orders.map((item) => item.status));
 

@@ -7,12 +7,14 @@ enum Category {
 }
 
 interface IProduct extends Document {
+  productId: string;
   name: string;
   price: number;
   category: Category; // ใช้ enum
 }
 
 const ProductSchema = new mongoose.Schema<IProduct>({
+  productId: { type: String, required: true },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   category: { type: String, enum: Category, required: true }, // ใช้ enum ใน schema

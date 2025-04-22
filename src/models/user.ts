@@ -1,7 +1,7 @@
 import mongoose, { Document, Model } from "mongoose";
 
 interface IUser extends Document {
-  _id: string | unknown;
+  productId: string | unknown;
   username: string;
   password: string;
   role: string;

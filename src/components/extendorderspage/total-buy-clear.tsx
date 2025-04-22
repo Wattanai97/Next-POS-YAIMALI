@@ -1,8 +1,17 @@
 import React from "react";
 import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
 const ToTalBuyClearCartButton = () => {
-  const { clearCart, cart, calculateTotal, hanlerBuy, holdOrder } =
-    useOrderCartStore();
+  const {
+    clearCart,
+    cart,
+    calculateTotal,
+    hanlerBuy,
+    holdOrder,
+    holdMode,
+    holdOrderNum,
+    updateOrder,
+  } = useOrderCartStore();
+
   return (
     <>
       {cart.length > 0 && (
@@ -13,8 +22,12 @@ const ToTalBuyClearCartButton = () => {
             </p>
             {/* Buy Cart Button */}
             <button
-              onClick={() => {
-                hanlerBuy();
+              onClick={async () => {
+                if (holdMode && holdOrderNum !== null) {
+                  await updateOrder(holdOrderNum);
+                } else {
+                  await hanlerBuy();
+                }
               }}
               className="bg-green-600 mx-2 text-white  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >

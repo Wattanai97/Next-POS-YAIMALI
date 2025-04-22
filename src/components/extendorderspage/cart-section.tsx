@@ -7,7 +7,7 @@ const CartSection = () => {
     <>
       {cart.map((item) => (
         <Card
-          key={item.product._id.toString()}
+          key={item.product.productId.toString()}
           className="p-0.5 mx-4 my-0.5 border border-solid border-black dark:border-white"
         >
           <CardContent>
@@ -18,7 +18,7 @@ const CartSection = () => {
               </p>
               <button
                 className="bg-black text-white px-2 mx-0.5 rounded-md mb-0.5"
-                onClick={() => deleteToCart(item.product._id.toString())}
+                onClick={() => deleteToCart(item.product.productId.toString())}
               >
                 ลบ
               </button>
