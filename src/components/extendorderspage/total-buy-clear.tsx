@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
 const ToTalBuyClearCartButton = () => {
   const {
@@ -11,7 +11,6 @@ const ToTalBuyClearCartButton = () => {
     holdOrderNum,
     updateOrder,
   } = useOrderCartStore();
-
   return (
     <>
       {cart.length > 0 && (

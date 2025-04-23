@@ -4,7 +4,7 @@ import Order from "@/models/order";
 // /api/orders/pay/route.ts
 export async function PUT(req: NextRequest) {
   const { num, items, total } = await req.json();
-  if (!num || !items) {
+  if (!num || !items || !total) {
     return NextResponse.json({ message: "ข้อมูลไม่ครบ" }, { status: 400 });
   }
 

@@ -6,24 +6,25 @@ import ProductMenu from "@/components/extendorderspage/product-menu";
 import CartSection from "@/components/extendorderspage/cart-section";
 import HoldOrders from "@/components/HoldOrders";
 import useFetchHoldOrders from "@/components/FetchHoldOrders";
-import { useOrderStore } from "@/lib/store/orderStore";
 import LoadingSpinner from "@/components/LoadingSpiner";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useHoldOrderStore } from "@/lib/store/useHoldOrderStore";
+import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
+import FetchOrders from "@/components/FetchOrders";
+
 export default function POSPage() {
   const { error, fetchHoldOrders, loading } = useFetchHoldOrders();
-  const { orders } = useOrderStore();
+  const { fetchOrders } = FetchOrders();
   const { closeHold, openHold, isVisible, isAnimatingOut, finishAnimation } =
     useHoldOrderStore();
+  const { triggerRefetch } = useOrderCartStore();
   useEffect(() => {
-    if (orders.length > 0) {
-      fetchHoldOrders();
-    }
-  }, [orders]);
-
+    if (!triggerRefetch) return;
+    fetchOrders();
+    fetchHoldOrders();
+  }, [triggerRefetch]);
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
-
   return (
     <div className="px-4 relative inset-0">
       {/* ปุ่มดูออเดอร์พัก */}
@@ -43,7 +44,7 @@ export default function POSPage() {
           ${isAnimatingOut ? "animate-slideOutRight" : "animate-slideInRight"}`}
           onAnimationEnd={finishAnimation}
         >
-          <HoldOrders/>
+          <HoldOrders />
         </div>
       )}
 

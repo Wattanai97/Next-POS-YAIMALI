@@ -21,7 +21,7 @@ export default function LoginPage() {
     });
 
     if (res?.ok) {
-      router.push("/orders"); // เปลี่ยนจาก replace เป็น push
+      router.push("/pos"); // เปลี่ยนจาก replace เป็น push
     } else {
       alert("Invalid username or password!");
     }

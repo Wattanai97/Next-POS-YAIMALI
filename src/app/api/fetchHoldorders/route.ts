@@ -4,7 +4,7 @@ import Order from "@/models/order";
 import { statusType } from "@/models/order";
 export async function GET(req: NextRequest) {
   try {
-    console.log("⏳ เริ่มทำงานที่ API fetchorders");
+    console.log("⏳ เริ่มทำงานที่ API fetchHoldOrders");
     // เชื่อมต่อฐานข้อมูล
     await connectDB();
     // ดึงข้อมูลคำสั่งซื้อที่พักไว้
@@ -18,10 +18,12 @@ export async function GET(req: NextRequest) {
         }
       );
     }
-    console.log(orders.map((item) => item.status));
-
+    console.log(
+      `Get Order Success in API fetchHoldorders ! find : ${orders.length} Hold orders`
+    );
+    console.log(`⏳ จบการทำงานที่ API fetchHoldorders`);
     return new NextResponse(
-      JSON.stringify({ message: "Get Orders Success", orders }),
+      JSON.stringify({ message: "Get OrdersHold Success", orders }),
       { status: 200, headers: corsHeaders }
     );
   } catch (error) {

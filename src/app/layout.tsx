@@ -5,8 +5,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Itim } from "next/font/google";
-import FetchOrders from "@/components/FetchOrders";
-import FetchHoldOrders from "@/components/FetchHoldOrders";
 const itim = Itim({
   subsets: ["latin"],
   weight: ["400"],
@@ -30,8 +28,9 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider>
             <Navbar />
-            <FetchOrders />
+           
             {children}
+            
           </ThemeProvider>
         </Providers>
       </body>

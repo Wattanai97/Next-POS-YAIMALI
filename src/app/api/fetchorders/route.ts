@@ -15,8 +15,10 @@ export async function GET(req: NextRequest) {
         headers: corsHeaders,
       });
     }
-    console.log(orders.map((item) => item.status));
-
+    console.log(
+      `Get Order Success in API fetchorders ! find : ${orders.length} orders`
+    );
+    console.log(`⏳ จบการทำงานที่ API fetchorders`);
     return new NextResponse(
       JSON.stringify({ message: "Get Orders Success", orders }),
       { status: 200, headers: corsHeaders }

@@ -19,7 +19,7 @@ export default function Navbar() {
     <nav className="bg-slate-400/30 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
       {/* Left Side */}
       <div className="text-xl font-bold flex">
-        <Link className="me-4 mt-1" href="/orders">
+        <Link className="me-4 mt-1" href="/pos">
           POS
         </Link>
         <ThemeToggle />

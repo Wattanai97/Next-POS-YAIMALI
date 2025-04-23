@@ -1,6 +1,8 @@
-import React from "react";
+"use client"
+import React,{useEffect} from "react";
 import SalesReportPage from "@/components/SaleReport";
 const page = () => {
+
   return (
     <div>
       <SalesReportPage />
