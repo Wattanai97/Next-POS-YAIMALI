@@ -36,8 +36,7 @@ const BtnActionCart = () => {
                     setIsLoading(false);
                     await handlerBuy();
                   }
-                }),
-                  () => null;
+                });
               }}
               className="xxs:ms-1 ms-3 bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
@@ -54,14 +53,10 @@ const BtnActionCart = () => {
           <div>
             <button
               onClick={() => {
-                open(
-                  "ยืนยันการพักออเดอร์ไหม ?",
-                  () => {
-                    setIsLoading(false);
-                    holdOrder();
-                  },
-                  () => null
-                );
+                open("ยืนยันการพักออเดอร์ไหม ?", () => {
+                  setIsLoading(false);
+                  holdOrder();
+                });
               }}
               className=" bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
