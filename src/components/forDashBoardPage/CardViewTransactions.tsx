@@ -1,7 +1,7 @@
 import React from "react";
-import { useOrderStore } from "@/lib/store/orderStore";
-import { formatThaiShortDate } from "../logicdashboard/forMatDate";
-import { useOrdersPagination } from "../logicdashboard/useOrdersPagination";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { formatThaiShortDate } from "../forDashBoardPage/logic/forMatDate";
+import { useOrdersPagination } from "../forDashBoardPage/logic/useOrdersPagination";
 import { Card, CardContent } from "@/components/ui/card";
 import Pagecontrolcardview from "./PageControlCardView";
 import { useOrderCardViewPaginationStore } from "@/lib/store/useOrderPaginationStore";

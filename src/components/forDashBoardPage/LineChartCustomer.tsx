@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { useOrderStore } from "@/lib/store/orderStore";
-import { formatThaiShortDateForReport } from "../logicdashboard/forMatDate";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { formatThaiShortDateForReport } from "../forDashBoardPage/logic/forMatDate";
 import {
   LineChart,
   Line,
@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-const LineChartTotal = () => {
+const LineChartCustomer = () => {
   const { orders } = useOrderStore();
   const salesChartData = useMemo(() => {
     return orders.map((order) => ({
@@ -18,12 +18,12 @@ const LineChartTotal = () => {
       customers: order.customerCount, // จำนวนลูกค้า
     }));
   }, [orders]);
-
   return (
     <>
-      <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] text-black">
+      <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] mt-6 text-black">
+        <hr />
         <h3 className="text-lg font-semibold text-center mb-2 text-black dark:text-white">
-          Total Sales
+          Customer Count
         </h3>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={salesChartData}>
@@ -32,8 +32,8 @@ const LineChartTotal = () => {
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="total"
-              stroke="#8884d8"
+              dataKey="customers"
+              stroke="#82ca9d"
               strokeWidth={2}
             />
           </LineChart>
@@ -43,4 +43,4 @@ const LineChartTotal = () => {
   );
 };
 
-export default LineChartTotal;
+export default LineChartCustomer;

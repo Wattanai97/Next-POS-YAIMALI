@@ -1,14 +1,14 @@
 "use client";
 import { useEffect } from "react";
-import Selectbuttontype from "@/components/extendorderspage/select-button-type";
-import ToTalBuyClearCartButton from "@/components/extendorderspage/total-buy-clear";
-import ProductMenu from "@/components/extendorderspage/product-menu";
-import CartSection from "@/components/extendorderspage/cart-section";
-import HoldOrders from "@/components/HoldOrders";
+import BtnFilterMenuByType from "@/components/forPosPage/Btnfiltermenubytype";
+import BtnActionCart from "@/components/forPosPage/Btn-action-cart";
+import ProductMenu from "@/components/forPosPage/Product-menu";
+import CartSection from "@/components/forPosPage/Cart-section";
+import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/MainWindowHoldOrders";
 import useFetchHoldOrders from "@/components/FetchHoldOrders";
 import LoadingSpinner from "@/components/LoadingSpiner";
 import ErrorMessage from "@/components/ErrorMessage";
-import { useHoldOrderStore } from "@/lib/store/useHoldOrderStore";
+import { useHoldOrderStore } from "@/lib/store/useAnimateHoldOrdersWindow";
 import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
 import FetchOrders from "@/components/FetchOrders";
 
@@ -27,7 +27,7 @@ export default function POSPage() {
   if (error) return <ErrorMessage error={error} />;
   return (
     <div className="px-4 relative inset-0">
-      {/* ปุ่มดูออเดอร์พัก */}
+      {/* ปุ่มดูออเดอร์พัก  HoldOrders */}
       <div className="flex justify-center my-2 right-6 top-0 absolute z-20">
         <button
           onClick={isVisible ? closeHold : openHold}
@@ -44,12 +44,13 @@ export default function POSPage() {
           ${isAnimatingOut ? "animate-slideOutRight" : "animate-slideInRight"}`}
           onAnimationEnd={finishAnimation}
         >
-          <HoldOrders />
+          {/* HoldOrders Component */}
+          <MainwindowHoldOrders />
         </div>
       )}
 
       {/* FilterType Button */}
-      <Selectbuttontype />
+      <BtnFilterMenuByType />
 
       {/* Menu and Cart */}
       <div className="flex justify-around me-6">
@@ -62,6 +63,7 @@ export default function POSPage() {
       </div>
 
       <div className="xxs:flex xxs:flex-col sm:grid sm:grid-cols-2 gap-4 mt-4 relative">
+        {/* Product-Menu */}
         <ProductMenu />
         <div className="flex flex-col min-h-0 max-h-[400px] overflow-auto border-2 border-black dark:border-white rounded-md p-2">
           <div className="flex justify-center">
@@ -69,8 +71,10 @@ export default function POSPage() {
               Cart
             </span>
           </div>
+          {/* ตะกร้าสินค้า */}
           <CartSection />
-          <ToTalBuyClearCartButton />
+          {/* ปุ่มควบคุมการพัก - ซื้อขาย ออเดอร์ */}
+          <BtnActionCart />
         </div>
       </div>
     </div>

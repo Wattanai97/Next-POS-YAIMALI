@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { FilteredByType } from "@/hooks/orderspagelogic/FilteredByType";
+import { FilteredByType } from "@/components/forPosPage/logic/FilteredByType";
 import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
 const ProductMenu = () => {
   const { addToCart } = useOrderCartStore();

@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useOrderStore } from "@/lib/store/orderStore";
-import { useSalesReport } from "./logicsalereport/useSaleReportPagination";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { useSalesReport } from "@/components/forSaleReportPage/logic/useSaleReportPagination";
 import { RestoreAndUpdate } from "./RestoreAndUpdateOrder";
-import PullHoldOrder from "./PullHoldOrders";
+import DetailOrdersHold from "./DetailOrdersHold";
 
-const HoldOrders = () => {
+const MainWindowHoldOrders = () => {
   const { expandedOrders, toggleDetails } = useSalesReport();
   const { holdorders } = useOrderStore();
   return (
@@ -18,7 +18,7 @@ const HoldOrders = () => {
           {holdorders.length > 0 ? (
             holdorders.map((order) => (
               <div key={order.num}>
-                <PullHoldOrder
+                <DetailOrdersHold
                   key={order.num}
                   holdorders={order}
                   isExpanded={expandedOrders.includes(order.num)}
@@ -40,4 +40,4 @@ const HoldOrders = () => {
   );
 };
 
-export default HoldOrders;
+export default MainWindowHoldOrders;

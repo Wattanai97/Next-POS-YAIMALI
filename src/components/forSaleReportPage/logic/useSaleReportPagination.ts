@@ -1,7 +1,7 @@
 // hooks/useSalesReport.ts
-import { useOrderStore } from "@/lib/store/orderStore";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
 import { useMemo, useState } from "react";
-import { IOrder } from "@/lib/store/orderStore";
+import { IOrder } from "@/lib/store/useOrdersAndHoldOrders";
 const ORDERS_PER_PAGE = 10;
 
 export const useSalesReport = () => {

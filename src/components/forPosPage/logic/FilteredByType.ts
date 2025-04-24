@@ -1,5 +1,6 @@
+// Filter Product Menu By Type
 import { products } from "@/lib/store/Product";
-import  { useMemo, useState } from "react";
+import  { useMemo} from "react";
 import { useFilterProductByType } from "@/lib/store/useProductFilterTypeStore";
 export const FilteredByType = () => {
   const {filterType} = useFilterProductByType()

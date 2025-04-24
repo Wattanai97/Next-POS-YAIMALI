@@ -1,12 +1,12 @@
-import { useOrdersPagination } from "../logicdashboard/useOrdersPagination";
-import { useOrderStore } from "@/lib/store/orderStore";
-import { useOrderCardViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
+import { useOrdersPagination } from "../forDashBoardPage/logic/useOrdersPagination";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { useOrderTableViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
 import { Button } from "../ui/button";
 
-const Pagecontrolcardview = () => {
+const Pagecontroltableview = () => {
   const { orders } = useOrderStore();
   const { currentPage, setPage, itemsPerPage } =
-    useOrderCardViewPaginationStore(); // ✅ ดึง itemsPerPage
+    useOrderTableViewPaginationStore(); // ✅ ดึง itemsPerPage
   const { totalPages } = useOrdersPagination(orders, currentPage, itemsPerPage); // ✅ ส่งเข้าไป
 
   return totalPages > 1 ? (
@@ -30,4 +30,4 @@ const Pagecontrolcardview = () => {
   ) : null;
 };
 
-export default Pagecontrolcardview;
+export default Pagecontroltableview;

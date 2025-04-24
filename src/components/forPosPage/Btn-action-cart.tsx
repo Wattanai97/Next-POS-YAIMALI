@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
-const ToTalBuyClearCartButton = () => {
+const BtnActionCart = () => {
   const {
     clearCart,
     cart,
@@ -56,4 +56,4 @@ const ToTalBuyClearCartButton = () => {
   );
 };
 
-export default ToTalBuyClearCartButton;
+export default BtnActionCart;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FilterType } from "@/lib/store/useProductFilterTypeStore";
 import { useFilterProductByType } from "@/lib/store/useProductFilterTypeStore";
-const Selectbuttontype = () => {
+const BtnFilterMenuByType = () => {
   const [activeButton, setActiveButton] = useState<FilterType>("All");
   const { setFilterType } = useFilterProductByType();
   const handleClickActiveButton = (type: FilterType) => {
@@ -30,4 +30,4 @@ const Selectbuttontype = () => {
   );
 };
 
-export default Selectbuttontype;
+export default BtnFilterMenuByType;

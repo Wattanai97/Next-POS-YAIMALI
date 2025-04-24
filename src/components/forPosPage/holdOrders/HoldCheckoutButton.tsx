@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import { RotateCwIcon } from "lucide-react";
-import { useHoldOrderStore } from "@/lib/store/useHoldOrderStore";
+import { useHoldOrderStore } from "@/lib/store/useAnimateHoldOrdersWindow";
 type HoldOrderActionsProps = {
   onRestore: () => void;
 };

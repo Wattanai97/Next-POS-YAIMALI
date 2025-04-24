@@ -1,6 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { formatDate, formatTime } from "./logicsalereport/forMatDate";
+import {
+  formatDate,
+  formatTime,
+} from "@/components/forSaleReportPage/logic/forMatDate";
 type OrderItem = {
   product: string;
   price: number;
@@ -20,7 +23,7 @@ type Props = {
   toggleDetails: (num: number) => void;
 };
 
-export default function PullHoldOrder({
+export default function DetailOrdersHold({
   holdorders,
   isExpanded,
   toggleDetails,
@@ -54,7 +57,6 @@ export default function PullHoldOrder({
           </div>
         )}
       </CardContent>
-      
     </Card>
   );
 }

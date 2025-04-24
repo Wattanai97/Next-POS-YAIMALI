@@ -1,10 +1,10 @@
 "use client";
 import "react-datepicker/dist/react-datepicker.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSalesReport } from "./logicsalereport/useSaleReportPagination";
-import DateFilterToolbar from "./extendsalereport/Datefilter";
-import PaginationControls from "./extendsalereport/PaginationControl";
-import OrderCard from "./extendsalereport/OrderCard";
+import { useSalesReport } from "./forSaleReportPage/logic/useSaleReportPagination";
+import DateFilterToolbar from "./forSaleReportPage/Datefilter";
+import PaginationControls from "./forSaleReportPage/PaginationControl";
+import OrderCard from "./forSaleReportPage/OrderCard";
 export default function SalesReportPage() {
   const {
     tempDate,

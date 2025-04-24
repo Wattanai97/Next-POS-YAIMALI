@@ -9,9 +9,9 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import Pagecontroltableview from "./PageControlTableView";
 import React from "react";
-import { useOrdersPagination } from "../logicdashboard/useOrdersPagination";
-import { formatThaiShortDate } from "../logicdashboard/forMatDate";
-import { useOrderStore } from "@/lib/store/orderStore";
+import { useOrdersPagination } from "../forDashBoardPage/logic/useOrdersPagination";
+import { formatThaiShortDate } from "../forDashBoardPage/logic/forMatDate";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
 import { useOrderTableViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
 const Tableviewtransactions = () => {
   const orders = useOrderStore((state) => state.orders);

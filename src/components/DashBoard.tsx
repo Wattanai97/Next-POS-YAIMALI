@@ -1,9 +1,9 @@
-import LineChartCustomer from "./extendcompdashboard/LineChartCustomer";
-import LineChartTotal from "./extendcompdashboard/LineChartTotal";
+import LineChartCustomer from "./forDashBoardPage/LineChartCustomer";
+import LineChartTotal from "./forDashBoardPage/LineChartTotal";
 import { Card, CardContent } from "@/components/ui/card";
-import { useOrderStore } from "@/lib/store/orderStore";
-import TableViewTransactions from "./extendcompdashboard/TableViewTransactions";
-import CardViewTransactions from "./extendcompdashboard/CardViewTransactions";
+import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import TableViewTransactions from "./forDashBoardPage/TableViewTransactions";
+import CardViewTransactions from "./forDashBoardPage/CardViewTransactions";
 import LoadingSpinner from "./LoadingSpiner";
 export default function Dashboard() {
   const { orders } = useOrderStore();
@@ -11,12 +11,12 @@ export default function Dashboard() {
 
   return (
     <div>
-      {/* Order Card,Transactionbill View */}
+      {/* Order Card,Transaction bill View */}
       {orders.length > 0 && <CardViewTransactions />}
       {/* Order Table View */}
       {orders.length > 0 && <TableViewTransactions />}
-      {/* Sales Report & Customer Report LineChart */}
       <Card className="w-full overflow-x-auto lg:col-span-2">
+        {/* Sales Report & Customer Report LineChart */}
         <CardContent className="p-1.5">
           <h2 className="text-xl font-bold mb-2 text-center">Sales Report</h2>
           {/* กราฟ Total Sales */}
