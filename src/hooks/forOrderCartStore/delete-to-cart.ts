@@ -1,7 +1,7 @@
 import { Cart, CartStore } from "@/lib/store/useorder-cart-store";
 
 export const deleteToCart =
-  (get: () => CartStore, set: any) => (productId: string) => {
+  (get: () => CartStore, set: ({}) => void) => (productId: string) => {
     const current = get().cart;
     const exists = current.find(
       (item: Cart) => item.product.productId === productId

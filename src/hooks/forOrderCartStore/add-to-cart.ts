@@ -3,7 +3,7 @@ import { CartStore } from "@/lib/store/useorder-cart-store";
 import { Product } from "@/lib/store/product";
 
 export const addToCart =
-  (get: () => CartStore, set: any) =>
+  (get: () => CartStore, set: ({}) => void) =>
   (product: Product, quantity: number = 1) => {
     const current = get().cart;
     const isHoldMode = get().holdMode;
