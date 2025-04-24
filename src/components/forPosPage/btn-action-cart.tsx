@@ -14,7 +14,7 @@ const BtnActionCart = () => {
   return (
     <>
       {cart.length > 0 && (
-        <div className="m-2.5 flex justify-between mt-10">
+        <div className=" flex justify-between mt-10">
           <div className="flex">
             <p className="text-lg font-bold text-black dark:text-slate-200">
               Total: ฿{calculateTotal()}
@@ -28,14 +28,14 @@ const BtnActionCart = () => {
                   await handlerBuy();
                 }
               }}
-              className="bg-green-600 mx-2 text-white  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
+              className="xxs:ms-1 ms-3 bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
               Buy
             </button>
             {/* Clear Cart Button */}
             <button
               onClick={clearCart}
-              className="bg-red-600 text-white  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
+              className=" bg-red-600 xxs:text-lg xxs:font-medium mx-1.5 text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
               Clear
             </button>
@@ -45,7 +45,7 @@ const BtnActionCart = () => {
               onClick={() => {
                 holdOrder();
               }}
-              className="bg-green-600 mx-2 text-white  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
+              className=" bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
               Hold
             </button>

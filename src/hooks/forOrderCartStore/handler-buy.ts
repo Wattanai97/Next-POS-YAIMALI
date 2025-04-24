@@ -1,4 +1,5 @@
 import { CartStore } from "@/lib/store/useorder-cart-store";
+
 export const handlerBuy = async (get: () => CartStore) => {
   const cart = get().cart;
   const setTriggleRefetch = get().setTriggerRefetch;
@@ -32,8 +33,10 @@ export const handlerBuy = async (get: () => CartStore) => {
       setTriggleRefetch(Date.now());
       get().clearCart();
     } catch (error) {
-      console.error(`Buy Fail! Error = `, error);
-      alert("Error placing order");
+      if (error instanceof Error) {
+        console.log(error.message);
+        alert("Error placing order");
+      }
     }
   }
 };

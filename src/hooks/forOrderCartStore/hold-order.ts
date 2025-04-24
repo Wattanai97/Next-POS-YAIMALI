@@ -32,8 +32,10 @@ export const holdOrder = async (get: () => CartStore) => {
       setTriggleRefetch(Date.now());
       get().clearCart();
     } catch (error) {
-      console.error(`Hold Fail! Error = `, error);
-      alert("Error placing order");
+      if (error instanceof Error) {
+        console.log(error.message);
+        alert("Error placing Hold order");
+      }
     }
   }
 };

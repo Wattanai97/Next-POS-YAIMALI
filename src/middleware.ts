@@ -7,19 +7,17 @@ export async function middleware(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
     raw: true,
   });
-
   const { pathname } = req.nextUrl;
-
-  const isAuthPage =
-    pathname.startsWith("/auth/login") || pathname.startsWith("/auth/register");
+  // const isAuthPage =
+  //   pathname.startsWith("/auth/login") || pathname.startsWith("/auth/register");
   const isProtectedPage =
     pathname === "/" ||
-    pathname.startsWith("/orders") ||
+    pathname.startsWith("/pos") ||
     pathname.startsWith("/report");
 
   // บล็อกการเข้าถึง /auth/register ทุกกรณี
   if (pathname.startsWith("/auth/register")) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   // ถ้ามี token และไปหน้า login ให้รีไดเร็กต์ไปหน้า dashboard
@@ -31,14 +29,13 @@ export async function middleware(req: NextRequest) {
   if (!token && isProtectedPage) {
     return NextResponse.redirect(new URL("/auth/login", req.url));
   }
-
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     "/",
-    "/orders/:path*",
+    "/pos/:path*",
     "/auth/login",
     "/auth/register",
     "/report/:path*",

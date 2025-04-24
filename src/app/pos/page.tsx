@@ -30,10 +30,10 @@ export default function POSPage() {
   return (
     <div className="px-4 relative inset-0">
       {/* ปุ่มดูออเดอร์พัก  HoldOrders */}
-      <div className="flex justify-center my-2 right-6 top-0 absolute z-20">
+      <div className="flex justify-center xxs:my-3 my-2 xxs:right-3 sm:right-6 xxs:top-5 sm:top-0 absolute z-20">
         <button
           onClick={isVisible ? closeHold : openHold}
-          className="bg-violet-700 text-white px-3 py-1 rounded-md hover:scale-105 transition"
+          className="bg-violet-700 text-white xxs:px-0.5 xxs:py-0.5 sm:px-3 sm:py-1 rounded-md hover:scale-105 transition"
         >
           ดูออเดอร์ที่พักไว้
         </button>
@@ -55,11 +55,11 @@ export default function POSPage() {
       <BtnFilterMenuByType />
 
       {/* Menu and Cart */}
-      <div className="flex justify-around me-6">
-        <span className="mx-3 text-lg font-semibold text-black dark:text-white">
+      <div className="flex justify-around me-6 relative xxs:mb-10">
+        <span className="mx-3 text-lg font-semibold text-black xxs:absolute xxs:top-1 xxs:left-0 dark:text-white">
           Menu
         </span>
-        <span className="text-lg font-semibold text-black dark:text-white xxs:hidden sm:block">
+        <span className="text-lg sm:ms-20 font-semibold text-black dark:text-white xxs:hidden sm:block">
           Cart
         </span>
       </div>

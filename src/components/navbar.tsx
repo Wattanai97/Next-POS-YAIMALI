@@ -29,7 +29,10 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-4">
         {!session?.user?.username ? (
           <>
-            <button className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300">
+            <button
+              disabled
+              className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300"
+            >
               <Link href="/auth/register">สมัครสมาชิก</Link>
             </button>
             <button className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300">
