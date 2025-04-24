@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // import { useOrderStore } from "@/lib/store/orderStore";
 import Providers from "./providers";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Itim } from "next/font/google";
 const itim = Itim({

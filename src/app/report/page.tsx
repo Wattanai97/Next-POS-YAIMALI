@@ -1,6 +1,6 @@
 "use client"
 import React,{useEffect} from "react";
-import SalesReportPage from "@/components/SaleReport";
+import SalesReportPage from "@/components/sale-report";
 const page = () => {
 
   return (

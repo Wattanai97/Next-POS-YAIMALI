@@ -1,16 +1,16 @@
 "use client";
 import { useEffect } from "react";
-import BtnFilterMenuByType from "@/components/forPosPage/Btnfiltermenubytype";
-import BtnActionCart from "@/components/forPosPage/Btn-action-cart";
-import ProductMenu from "@/components/forPosPage/Product-menu";
-import CartSection from "@/components/forPosPage/Cart-section";
-import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/MainWindowHoldOrders";
-import useFetchHoldOrders from "@/components/FetchHoldOrders";
-import LoadingSpinner from "@/components/LoadingSpiner";
-import ErrorMessage from "@/components/ErrorMessage";
-import { useHoldOrderStore } from "@/lib/store/useAnimateHoldOrdersWindow";
-import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
-import FetchOrders from "@/components/FetchOrders";
+import BtnFilterMenuByType from "@/components/forPosPage/btn-filtermenu-bytype";
+import BtnActionCart from "@/components/forPosPage/btn-action-cart";
+import ProductMenu from "@/components/forPosPage/product-menu";
+import CartSection from "@/components/forPosPage/cart-section";
+import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/flying-window-hold-orders";
+import useFetchHoldOrders from "@/hooks/use-fetch-hold-orders";
+import LoadingSpinner from "@/components/loading-spiner";
+import ErrorMessage from "@/components/error-message";
+import { useHoldOrderStore } from "@/lib/store/use-animate-hold-orders-window";
+import { useOrderCartStore } from "@/lib/store/use-order-cartstore";
+import FetchOrders from "@/hooks/use-fetch-orders";
 
 export default function POSPage() {
   const { error, fetchHoldOrders, loading } = useFetchHoldOrders();

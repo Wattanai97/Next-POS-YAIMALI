@@ -7,14 +7,18 @@ interface OrderPaginationState {
   itemsPerPage: number;
 }
 
-export const useOrderCardViewPaginationStore = create<OrderPaginationState>((set) => ({
-  currentPage: 1,
-  itemsPerPage: 4,
-  setPage: (page) => set({ currentPage: page }),
-}));
+export const useOrderCardViewPaginationStore = create<OrderPaginationState>(
+  (set) => ({
+    currentPage: 1,
+    itemsPerPage: 4,
+    setPage: (page) => set({ currentPage: page }),
+  })
+);
 
-export const useOrderTableViewPaginationStore = create<OrderPaginationState>((set) => ({
-  currentPage: 1,
-  itemsPerPage: 10,
-  setPage: (page) => set({ currentPage: page }),
-}));
+export const useOrderTableViewPaginationStore = create<OrderPaginationState>(
+  (set) => ({
+    currentPage: 1,
+    itemsPerPage: 10,
+    setPage: (page) => set({ currentPage: page }),
+  })
+);

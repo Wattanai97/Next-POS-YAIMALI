@@ -1,13 +1,13 @@
 "use client";
-import Dashboard from "@/components/DashBoard";
+import Dashboard from "@/components/dash-board";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/App-sidebar";
-import FetchOrders from "@/components/FetchOrders";
+import { AppSidebar } from "@/components/app-sidebar";
+import useFetchOrders from "@/hooks/use-fetch-orders";
 import { useEffect } from "react";
-import LoadingSpinner from "@/components/LoadingSpiner";
-import ErrorMessage from "@/components/ErrorMessage";
+import LoadingSpinner from "@/components/loading-spiner";
+import ErrorMessage from "@/components/error-message";
 export default function Home() {
-  const { fetchOrders, error, loading } = FetchOrders();
+  const { fetchOrders, error, loading } = useFetchOrders();
   useEffect(() => {
     fetchOrders();
   }, []);

@@ -1,11 +1,11 @@
 import React from "react";
-import { useOrderCartStore } from "@/lib/store/useOrderCartStore";
+import { useOrderCartStore } from "@/lib/store/use-order-cartstore";
 const BtnActionCart = () => {
   const {
     clearCart,
     cart,
     calculateTotal,
-    hanlerBuy,
+    handlerBuy,
     holdOrder,
     holdMode,
     holdOrderNum,
@@ -25,7 +25,7 @@ const BtnActionCart = () => {
                 if (holdMode && holdOrderNum !== null) {
                   await updateOrder(holdOrderNum);
                 } else {
-                  await hanlerBuy();
+                  await handlerBuy();
                 }
               }}
               className="bg-green-600 mx-2 text-white  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
