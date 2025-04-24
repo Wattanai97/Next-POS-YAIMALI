@@ -11,9 +11,11 @@ import ErrorMessage from "@/components/error-message";
 import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
 import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
 import FetchOrders from "@/hooks/use-fetch-orders";
+import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 
 export default function POSPage() {
-  const { error, fetchHoldOrders, loading } = useFetchHoldOrders();
+  const { error, isLoading } = useLoadingStore();
+  const { fetchHoldOrders } = useFetchHoldOrders();
   const { fetchOrders } = FetchOrders();
   const { closeHold, openHold, isVisible, isAnimatingOut, finishAnimation } =
     useHoldOrderStore();
@@ -23,7 +25,7 @@ export default function POSPage() {
     fetchOrders();
     fetchHoldOrders();
   }, [triggerRefetch]);
-  if (loading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <div className="px-4 relative inset-0">

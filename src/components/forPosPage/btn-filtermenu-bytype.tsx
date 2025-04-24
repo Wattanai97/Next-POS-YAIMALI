@@ -15,10 +15,10 @@ const BtnFilterMenuByType = () => {
           <button
             key={type}
             onClick={() => handleClickActiveButton(type)}
-            className={`xxs:px-2 xxs:py-0.5 py mx-0.5 py-1 bg-slate-700 text-white dark:bg-slate-950 dark:text-white rounded-md transition-all
+            className={`xxs:px-2 xxs:py-0.5 py mx-0.5 py-1 bg-slate-950 text-white dark:bg-slate-950 dark:text-white rounded-md transition-all
             ${
               activeButton === type
-                ? "bg-opacity-10 dark:bg-opacity-50 shadow-inner text-slate-900 dark:text-white shadow-cyan-500/100 dark:shadow-cyan-200/100 underline decoration-black dark:decoration-white"
+                ? "dark:bg-opacity-50 shadow-inner bg-green-600/100 text-slate-900 dark:text-white shadow-cyan-500/100 dark:shadow-cyan-200/100 dark:underline dark:decoration-white"
                 : "bg-opacity-100"
             }`}
           >

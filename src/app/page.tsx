@@ -6,12 +6,14 @@ import useFetchOrders from "@/hooks/use-fetch-orders";
 import { useEffect } from "react";
 import LoadingSpinner from "@/components/loading-spiner";
 import ErrorMessage from "@/components/error-message";
+import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 export default function Home() {
-  const { fetchOrders, error, loading } = useFetchOrders();
+  const { isLoading, error } = useLoadingStore();
+  const { fetchOrders } = useFetchOrders();
   useEffect(() => {
     fetchOrders();
   }, []);
-  if (loading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <SidebarProvider>

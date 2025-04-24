@@ -29,10 +29,10 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-4">
         {!session?.user?.username ? (
           <>
-            <button className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 ">
+            <button className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300">
               <Link href="/auth/register">สมัครสมาชิก</Link>
             </button>
-            <button className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 ">
+            <button className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300">
               <Link href="/auth/login">เข้าสู่ระบบ</Link>
             </button>
           </>
@@ -45,17 +45,13 @@ export default function Navbar() {
               <span>{session.user.role}</span>
             </div>
             <button
-              className="bg-green-700 text-lime-50 dark:text-white rounded-md px-2 py-0.5 border
-               border-solid border-white hover:transition-transform hover:translate-y-1 duration-150 delay-75 hover:bg-red-600
-               dark:bg-black dark:hover:bg-blue-700"
+              className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300"
               onClick={() => router.push(`/`)}
             >
               Dashboard
             </button>
             <button
-              className="bg-black hover:bg-red-600/100 text-white rounded-md px-2 py-0.5 border
-               border-solid border-white hover:transition-transform hover:translate-y-1 duration-300 delay-200
-               dark:bg-red-600 dark:hover:bg-green-500"
+              className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300"
               onClick={async () => {
                 await signOut({ redirect: false });
                 router.replace("/auth/login"); // ✅ Logout แล้วไปที่หน้า login ทันที

@@ -1,18 +1,17 @@
 "use client";
 import { useOrderStore } from "@/lib/store/useorders-hold-orders";
-import { useState } from "react";
+import { useLoadingStore } from "@/lib/store/useloding-errormessage";
+
 // useFetchOrders.ts
 export default function useFetchHoldOrders() {
   const { setHoldOrders } = useOrderStore();
-  const [loading, setLoading] = useState(false); // เพื่อดูสถานะการโหลดข้อมูล
-  const [error, setError] = useState<string | null>(null); // เพื่อเก็บข้อผิดพลาด
-
+  const { setError, setIsLoading } = useLoadingStore();
   async function fetchHoldOrders() {
     const API_BASE_URL =
       process.env.NEXT_PUBLIC_API_URL || "https://pos-yaimali.vercel.app";
     console.log("API_BASE_URL:", API_BASE_URL); // พิมพ์ค่าของ API_BASE_URL
     try {
-      setLoading(true);
+      setIsLoading(false);
       const response = await fetch(`${API_BASE_URL}/api/fetchHoldorders`, {
         cache: "no-store",
       });
@@ -22,13 +21,15 @@ export default function useFetchHoldOrders() {
       const data = await response.json();
       console.log("✅ ดึงข้อมูลสำเร็จ:", data);
       setHoldOrders(data.orders);
-      if (data.orders.length === 0) setLoading(false);
+      if (data.orders.length === 0) setIsLoading(true);
     } catch (error) {
-      setError("❌ ดึงข้อมูลไม่สำเร็จ");
+      if (error instanceof Error) {
+        setError(error.message);
+      }
       console.error("❌ ดึงข้อมูลไม่สำเร็จ", error);
     } finally {
-      setLoading(false);
+      setIsLoading(true);
     }
   }
-  return { fetchHoldOrders, loading, error }; // ไม่แสดง UI อะไรถ้าทุกอย่างถูกโหลดเสร็จ
+  return { fetchHoldOrders }; // ไม่แสดง UI อะไรถ้าทุกอย่างถูกโหลดเสร็จ
 }
