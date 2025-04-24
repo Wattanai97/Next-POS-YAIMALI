@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { FilterType } from "@/lib/store/useProductFilterTypeStore";
-import { useFilterProductByType } from "@/lib/store/useProductFilterTypeStore";
+import { FilterType } from "@/lib/store/useproduct-filter-type-Store";
+import { useFilterProductByType } from "@/lib/store/useproduct-filter-type-Store";
 const BtnFilterMenuByType = () => {
   const [activeButton, setActiveButton] = useState<FilterType>("All");
   const { setFilterType } = useFilterProductByType();

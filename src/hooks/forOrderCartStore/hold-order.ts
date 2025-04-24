@@ -1,4 +1,4 @@
-import { CartStore } from "@/lib/store/use-order-cartstore";
+import { CartStore } from "@/lib/store/useorder-cart-store";
 export const holdOrder = async (get: () => CartStore) => {
   const cart = get().cart;
   const setTriggleRefetch = get().setTriggerRefetch;

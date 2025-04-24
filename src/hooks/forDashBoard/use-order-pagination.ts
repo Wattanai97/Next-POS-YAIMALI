@@ -1,6 +1,6 @@
 // hooks/useOrdersPagination.ts
 import { useMemo } from "react";
-import { IOrder } from "@/lib/store/useOrdersAndHoldOrders";
+import { IOrder } from "@/lib/store/useorders-hold-orders";
 
 export function useOrdersPagination(
   orders: IOrder[],

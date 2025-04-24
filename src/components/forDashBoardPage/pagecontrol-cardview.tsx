@@ -1,6 +1,6 @@
 import { useOrdersPagination } from "../../hooks/forDashBoard/use-order-pagination";
-import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
-import { useOrderCardViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
+import { useOrderStore } from "@/lib/store/useorders-hold-orders";
+import { useOrderCardViewPaginationStore } from "@/lib/store/useorder-pagination-store";
 import { Button } from "../ui/button";
 
 const Pagecontrolcardview = () => {

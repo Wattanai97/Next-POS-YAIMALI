@@ -1,7 +1,7 @@
 import LineChartCustomer from "./forDashBoardPage/linechart-customer";
 import LineChartTotal from "./forDashBoardPage/linechart-total";
 import { Card, CardContent } from "@/components/ui/card";
-import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import TableViewTransactions from "./forDashBoardPage/tableview-transactions";
 import CardViewTransactions from "./forDashBoardPage/cardview-transactions";
 import LoadingSpinner from "./loading-spiner";

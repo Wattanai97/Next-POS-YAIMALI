@@ -1,4 +1,4 @@
-import { CartStore } from "@/lib/store/use-order-cartstore";
+import { CartStore } from "@/lib/store/useorder-cart-store";
 
 export const calculateTotal = (get: () => CartStore) => () => {
   const current = get().cart;

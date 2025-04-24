@@ -8,8 +8,8 @@ import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/flying-wind
 import useFetchHoldOrders from "@/hooks/use-fetch-hold-orders";
 import LoadingSpinner from "@/components/loading-spiner";
 import ErrorMessage from "@/components/error-message";
-import { useHoldOrderStore } from "@/lib/store/use-animate-hold-orders-window";
-import { useOrderCartStore } from "@/lib/store/use-order-cartstore";
+import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
+import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
 import FetchOrders from "@/hooks/use-fetch-orders";
 
 export default function POSPage() {

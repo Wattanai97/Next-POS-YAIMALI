@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import { useSalesReport } from "@/hooks/forSaleReports/use-report-pagination";
 import { RestoreAndUpdate } from "../../../hooks/forPosPage/restore-update-order";
 import DetailOrdersHold from "./detail-order-hold";

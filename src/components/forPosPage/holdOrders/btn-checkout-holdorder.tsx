@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "../../ui/button";
 import { RotateCwIcon } from "lucide-react";
-import { useHoldOrderStore } from "@/lib/store/use-animate-hold-orders-window";
+import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
 type HoldOrderActionsProps = {
   onRestore: () => void;
 };

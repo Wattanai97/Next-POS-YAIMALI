@@ -1,4 +1,4 @@
-import { Cart, CartStore } from "@/lib/store/use-order-cartstore";
+import { Cart, CartStore } from "@/lib/store/useorder-cart-store";
 
 export const deleteToCart =
   (get: () => CartStore, set: any) => (productId: string) => {

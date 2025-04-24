@@ -1,5 +1,5 @@
 //useOrderCartStore addToCart Logic
-import { CartStore } from "@/lib/store/use-order-cartstore";
+import { CartStore } from "@/lib/store/useorder-cart-store";
 import { Product } from "@/lib/store/product";
 
 export const addToCart =

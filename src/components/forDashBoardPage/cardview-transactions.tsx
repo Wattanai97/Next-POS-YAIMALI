@@ -1,10 +1,10 @@
 import React from "react";
-import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
+import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import { formatThaiShortDate } from "../../utils/format-date-dashboard";
 import { useOrdersPagination } from "../../hooks/forDashBoard/use-order-pagination";
 import { Card, CardContent } from "@/components/ui/card";
 import Pagecontrolcardview from "./pagecontrol-cardview";
-import { useOrderCardViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
+import { useOrderCardViewPaginationStore } from "@/lib/store/useorder-pagination-store";
 const Cardviewtransactions = () => {
   const { orders } = useOrderStore();
   const { currentPage, itemsPerPage } = useOrderCardViewPaginationStore();

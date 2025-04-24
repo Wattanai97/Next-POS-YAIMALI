@@ -11,8 +11,8 @@ import Pagecontroltableview from "./pagecontrol-tableview";
 import React from "react";
 import { useOrdersPagination } from "../../hooks/forDashBoard/use-order-pagination";
 import { formatThaiShortDate } from "../../utils/format-date-dashboard";
-import { useOrderStore } from "@/lib/store/useOrdersAndHoldOrders";
-import { useOrderTableViewPaginationStore } from "@/lib/store/useOrderPaginationStore";
+import { useOrderStore } from "@/lib/store/useorders-hold-orders";
+import { useOrderTableViewPaginationStore } from "@/lib/store/useorder-pagination-store";
 const Tableviewtransactions = () => {
   const orders = useOrderStore((state) => state.orders);
   const { currentPage, itemsPerPage } = useOrderTableViewPaginationStore();

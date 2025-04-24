@@ -1,7 +1,7 @@
 // Filter Product Menu By Type
 import { products } from "@/lib/store/product";
 import { useMemo } from "react";
-import { useFilterProductByType } from "@/lib/store/useProductFilterTypeStore";
+import { useFilterProductByType } from "@/lib/store/useproduct-filter-type-Store";
 export const FilteredByType = () => {
   const { filterType } = useFilterProductByType();
   // ✅ ใช้ useMemo เพื่อกรอง product ตาม filterType
