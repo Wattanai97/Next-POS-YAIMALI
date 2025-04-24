@@ -1,6 +1,11 @@
 import React from "react";
 import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
+import { useLoadingStore } from "@/lib/store/useloding-errormessage";
+import LoadingSpinner from "../loading-spiner";
+import { useConfirmStore } from "@/lib/store/confirm-store";
 const BtnActionCart = () => {
+  const { setIsLoading, isLoading } = useLoadingStore();
+  const { open } = useConfirmStore();
   const {
     clearCart,
     cart,
@@ -11,6 +16,7 @@ const BtnActionCart = () => {
     holdOrderNum,
     updateOrder,
   } = useOrderCartStore();
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       {cart.length > 0 && (
@@ -21,12 +27,17 @@ const BtnActionCart = () => {
             </p>
             {/* Buy Cart Button */}
             <button
-              onClick={async () => {
-                if (holdMode && holdOrderNum !== null) {
-                  await updateOrder(holdOrderNum);
-                } else {
-                  await handlerBuy();
-                }
+              onClick={() => {
+                open("ยืนยันการขายไหม ?", async () => {
+                  if (holdMode && holdOrderNum !== null) {
+                    setIsLoading(false);
+                    await updateOrder(holdOrderNum);
+                  } else {
+                    setIsLoading(false);
+                    await handlerBuy();
+                  }
+                }),
+                  () => null;
               }}
               className="xxs:ms-1 ms-3 bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
@@ -43,7 +54,14 @@ const BtnActionCart = () => {
           <div>
             <button
               onClick={() => {
-                holdOrder();
+                open(
+                  "ยืนยันการพักออเดอร์ไหม ?",
+                  () => {
+                    setIsLoading(false);
+                    holdOrder();
+                  },
+                  () => null
+                );
               }}
               className=" bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
             >
