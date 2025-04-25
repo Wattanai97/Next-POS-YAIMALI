@@ -3,65 +3,58 @@ import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import LoadingSpinner from "../loading-spiner";
 import { useConfirmStore } from "@/lib/store/confirm-store";
+import BtnPaynow from "./btn-paynow";
 const BtnActionCart = () => {
   const { setIsLoading, isLoading } = useLoadingStore();
   const { open } = useConfirmStore();
-  const {
-    clearCart,
-    cart,
-    calculateTotal,
-    handlerBuy,
-    holdOrder,
-    holdMode,
-    holdOrderNum,
-    updateOrder,
-  } = useOrderCartStore();
+  const { clearCart, cart, calculateTotal, holdOrder } = useOrderCartStore();
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
       {cart.length > 0 && (
-        <div className=" flex justify-between mt-10">
-          <div className="flex">
-            <p className="text-lg font-bold text-black dark:text-slate-200">
-              Total: ฿{calculateTotal()}
-            </p>
-            {/* Buy Cart Button */}
-            <button
-              onClick={() => {
-                open("ยืนยันการขายไหม ?", async () => {
-                  if (holdMode && holdOrderNum !== null) {
-                    setIsLoading(false);
-                    await updateOrder(holdOrderNum);
-                  } else {
-                    setIsLoading(false);
-                    await handlerBuy();
-                  }
-                });
-              }}
-              className="xxs:ms-1 ms-3 bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
-            >
-              Buy
-            </button>
-            {/* Clear Cart Button */}
-            <button
-              onClick={clearCart}
-              className=" bg-red-600 xxs:text-lg xxs:font-medium mx-1.5 text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
-            >
-              Clear
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => {
-                open("ยืนยันการพักออเดอร์ไหม ?", () => {
-                  setIsLoading(false);
-                  holdOrder();
-                });
-              }}
-              className=" bg-green-600 xxs:text-lg xxs:font-medium  text-white xxs:px-1.5 h-8  px-3 font-bold py-0.5 rounded-md dark:border dark:bordor-white dark:border-solid"
-            >
-              Hold
-            </button>
+        <div className=" flex gap-2 w-full mt-10">
+          <p className="text-lg font-bold text-black flex-1 dark:text-slate-200">
+            Total: ฿{calculateTotal()}
+          </p>
+
+          {/* Clear Cart Button */}
+          <button
+            onClick={clearCart}
+            className=" btn flex-1 xxs:text-lg xxs:font-medium"
+          >
+            <strong>Clear</strong>
+            <div id="container-stars">
+              <div id="stars"></div>
+            </div>
+
+            <div id="glow">
+              <div className="circle"></div>
+              <div className="circle"></div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              open("ยืนยันการพักออเดอร์ไหม ?", () => {
+                setIsLoading(false);
+                holdOrder();
+              });
+            }}
+            className=" btn flex-1 xxs:text-lg xxs:font-medium"
+          >
+            <strong>Hold</strong>
+            <div id="container-stars">
+              <div id="stars"></div>
+            </div>
+
+            <div id="glow">
+              <div className="circle"></div>
+              <div className="circle"></div>
+            </div>
+          </button>
+          {/* Pay And update Cart Button */}
+          <div className="xxs:text-lg xxs:font-medium flex-1 text-white ">
+            <BtnPaynow />
           </div>
         </div>
       )}

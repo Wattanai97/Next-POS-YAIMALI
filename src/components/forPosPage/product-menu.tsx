@@ -15,10 +15,10 @@ const ProductMenu = () => {
           >
             <CardContent>
               <h3>{product.name}</h3>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-2">
                 <p>฿{product.price}</p>
                 <button
-                  className="bg-slate-900 rounded-md px-2 py-0.5 text-white"
+                  className="delete-button"
                   onClick={() => addToCart(product)}
                 >
                   +
@@ -31,5 +31,4 @@ const ProductMenu = () => {
     </>
   );
 };
-
 export default ProductMenu;

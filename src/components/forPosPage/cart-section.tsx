@@ -12,13 +12,13 @@ const CartSection = () => {
         >
           <CardContent>
             <h3>{item.product.name}</h3>
-            <div className="flex justify-between">
+            <div className="flex justify-between mb-2">
               <p>
                 {item.quantity} x ฿{item.product.price}
               </p>
               <button
-                className="bg-black text-white px-2 mx-0.5 rounded-md mb-0.5"
                 onClick={() => deleteToCart(item.product.productId.toString())}
+                className="delete-button"
               >
                 ลบ
               </button>

@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 // import { useOrderStore } from "@/lib/store/orderStore";
 import Providers from "./providers";
 import "./globals.css";
+import "./hold-clear-btn.css";
+import "./paybtn.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Itim } from "next/font/google";
+import "./deletetocartbtn.css";
 const itim = Itim({
   subsets: ["latin"],
   weight: ["400"],
@@ -28,7 +31,6 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider>
             <Navbar />
-
             {children}
             <ConfirmDialog />
           </ThemeProvider>
