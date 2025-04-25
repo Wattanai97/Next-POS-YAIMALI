@@ -1,44 +1,31 @@
-import { NextResponse } from "next/server";
+// src/app/api/orderspay/route.ts
+import { NextRequest, NextResponse } from "next/server";
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
 
-export async function POST(req: Request) {
-  try {
-    await connectDB();
-    const { items, total, status } = await req.json();
-    // ตรวจสอบว่ามี items และ total หรือไม่
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json(
-        { error: "Invalid order data" },
-        { status: 400 }
-      );
-    }
-    // สร้างคำสั่งซื้อ
-    const order = new Order({
-      items: items.map(
-        (item: {
-          productId: string;
-          product: string;
-          quantity: number;
-          price: number;
-          category: string;
-        }) => ({
-          productId: item.productId,
-          product: item.product, // ใช้ชื่อสินค้า (string) แทน ObjectId
-          quantity: item.quantity,
-          price: item.price,
-          category: item.category,
-        })
-      ),
-      status,
-      total,
-      createdAt: new Date(),
-    });
+export async function POST(req: NextRequest) {
+  await connectDB();
+  const body = await req.json();
+  const { items, total, status } = body;
 
+  if (
+    !Array.isArray(items) ||
+    items.length === 0 ||
+    typeof total !== "number" ||
+    !status
+  ) {
+    return NextResponse.json({ error: "Invalid order data" }, { status: 400 });
+  }
+
+  try {
+    const order = new Order({ items, total, status });
     await order.save();
-    return NextResponse.json({ message: "Order created!" }, { status: 201 });
+    return NextResponse.json(
+      { message: "Order created", num: order.num },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error("Order creation error:", error);
+    console.error("❌ Order creation error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

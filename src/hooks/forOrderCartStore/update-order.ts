@@ -1,5 +1,7 @@
 import { CartStore } from "@/lib/store/useorder-cart-store";
 export const updateOrder = async (orderNum: number, get: () => CartStore) => {
+  const setHoldOrderNum = get().setHoldOrderNum;
+  const setHoldMode = get().setHoldMode;
   const cart = get().cart;
   const setTriggleRefetch = get().setTriggerRefetch;
   if (cart.length === 0) return alert("Cart is empty!");
@@ -26,6 +28,8 @@ export const updateOrder = async (orderNum: number, get: () => CartStore) => {
     if (!res.ok) throw new Error("Failed to update order");
     setTriggleRefetch(Date.now());
     alert("อัปเดตออเดอร์และจ่ายเงินสำเร็จ!");
+    setHoldOrderNum(null);
+    setHoldMode(false);
     get().clearCart();
   } catch (error) {
     if (error instanceof Error) {

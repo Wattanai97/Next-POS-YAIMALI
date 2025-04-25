@@ -1,7 +1,8 @@
 import { CartStore } from "@/lib/store/useorder-cart-store";
-
 export const handlerBuy = async (get: () => CartStore) => {
   const cart = get().cart;
+  const setHoldmode = get().setHoldMode;
+  const setHoldordernum = get().setHoldOrderNum;
   const setTriggleRefetch = get().setTriggerRefetch;
   if (cart.length === 0) return alert("Cart is empty!");
   const BASE_API_URL =
@@ -27,8 +28,10 @@ export const handlerBuy = async (get: () => CartStore) => {
     });
     // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
     if (!res.ok) throw new Error("Failed to place order");
-    alert("Order placed successfully!");
+    alert("ทำรายการขายสำเร็จ");
     setTriggleRefetch(Date.now());
+    setHoldordernum(null);
+    setHoldmode(false);
     get().clearCart();
   } catch (error) {
     if (error instanceof Error) {

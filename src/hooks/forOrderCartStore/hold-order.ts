@@ -1,6 +1,9 @@
 import { CartStore } from "@/lib/store/useorder-cart-store";
 export const holdOrder = async (get: () => CartStore) => {
+  const setHoldMode = get().setHoldMode;
+  const setHoldOrderNum = get().setHoldOrderNum;
   const cart = get().cart;
+
   const setTriggleRefetch = get().setTriggerRefetch;
   if (cart.length === 0) return alert("Cart is empty!");
   const BASE_API_URL =
@@ -24,10 +27,13 @@ export const holdOrder = async (get: () => CartStore) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
     });
-    // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
     if (!res.ok) throw new Error("Failed to place order");
-    alert("Order Holder successfully!");
+    const response = await res.json();
+    // ถ้า API ส่งกลับว่าไม่โอเค ให้แสดงข้อผิดพลาด
+    alert("พักออเดอร์สำเร็จ");
     setTriggleRefetch(Date.now());
+    setHoldMode(true);
+    setHoldOrderNum(response.num);
     get().clearCart();
   } catch (error) {
     if (error instanceof Error) {
