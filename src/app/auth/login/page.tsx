@@ -5,13 +5,12 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import { useSession } from "next-auth/react";
+
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setIsLoading, isLoading } = useLoadingStore();
   const router = useRouter();
-  const { data: session } = useSession();
 
   const handleLogin = async () => {
     setIsLoading(false);
@@ -21,16 +20,14 @@ export default function LoginPage() {
       redirect: false,
     });
     if (res?.ok) {
-      router.push("/pos"); // เปลี่ยนจาก replace เป็น push
+      router.replace("/pos"); // เปลี่ยน push เป็น replace
+      router.refresh(); // บังคับโหลด server ใหม่
       alert("Login สำเร็จ");
     } else {
       alert("Invalid username or password!");
     }
     setIsLoading(true);
   };
-  useEffect(() => {
-    router.push("/pos");
-  }, [session?.user]);
   return (
     <div className="xxs:mx-10 xs:mx-14 sm:mx-28 md:mx-44 flex flex-col items-center gap-4">
       <h2 className="text-slate-700 dark:text-green-400 xxs:text-xl sm:text-2xl md:text-3xl font-bold">

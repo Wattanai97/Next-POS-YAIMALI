@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 import SalesReportPage from "@/components/sale-report";
+import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 const Page = () => {
-  const router = useRouter();
-  const { data: session } = useSession();
+  const pathname = usePathname();
+  const { data: session, status } = useSession();
   useEffect(() => {
-    if (!session?.user.username) {
-      router.push("/auth/login");
+    if (status === "unauthenticated" && pathname === "/report") {
+      redirect("/auth/login");
     }
-  }, [session?.user.username]);
+  }, [session?.user.username, status, pathname]);
   return (
     <div>
       <SalesReportPage />

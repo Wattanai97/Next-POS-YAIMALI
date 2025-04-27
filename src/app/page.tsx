@@ -7,19 +7,22 @@ import { useEffect } from "react";
 import LoadingSpinner from "@/components/loading-spiner";
 import ErrorMessage from "@/components/error-message";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
 export default function Home() {
-  const router = useRouter();
-  const { data: session } = useSession();
+  const pathname = usePathname();
+  const { data: session, status } = useSession();
   const { isLoading, error } = useLoadingStore();
   const { fetchOrders } = useFetchOrders();
   useEffect(() => {
     fetchOrders();
   }, []);
   useEffect(() => {
-    if (!session?.user.username) return router.push("/auth/login");
-  }, [session?.user.username]);
+    if (status === "unauthenticated" && pathname === "/") {
+      redirect("/auth/login");
+    }
+  }, [status, pathname, session?.user.username]);
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   return (
