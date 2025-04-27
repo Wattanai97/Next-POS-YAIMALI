@@ -56,7 +56,10 @@ export default function Navbar() {
             </button>
             <button
               className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300"
-              onClick={() => signOut({ callbackUrl: "/auth/login" })}
+              onClick={async () => {
+                await signOut({ callbackUrl: "/auth/login" }),
+                  alert("Logout สำเร็จ");
+              }}
             >
               ออกจากระบบ
             </button>
@@ -108,7 +111,10 @@ export default function Navbar() {
               </button>
               <button
                 className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
-                onClick={() => signOut({ callbackUrl: "/auth/login" })}
+                onClick={async () => {
+                  await signOut({ callbackUrl: "/auth/login" }),
+                    alert("Logout สำเร็จ");
+                }}
               >
                 ออกจากระบบ
               </button>
