@@ -12,7 +12,7 @@ import { ThemeToggle } from "./theme-toggle";
 export default function Navbar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false); // ✅ State สำหรับเปิด/ปิด Sidebar
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
   // ✅ ปิด Sidebar เมื่อเปลี่ยนหน้า
   const handleClose = () => setIsOpen(false);
 
@@ -108,15 +108,7 @@ export default function Navbar() {
               </button>
               <button
                 className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
-                onClick={async () => {
-                  await signOut({ redirect: false });
-                  await update();
-                  router.replace("/auth/login"); // ✅ Logout แล้วไปที่หน้า login ทันที
-                  router.push("/auth/login"); // Ensure you navigate to login page
-                  router.refresh();
-                  alert("Logout สำเร็จ!");
-                  handleClose();
-                }}
+                onClick={() => signOut({ callbackUrl: "/auth/login" })}
               >
                 ออกจากระบบ
               </button>
