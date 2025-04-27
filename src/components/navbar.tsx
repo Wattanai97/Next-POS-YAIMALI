@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -14,7 +14,9 @@ export default function Navbar() {
 
   // ✅ ปิด Sidebar เมื่อเปลี่ยนหน้า
   const handleClose = () => setIsOpen(false);
-
+  useEffect(() => {
+    router.push("/auth/login");
+  }, [session?.user.username]);
   return (
     <nav className="bg-slate-400/30 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
       {/* Left Side */}
@@ -57,7 +59,8 @@ export default function Navbar() {
               className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300"
               onClick={async () => {
                 await signOut({ redirect: false });
-                router.replace("/auth/login"); // ✅ Logout แล้วไปที่หน้า login ทันที
+                router.push("/auth/login"); // ✅ Logout แล้วไปที่หน้า login ทันที
+                alert("Logout สำเร็จ");
               }}
             >
               ออกจากระบบ

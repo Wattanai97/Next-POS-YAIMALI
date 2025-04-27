@@ -12,8 +12,11 @@ import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
 import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
 import FetchOrders from "@/hooks/use-fetch-orders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function POSPage() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const { error, isLoading } = useLoadingStore();
   const { fetchHoldOrders } = useFetchHoldOrders();
   const { fetchOrders } = FetchOrders();
@@ -25,6 +28,11 @@ export default function POSPage() {
     fetchOrders();
     fetchHoldOrders();
   }, [triggerRefetch]);
+  useEffect(() => {
+    if (!session?.user.username) {
+      router.push("/auth/login");
+    }
+  }, [session?.user.username]);
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   return (

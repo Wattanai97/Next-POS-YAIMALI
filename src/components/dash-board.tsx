@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LineChartCustomer from "./forDashBoardPage/linechart-customer";
 import LineChartTotal from "./forDashBoardPage/linechart-total";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,10 +6,18 @@ import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import TableViewTransactions from "./forDashBoardPage/tableview-transactions";
 import CardViewTransactions from "./forDashBoardPage/cardview-transactions";
 import LoadingSpinner from "./loading-spiner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 export default function Dashboard() {
+  const router = useRouter();
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (!session?.user.username) {
+      router.push("/auth/login");
+    }
+  }, [session?.user.username]);
   const { orders } = useOrderStore();
   if (orders.length === 0 || !orders) <LoadingSpinner />;
-
   return (
     <div>
       {/* Order Card,Transaction bill View */}
