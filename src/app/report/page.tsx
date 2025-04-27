@@ -12,9 +12,9 @@ const page = () => {
     }
   }, [session?.user.username]);
   return (
-    <div>
+    <>
       <SalesReportPage />
-    </div>
+    </>
   );
 };
 
