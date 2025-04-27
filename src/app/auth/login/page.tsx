@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
+import LoadingSpinner from "@/components/loading-spiner";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -28,6 +29,7 @@ export default function LoginPage() {
     }
     setIsLoading(true);
   };
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className="xxs:mx-10 xs:mx-14 sm:mx-28 md:mx-44 flex flex-col items-center gap-4">
       <h2 className="text-slate-700 dark:text-green-400 xxs:text-xl sm:text-2xl md:text-3xl font-bold">
