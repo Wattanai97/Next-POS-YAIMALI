@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${itim.className} antialiased bg-slate-900/30 dark:bg-gray-950`}
+        className={`${itim.className} antialiased bg-slate-900/10 dark:bg-gray-950`}
       >
         <Providers>
           <ThemeProvider>

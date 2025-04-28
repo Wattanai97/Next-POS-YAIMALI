@@ -11,7 +11,7 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 // import { redirect } from "next/navigation";
 
 export default function Navbar() {
-  const { setIsAuthLoading, isAuthLoading } = useLoadingStore();
+  const { setIsAuthLoading, isAuthLoading, isLoading } = useLoadingStore();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false); // ✅ State สำหรับเปิด/ปิด Sidebar
   const { data: session } = useSession();
@@ -38,6 +38,7 @@ export default function Navbar() {
         Loading...
       </p>
     );
+  if (isLoading) return <div></div>;
 
   return (
     <nav className="bg-blue-300/70 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 relative">
