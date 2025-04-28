@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -29,19 +28,25 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     setIsAuthLoading(false);
-    const res = await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
-    if (res?.ok) {
-      router.replace("/pos");
-      router.refresh();
-      alert("Login สำเร็จ");
-    } else {
-      alert("Invalid username or password!");
+    try {
+      const res = await signIn("credentials", {
+        username,
+        password,
+        redirect: false,
+      });
+      if (res?.ok) {
+        router.replace("/pos");
+        router.refresh();
+        alert("Login สำเร็จ");
+      } else {
+        alert("Invalid username or password!");
+      }
+    } catch (error) {
+      if (error instanceof Error)
+        return console.log(`Error message => ${error.message}`);
+    } finally {
+      setIsAuthLoading(true);
     }
-    setIsAuthLoading(true);
   };
 
   if (isAuthLoading) return <AuthLoading />;
