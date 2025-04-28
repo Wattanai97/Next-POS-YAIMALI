@@ -11,16 +11,17 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 // import { redirect } from "next/navigation";
 
 export default function Navbar() {
-  const { setIsAuthLoading } = useLoadingStore();
+  const { setIsAuthLoading, isAuthLoading } = useLoadingStore();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false); // ✅ State สำหรับเปิด/ปิด Sidebar
   const { data: session } = useSession();
   // ✅ ปิด Sidebar เมื่อเปลี่ยนหน้า
   const handleClose = () => setIsOpen(false);
+
   const handlerSingout = async () => {
+    setIsAuthLoading(false);
     try {
       await signOut({ callbackUrl: "/auth/login" });
-      setIsAuthLoading(false);
       alert("Logout สำเร็จ");
     } catch (error) {
       if (error instanceof Error) {
@@ -30,6 +31,11 @@ export default function Navbar() {
       setIsAuthLoading(true);
     }
   };
+
+  if (isAuthLoading)
+    return (
+      <p className="text-center my-4 font-bold animate-bounce">Loading...</p>
+    );
 
   return (
     <nav className="bg-blue-300/70 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
