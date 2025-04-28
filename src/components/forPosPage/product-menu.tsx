@@ -11,14 +11,14 @@ const ProductMenu = () => {
         {filteredProducts.map((product) => (
           <Card
             key={product.productId.toString()}
-            className="p-0.5 m-0.5 border border-solid border-black dark:border-white"
+            className="p-0.5 m-0.5 border border-solid border-black dark:border-white relative"
           >
             <CardContent>
               <h3>{product.name}</h3>
-              <div className="flex justify-between mb-2">
-                <p>฿{product.price}</p>
+              <p>฿{product.price}</p>
+              <div className="absolute bottom-2.5 right-3">
                 <button
-                  className="delete-button"
+                  className="delete-button hover:scale-125"
                   onClick={() => addToCart(product)}
                 >
                   +

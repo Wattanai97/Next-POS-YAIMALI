@@ -67,6 +67,18 @@ export const products: Product[] = [
     price: 80,
   },
   {
+    productId: "Kapow-Pork",
+    category: "Foods",
+    name: "ข้าวกะเพราหมู ธรรมดา",
+    price: 65,
+  },
+  {
+    productId: "Kapow-Pork-xl",
+    category: "Foods",
+    name: "ข้าวกะเพราหมู พิเศษ",
+    price: 75,
+  },
+  {
     productId: "Noodle-Kapow-Beef",
     category: "Foods",
     name: "เส้น+กะเพราเนื้อ ธรรมดา",
@@ -77,6 +89,18 @@ export const products: Product[] = [
     category: "Foods",
     name: "เส้น+กะเพราเนื้อ พิเศษ",
     price: 80,
+  },
+  {
+    productId: "Noodle-Kapow-Pork",
+    category: "Foods",
+    name: "เส้น+กะเพราหมู ธรรมดา",
+    price: 65,
+  },
+  {
+    productId: "Noodle-Kapow-Pork-xl",
+    category: "Foods",
+    name: "เส้น+กะเพราหมู พิเศษ",
+    price: 75,
   },
   {
     productId: "Rice",

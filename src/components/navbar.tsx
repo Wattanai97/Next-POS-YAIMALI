@@ -40,12 +40,20 @@ export default function Navbar() {
     );
 
   return (
-    <nav className="bg-blue-300/70 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
+    <nav className="bg-blue-300/70 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 relative">
       {/* Left Side */}
       <div className="text-xl font-bold flex">
-        <Link className="me-4 mt-1" href="/pos">
-          POS
-        </Link>
+        <button
+          onClick={() => {
+            router.push("/pos");
+          }}
+          className="btn-navbar button-navbar mx-2 absolute right-4 bottom-1"
+        >
+          <Link className="italic" href="/pos">
+            {" "}
+            POS
+          </Link>
+        </button>
         <ThemeToggle />
       </div>
 

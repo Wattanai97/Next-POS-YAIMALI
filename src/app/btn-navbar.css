@@ -61,12 +61,12 @@ button.btn-navbar:active::before {
 
 /* Light Theme */
 :root {
-  --btn-bg: #fff8f8;
-  --btn-hover-bg: #ffe9e9;
-  --btn-text-color: #382b22;
-  --btn-border: #b18597;
-  --btn-before-bg: #f9c4d2;
-  --btn-shadow: #ffe3e2;
+  --btn-bg: #eef2f6; /* ฟ้าเทาอ่อน สบายตา */
+  --btn-hover-bg: #d6e4ef; /* ฟ้าอ่อนขึ้นเวลาฮอฟ */
+  --btn-text-color: #1e293b; /* น้ำเงินเข้ม อ่านง่าย */
+  --btn-border: #a0aec0; /* เทาน้ำเงินอ่อน */
+  --btn-before-bg: #dbe7f3; /* เทาฟ้าอ่อนนุ่ม */
+  --btn-shadow: #cbd5e1; /* เงาฟ้าเทา */
 }
 
 /* Dark Theme */
