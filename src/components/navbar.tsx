@@ -34,7 +34,9 @@ export default function Navbar() {
 
   if (isAuthLoading)
     return (
-      <p className="text-center my-4 font-bold animate-bounce">Loading...</p>
+      <p className="text-center mt-20 font-bold animate-bounce text-slate-950 dark:text-slate-100/80 text-3xl">
+        Loading...
+      </p>
     );
 
   return (

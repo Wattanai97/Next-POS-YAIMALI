@@ -10,10 +10,11 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
+import AuthLoading from "@/components/auth-loading";
 export default function Home() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
-  const { isLoading, error } = useLoadingStore();
+  const { isLoading, error, isAuthLoading } = useLoadingStore();
   const { fetchOrders } = useFetchOrders();
   useEffect(() => {
     fetchOrders();
@@ -24,6 +25,7 @@ export default function Home() {
     }
   }, [status, pathname, session?.user.username]);
   if (isLoading) return <LoadingSpinner />;
+  if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <>

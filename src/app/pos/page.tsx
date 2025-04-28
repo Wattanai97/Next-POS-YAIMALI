@@ -14,10 +14,11 @@ import FetchOrders from "@/hooks/use-fetch-orders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import AuthLoading from "@/components/auth-loading";
 export default function POSPage() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
-  const { error, isLoading } = useLoadingStore();
+  const { error, isLoading, isAuthLoading } = useLoadingStore();
   const { fetchHoldOrders } = useFetchHoldOrders();
   const { fetchOrders } = FetchOrders();
   const { closeHold, openHold, isVisible, isAnimatingOut, finishAnimation } =
@@ -34,6 +35,7 @@ export default function POSPage() {
     }
   }, [pathname, status, session?.user.username]);
   if (isLoading) return <LoadingSpinner />;
+  if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <div className="px-4 relative inset-0">
