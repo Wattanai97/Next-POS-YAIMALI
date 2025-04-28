@@ -1,56 +1,89 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import LoadingSpinner from "@/components/loading-spiner";
+import AuthLoading from "@/components/auth-loading";
+interface AnimatedLabelProps {
+  text: string;
+}
+
+const AnimatedLabel: React.FC<AnimatedLabelProps> = ({ text }) => {
+  return (
+    <label>
+      {text.split("").map((char, index) => (
+        <span key={index} style={{ transitionDelay: `${index * 50}ms` }}>
+          {char}
+        </span>
+      ))}
+    </label>
+  );
+};
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setIsLoading, isLoading } = useLoadingStore();
+  const { isAuthLoading, setIsAuthLoading } = useLoadingStore();
   const router = useRouter();
 
   const handleLogin = async () => {
-    setIsLoading(false);
+    setIsAuthLoading(false);
     const res = await signIn("credentials", {
       username,
       password,
       redirect: false,
     });
     if (res?.ok) {
-      router.replace("/pos"); // เปลี่ยน push เป็น replace
-      router.refresh(); // บังคับโหลด server ใหม่
+      router.replace("/pos");
+      router.refresh();
       alert("Login สำเร็จ");
     } else {
       alert("Invalid username or password!");
     }
-    setIsLoading(true);
+    setIsAuthLoading(true);
   };
-  if (isLoading) return <LoadingSpinner />;
+
+  if (isAuthLoading) return <AuthLoading />;
+
   return (
-    <div className="xxs:mx-10 xs:mx-14 sm:mx-28 md:mx-44 flex flex-col items-center gap-4">
-      <h2 className="text-slate-700 dark:text-green-400 xxs:text-xl sm:text-2xl md:text-3xl font-bold">
+    <div className="flex flex-col items-center mt-8 gap-8">
+      <h2 className="text-slate-950 italic dark:text-green-400 text-3xl font-bold">
         Login
       </h2>
-      <Input
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        className="text-black dark:text-white placeholder:text-white"
-      />
-      <Input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="text-black dark:text-white placeholder:text-white"
-      />
-      <Button onClick={handleLogin} disabled={isLoading}>
-        Login
-      </Button>
+
+      <div className="flex flex-col gap-y-1">
+        {/* Username */}
+        <div className="form-control">
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <AnimatedLabel text="Username" />
+        </div>
+
+        {/* Password */}
+        <div className="form-control">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <AnimatedLabel text="Password" />
+        </div>
+
+        {/* Button */}
+        <button
+          onClick={handleLogin}
+          className="btn-navbar button-navbar mt-4"
+          disabled={isAuthLoading}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }

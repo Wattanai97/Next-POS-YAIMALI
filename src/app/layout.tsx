@@ -4,11 +4,13 @@ import Providers from "./providers";
 import "./globals.css";
 import "./hold-clear-btn.css";
 import "./paybtn.css";
+import "./btn-navbar.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Itim } from "next/font/google";
 import "./deletetocartbtn.css";
-
+import "./forminput.css";
+import "./SvgFrame.css";
 const itim = Itim({
   subsets: ["latin"],
   weight: ["400"],
@@ -27,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${itim.className} antialiased bg-gay-700/40 bg-opacity-70 dark:bg-black dark:bg-opacity-50`}
+        className={`${itim.className} antialiased bg-slate-900/30 dark:bg-gray-950`}
       >
         <Providers>
           <ThemeProvider>
