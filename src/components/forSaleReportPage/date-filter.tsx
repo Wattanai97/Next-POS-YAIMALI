@@ -2,13 +2,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@/components/ui/button";
 import { DateRangeType } from "@/hooks/forSaleReports/use-report-pagination";
+
 type Props = {
   tempDate: Date | null;
-  setTempDate: (date: Date | null) => void;
-  setSelectedDate: (date: Date | null) => void;
-  setCurrentPage: (page: number) => void;
-  dateRange: "daily" | "weekly" | "monthly" | "all";
-  setDateRange: (range: "daily" | "weekly" | "monthly" | "all") => void;
+  setTempDate: (d: Date | null) => void;
+  setSelectedDate: (d: Date | null) => void;
+  setCurrentPage: (p: number) => void;
+  dateRange: DateRangeType;
+  setDateRange: (r: DateRangeType) => void;
 };
 
 export default function DateFilterToolbar({
@@ -21,13 +22,13 @@ export default function DateFilterToolbar({
 }: Props) {
   return (
     <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-      <div className="flex flex-col md:flex-row md:items-center gap-2">
-        <label className="font-semibold">เลือกวันที่: </label>
+      <div className="flex items-center gap-2">
+        <label className="font-semibold">เลือกวันที่:</label>
         <DatePicker
           selected={tempDate}
-          onChange={(date) => setTempDate(date)}
+          onChange={(d) => setTempDate(d)}
           dateFormat="dd/MM/yyyy"
-          className="border p-2 rounded w-full md:w-auto"
+          className="border p-2 rounded"
         />
         <select
           value={dateRange}
@@ -39,7 +40,6 @@ export default function DateFilterToolbar({
           <option value="monthly">🗓 30 วันย้อนหลัง</option>
           <option value="all">🌐 ดูทั้งหมด</option>
         </select>
-
         <Button
           onClick={() => {
             setSelectedDate(tempDate);

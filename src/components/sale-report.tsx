@@ -2,10 +2,10 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSalesReport } from "../hooks/forSaleReports/use-report-pagination";
-import { generateDateList } from "../hooks/forSaleReports/genarate-datelist";
 import DateFilterToolbar from "./forSaleReportPage/date-filter";
 import PaginationControls from "./forSaleReportPage/report-page-control";
 import OrderCard from "./forSaleReportPage/order-card";
+
 export default function SalesReportPage() {
   const {
     dateRange,
@@ -21,8 +21,9 @@ export default function SalesReportPage() {
     totalSales,
     totalCustomers,
     totalOrders,
-    totalPages,
+    totalPages, // from daily/all
   } = useSalesReport();
+
   return (
     <div className="p-5 max-w-4xl mx-auto">
       <Card>
@@ -45,83 +46,44 @@ export default function SalesReportPage() {
           </div>
 
           <div className="mt-4 max-h-[500px] overflow-auto">
-            {dateRange === "daily" ? (
-              // รายวัน
-              displayedOrders.length === 0 ? (
-                <p className="text-center text-gray-500 mt-4">
-                  ไม่มีออเดอร์ในวันที่เลือก
-                </p>
-              ) : (
-                displayedOrders.map((order) => (
-                  <OrderCard
-                    key={order.num}
-                    order={order}
-                    isExpanded={expandedOrders.includes(order.num)}
-                    toggleDetails={toggleDetails}
-                  />
-                ))
-              )
-            ) : dateRange === "all" ? (
-              // ✅ รองรับกรณี "all"
-              displayedOrders.length === 0 ? (
-                <p className="text-center text-gray-500 mt-4">
-                  ไม่มีออเดอร์ในระบบ
-                </p>
-              ) : (
-                displayedOrders.map((order) => (
-                  <OrderCard
-                    key={order.num}
-                    order={order}
-                    isExpanded={expandedOrders.includes(order.num)}
-                    toggleDetails={toggleDetails}
-                  />
-                ))
-              )
+            {displayedOrders.length === 0 ? (
+              <p className="text-center mt-4 text-gray-500">
+                {dateRange === "daily"
+                  ? "ไม่มีออเดอร์ในวันที่เลือก"
+                  : dateRange === "weekly"
+                  ? "ไม่มีออเดอร์ในสัปดาห์นี้"
+                  : dateRange === "monthly"
+                  ? "ไม่มีออเดอร์ในเดือนนี้"
+                  : "ไม่มีออเดอร์ในระบบ"}
+              </p>
             ) : (
-              // รายสัปดาห์/เดือน
-              (tempDate &&
-                (dateRange === "weekly" || dateRange === "monthly") &&
-                generateDateList(tempDate, dateRange).map((date) => {
-                  const ordersForDate = displayedOrders.filter(
-                    (order) =>
-                      new Date(order.createdAt).toDateString() ===
-                      date.toDateString()
-                  );
-
-                  return ordersForDate.length === 0 ? (
-                    <div
-                      key={date.toISOString()}
-                      className="border border-gray-300 rounded-lg p-4 bg-gray-100 dark:bg-gray-800 text-center text-gray-500 dark:text-gray-300 mb-2"
-                    >
-                      <p className="font-medium">
-                        ไม่มียอดขายในวันที่ {date.toLocaleDateString("th-TH")}
-                      </p>
-                    </div>
-                  ) : (
-                    ordersForDate.map((order) => (
-                      <OrderCard
-                        key={order.num}
-                        order={order}
-                        isExpanded={expandedOrders.includes(order.num)}
-                        toggleDetails={toggleDetails}
-                      />
-                    ))
-                  );
-                })) || (
-                <p className="text-center text-gray-500 mt-4">
-                  ไม่มีข้อมูลวันที่
-                </p>
-              )
+              displayedOrders.map((o) => (
+                <OrderCard
+                  key={o.num}
+                  order={o}
+                  isExpanded={expandedOrders.includes(o.num)}
+                  toggleDetails={toggleDetails}
+                />
+              ))
             )}
           </div>
 
-          {totalPages > 1 && (
+          {/* Pagination */}
+          {(dateRange === "daily" || dateRange === "all") && totalPages > 1 && (
             <PaginationControls
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
             />
           )}
+          {(dateRange === "weekly" || dateRange === "monthly") &&
+            totalPages > 1 && (
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
         </CardContent>
       </Card>
     </div>

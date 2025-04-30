@@ -5,6 +5,7 @@ export function generateDateList(date: Date, range: "weekly" | "monthly") {
     for (let i = 6; i >= 0; i--) {
       const d = new Date(date);
       d.setDate(d.getDate() - i);
+      d.setHours(0, 0, 0, 0); // ✅ ปรับให้ไม่มีเวลา
       dates.push(d);
     }
   } else if (range === "monthly") {
@@ -13,7 +14,9 @@ export function generateDateList(date: Date, range: "weekly" | "monthly") {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     for (let i = 1; i <= daysInMonth; i++) {
-      dates.push(new Date(year, month, i));
+      const d = new Date(year, month, i);
+      d.setHours(0, 0, 0, 0); // ✅ ปรับให้ไม่มีเวลา
+      dates.push(d);
     }
   }
 
