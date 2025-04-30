@@ -34,6 +34,9 @@ export default function POSPage() {
       redirect("/auth/login");
     }
   }, [pathname, status, session?.user.username]);
+  useEffect(() => {
+    fetchHoldOrders();
+  }, []);
   if (isLoading) return <LoadingSpinner />;
   if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;
