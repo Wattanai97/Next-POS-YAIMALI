@@ -3,7 +3,7 @@ import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import { useMemo, useState } from "react";
 import { IOrder } from "@/lib/store/useorders-hold-orders";
 const ORDERS_PER_PAGE = 10;
-type DateRangeType = "daily" | "weekly" | "monthly" | "all";
+export type DateRangeType = "daily" | "weekly" | "monthly" | "all";
 export const useSalesReport = () => {
   const orders: IOrder[] = useOrderStore((state) => state.orders);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

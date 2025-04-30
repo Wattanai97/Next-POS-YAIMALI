@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@/components/ui/button";
-
+import { DateRangeType } from "@/hooks/forSaleReports/use-report-pagination";
 type Props = {
   tempDate: Date | null;
   setTempDate: (date: Date | null) => void;
@@ -31,7 +31,7 @@ export default function DateFilterToolbar({
         />
         <select
           value={dateRange}
-          onChange={(e) => setDateRange(e.target.value as any)}
+          onChange={(e) => setDateRange(e.target.value as DateRangeType)}
           className="border p-2 rounded"
         >
           <option value="daily">📅 รายวัน</option>
