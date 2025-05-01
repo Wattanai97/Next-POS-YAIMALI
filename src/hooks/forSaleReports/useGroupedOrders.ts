@@ -1,40 +1,50 @@
-import { useMemo } from "react";
-import { generateDateList } from "./genarate-datelist";
-import { IOrder } from "@/lib/store/useorders-hold-orders";
+// import { useMemo } from "react";
+// import { generateDateList } from "./genarate-datelist";
+// import { Order } from "@/components/forSaleReportPage/order-card";
 
-const CARDS_PER_PAGE = 10;
+// export function useGroupedOrders(
+//   orders: Order[],
+//   selectedDate: Date | null,
+//   range: "weekly" | "monthly",
+//   currentPage: number,
+//   itemsPerPage = 10
+// ) {
+//   const groupedData = useMemo(() => {
+//     if (!selectedDate || orders.length === 0) {
+//       return { pages: [[]], totalPages: 1 };
+//     }
 
-export function useGroupedOrders(
-  filteredOrders: IOrder[],
-  selectedDate: Date | null,
-  dateRange: "daily" | "weekly" | "monthly",
-  currentPage: number
-) {
-  const fullDateList = useMemo(() => {
-    if (!selectedDate || dateRange === "daily") return [];
-    return generateDateList(selectedDate, dateRange);
-  }, [selectedDate, dateRange]);
+//     // ✅ ใช้ฟังก์ชัน generateDateList ที่ import มา
+//     const daysInRange = generateDateList(selectedDate, range);
 
-  // เตรียมรายการ groupedOrders ทั้งหมด (รวมวันไม่มีออเดอร์ด้วย)
-  const allCards = useMemo(() => {
-    return fullDateList.map((date) => {
-      const day = date.toDateString();
-      const orders = filteredOrders.filter(
-        (o) => new Date(o.createdAt).toDateString() === day
-      );
-      return { date, orders };
-    });
-  }, [fullDateList, filteredOrders]);
+//     // ✅ จัดกลุ่มออเดอร์ตามวัน
+//     const grouped = daysInRange.map((date) => {
+//       const ordersOfDay = orders.filter((o) => {
+//         const orderDate = new Date(o.createdAt); // เปลี่ยนตรงนี้ให้ตรงกับ field ที่ใช้จริง
+//         return (
+//           orderDate.getDate() === date.getDate() &&
+//           orderDate.getMonth() === date.getMonth() &&
+//           orderDate.getFullYear() === date.getFullYear()
+//         );
+//       });
 
-  const totalPages = useMemo(
-    () => Math.ceil(allCards.length / CARDS_PER_PAGE),
-    [allCards.length]
-  );
+//       return { date, orders: ordersOfDay };
+//     });
 
-  const groupedOrders = useMemo(() => {
-    const start = (currentPage - 1) * CARDS_PER_PAGE;
-    return allCards.slice(start, start + CARDS_PER_PAGE);
-  }, [allCards, currentPage]);
+//     // ✅ แบ่งหน้า
+//     const pages: (typeof grouped)[] = [];
+//     for (let i = 0; i < grouped.length; i += itemsPerPage) {
+//       pages.push(grouped.slice(i, i + itemsPerPage));
+//     }
 
-  return { groupedOrders, totalPages };
-}
+//     return {
+//       pages,
+//       totalPages: pages.length,
+//     };
+//   }, [orders, selectedDate, range, currentPage, itemsPerPage]);
+
+//   return {
+//     groupedOrders: groupedData.pages[currentPage - 1] || [],
+//     totalPages: groupedData.totalPages,
+//   };
+// }
