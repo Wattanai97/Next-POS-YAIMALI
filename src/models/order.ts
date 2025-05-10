@@ -1,4 +1,5 @@
 import mongoose, { Document, Model } from "mongoose";
+
 export enum statusType {
   HOLD = "hold",
   PAID = "paid",
@@ -13,7 +14,7 @@ const Counter =
   mongoose.models.Counter || mongoose.model("Counter", counterSchema);
 
 // Interface กำหนด Type และรูปแบบโครงสร้างข้อมูลของใบเสร็จ
-interface IOrder extends Document {
+export interface IOrder extends Document {
   num: number; // เลขที่บิล อ้างอิงจาก seq ใน model Conuters
   items: {
     productId: string; //

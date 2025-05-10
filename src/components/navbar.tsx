@@ -11,33 +11,50 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 // import { redirect } from "next/navigation";
 
 export default function Navbar() {
-  const { setIsLoading } = useLoadingStore();
+  const { setIsAuthLoading, isAuthLoading, isLoading } = useLoadingStore();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false); // ✅ State สำหรับเปิด/ปิด Sidebar
   const { data: session } = useSession();
   // ✅ ปิด Sidebar เมื่อเปลี่ยนหน้า
   const handleClose = () => setIsOpen(false);
+
   const handlerSingout = async () => {
+    setIsAuthLoading(false);
     try {
       await signOut({ callbackUrl: "/auth/login" });
-      setIsLoading(false);
       alert("Logout สำเร็จ");
     } catch (error) {
       if (error instanceof Error) {
         console.log(`Error Message = ${error.message}`);
       }
     } finally {
-      setIsLoading(true);
+      setIsAuthLoading(true);
     }
   };
 
+  if (isAuthLoading)
+    return (
+      <p className="text-center mt-20 font-bold animate-bounce text-slate-950 dark:text-slate-100/80 text-3xl">
+        Loading...
+      </p>
+    );
+  if (isLoading) return <div></div>;
+
   return (
-    <nav className="bg-slate-400/30 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 ">
+    <nav className="bg-blue-300/70 dark:bg-slate-800 dark:bg-opacity-30 text-black backdrop-blur-none dark:text-white py-3 px-6 flex justify-between items-center mb-2 relative">
       {/* Left Side */}
       <div className="text-xl font-bold flex">
-        <Link className="me-4 mt-1" href="/pos">
-          POS
-        </Link>
+        <button
+          onClick={() => {
+            router.push("/pos");
+          }}
+          className="btn-navbar button-navbar mx-2 absolute right-4 bottom-1"
+        >
+          <Link className="italic" href="/pos">
+            {" "}
+            POS
+          </Link>
+        </button>
         <ThemeToggle />
       </div>
 
@@ -45,13 +62,10 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-4">
         {!session?.user?.username ? (
           <>
-            <button
-              disabled
-              className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300"
-            >
+            <button disabled className="button-navbar btn-navbar mb-2.5 top-0">
               <Link href="/auth/register">สมัครสมาชิก</Link>
             </button>
-            <button className=" dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300">
+            <button className="button-navbar btn-navbar mb-2.5 top-0">
               <Link href="/auth/login">เข้าสู่ระบบ</Link>
             </button>
           </>
@@ -64,13 +78,13 @@ export default function Navbar() {
               <span>{session.user.role}</span>
             </div>
             <button
-              className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-sky-600 hover:scale-110 duration-300"
+              className="button-navbar btn-navbar mb-2.5 top-0"
               onClick={() => router.push(`/`)}
             >
               Dashboard
             </button>
             <button
-              className="dark:bg-black/50 text-white dark:text-green-400 px-3 py-1 rounded-lg bg-violet-600 hover:scale-110 duration-300"
+              className="button-navbar btn-navbar mb-2.5 top-0"
               onClick={handlerSingout}
             >
               ออกจากระบบ
@@ -97,13 +111,13 @@ export default function Navbar() {
           {!session?.user.username ? (
             <>
               <button
-                className="mt-8 text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
+                className="button-navbar btn-navbar my-1.5"
                 onClick={handleClose}
               >
                 <Link href="/auth/register">สมัครสมาชิก</Link>
               </button>
               <button
-                className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
+                className="button-navbar btn-navbar my-1.5"
                 onClick={handleClose}
               >
                 <Link href="/auth/login">เข้าสู่ระบบ</Link>
@@ -113,7 +127,7 @@ export default function Navbar() {
             <>
               <span className="text-lg">ยินดีต้อนรับ</span>
               <button
-                className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300 hover:bg-gray-600"
+                className="button-navbar btn-navbar my-1.5"
                 onClick={() => {
                   router.push(`/`);
                   handleClose();
@@ -122,7 +136,7 @@ export default function Navbar() {
                 Dashboard
               </button>
               <button
-                className="text-slate-950 bg-slate-300 dark:bg-black dark:text-slate-300"
+                className="button-navbar btn-navbar my-1.5"
                 onClick={handlerSingout}
               >
                 ออกจากระบบ

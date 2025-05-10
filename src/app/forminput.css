@@ -1,0 +1,75 @@
+/* Form Control Container */
+.form-control {
+  position: relative;
+  margin: 0.2em 0 0.5em;
+  width: 230px;
+}
+
+/* Input Style */
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px solid;
+  border-color: #fff; /* Default white border (for dark mode) */
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #fff; /* Default text color (for dark mode) */
+}
+
+/* Focus and Valid States */
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: lightblue;
+}
+
+/* Label Container */
+.form-control label {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Each Letter */
+.form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  color: #fff; /* Default label text (for dark mode) */
+}
+
+/* On Focus or Valid: Move text up */
+.form-control input:focus + label span,
+.form-control input:valid + label span {
+  color: lightblue;
+  transform: translateY(-30px);
+}
+
+/* -------------------------------------------
+   Light Mode Override 
+--------------------------------------------*/
+
+/* When html has class="light" (Tailwind 'light' mode) */
+html.light .form-control input {
+  border-color: #333; /* Darker border for light mode */
+  color: #333; /* Darker text for light mode */
+}
+
+html.light .form-control label span {
+  color: #333; /* Darker label text for light mode */
+}
+
+/* Focus or valid will still be lightblue */
+html.light .form-control input:focus,
+html.light .form-control input:valid {
+  border-bottom-color: black;
+}
+
+html.light .form-control input:focus + label span,
+html.light .form-control input:valid + label span {
+  color: black;
+}

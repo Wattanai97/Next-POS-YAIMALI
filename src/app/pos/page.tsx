@@ -14,10 +14,11 @@ import FetchOrders from "@/hooks/use-fetch-orders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import AuthLoading from "@/components/auth-loading";
 export default function POSPage() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
-  const { error, isLoading } = useLoadingStore();
+  const { error, isLoading, isAuthLoading } = useLoadingStore();
   const { fetchHoldOrders } = useFetchHoldOrders();
   const { fetchOrders } = FetchOrders();
   const { closeHold, openHold, isVisible, isAnimatingOut, finishAnimation } =
@@ -33,15 +34,19 @@ export default function POSPage() {
       redirect("/auth/login");
     }
   }, [pathname, status, session?.user.username]);
+  useEffect(() => {
+    fetchHoldOrders();
+  }, []);
   if (isLoading) return <LoadingSpinner />;
+  if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <div className="px-4 relative inset-0">
       {/* ปุ่มดูออเดอร์พัก  HoldOrders */}
-      <div className="flex justify-center xxs:my-3 my-2 xxs:right-3 sm:right-6 xxs:top-5 sm:top-0 absolute z-20">
+      <div className="flex justify-center xxs:top-4 my-2 xxs:right-5 sm:right-6 sm:top-0 absolute z-20">
         <button
           onClick={isVisible ? closeHold : openHold}
-          className="bg-violet-700 text-white xxs:px-0.5 xxs:py-0.5 sm:px-3 sm:py-1 rounded-md hover:scale-105 transition"
+          className="btn-navbar button-navbar"
         >
           ดูออเดอร์ที่พักไว้
         </button>

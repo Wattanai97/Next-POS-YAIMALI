@@ -2,11 +2,15 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSalesReport } from "../hooks/forSaleReports/use-report-pagination";
+
 import DateFilterToolbar from "./forSaleReportPage/date-filter";
 import PaginationControls from "./forSaleReportPage/report-page-control";
 import OrderCard from "./forSaleReportPage/order-card";
+
 export default function SalesReportPage() {
   const {
+    dateRange,
+    setDateRange,
     tempDate,
     setTempDate,
     setSelectedDate,
@@ -18,8 +22,9 @@ export default function SalesReportPage() {
     totalSales,
     totalCustomers,
     totalOrders,
-    totalPages,
+    totalPages, // from daily/all
   } = useSalesReport();
+
   return (
     <div className="p-5 max-w-4xl mx-auto">
       <Card>
@@ -32,6 +37,8 @@ export default function SalesReportPage() {
             setTempDate={setTempDate}
             setSelectedDate={setSelectedDate}
             setCurrentPage={setCurrentPage}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
           />
 
           <div className="bg-gray-100 dark:text-slate-950 p-4 rounded-lg text-center font-semibold text-lg">
@@ -41,28 +48,43 @@ export default function SalesReportPage() {
 
           <div className="mt-4 max-h-[500px] overflow-auto">
             {displayedOrders.length === 0 ? (
-              <p className="text-center text-gray-500 mt-4">
-                ไม่มีออเดอร์ในวันที่เลือก
+              <p className="text-center mt-4 text-gray-500">
+                {dateRange === "daily"
+                  ? "ไม่มีออเดอร์ในวันที่เลือก"
+                  : dateRange === "weekly"
+                  ? "ไม่มีออเดอร์ในสัปดาห์นี้"
+                  : dateRange === "monthly"
+                  ? "ไม่มีออเดอร์ในเดือนนี้"
+                  : "ไม่มีออเดอร์ในระบบ"}
               </p>
             ) : (
-              displayedOrders.map((order) => (
+              displayedOrders.map((o) => (
                 <OrderCard
-                  key={order.num}
-                  order={order}
-                  isExpanded={expandedOrders.includes(order.num)}
+                  key={o.num}
+                  order={o}
+                  isExpanded={expandedOrders.includes(o.num)}
                   toggleDetails={toggleDetails}
                 />
               ))
             )}
           </div>
 
-          {totalPages > 1 && (
+          {/* Pagination */}
+          {(dateRange === "daily" || dateRange === "all") && totalPages > 1 && (
             <PaginationControls
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
             />
           )}
+          {(dateRange === "weekly" || dateRange === "monthly") &&
+            totalPages > 1 && (
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
         </CardContent>
       </Card>
     </div>

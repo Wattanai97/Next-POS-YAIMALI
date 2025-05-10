@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 type Props = {
   currentPage: number;
   totalPages: number;
-  setCurrentPage: (page: number) => void;
+  setCurrentPage: (p: number) => void;
 };
 
 export default function PaginationControls({

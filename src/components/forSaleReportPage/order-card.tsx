@@ -8,7 +8,7 @@ type OrderItem = {
   quantity: number;
 };
 
-type Order = {
+export type Order = {
   num: number;
   createdAt: string;
   total: number;
@@ -17,12 +17,23 @@ type Order = {
 };
 
 type Props = {
-  order: Order;
+  order: Order | null;
   isExpanded: boolean;
   toggleDetails: (num: number) => void;
 };
 
 export default function OrderCard({ order, isExpanded, toggleDetails }: Props) {
+  // ตรวจสอบว่า order มีค่าอยู่จริงหรือไม่
+  if (!order) {
+    return (
+      <Card className="mt-4">
+        <CardContent>
+          <p className="text-center text-gray-500">ไม่มีข้อมูลออเดอร์</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="mt-4">
       <CardContent>
