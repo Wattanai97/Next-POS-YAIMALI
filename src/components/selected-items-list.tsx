@@ -37,19 +37,19 @@ const SelectedItemsList = () => {
   }
 
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-4 ">
       {selectedItems.map((item, index) => (
         <li
           key={index}
           className="border border-gray-200 rounded-lg p-4 shadow-sm text-start"
         >
-          <p className="font-medium text-sm text-gray-800">🍜 {item.title}</p>
+          <p className="font-medium text-sm text-zinc-900 dark:text-zinc-200">🍜 {item.title}</p>
           {item.detail && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-zinc-900 dark:text-zinc-200">
               📝รายละเอียด : {item.detail}
             </p>
           )}
-          <p className="text-sm text-gray-600">🔢 จำนวน : {item.quantity}</p>
+          <p className="text-sm text-zinc-900 dark:text-zinc-200">🔢 จำนวน : {item.quantity}</p>
           <div className="flex justify-end">
             <button
               className="button-navbar btn-navbar"

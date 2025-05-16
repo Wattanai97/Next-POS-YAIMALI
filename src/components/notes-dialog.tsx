@@ -9,11 +9,12 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import AuthLoading from "./auth-loading";
 import ErrorMessage from "./error-message";
 export function NotesDialog() {
-  const { error, isLoading } = useLoadingStore();
+  const { error, isLoading, setIsLoading } = useLoadingStore();
   const { fetchNodesOrders } = useFetchNodesOrders();
   const { isOpen, message, close } = useNotesConfirmStore();
   const { checkboxLabels, detail, quantity, clearSelection } = useNodesStore();
   const handleConfirm = async () => {
+    setIsLoading(false);
     const API_BASE_URL =
       process.env.NEXT_PUBLIC_API_URL || "https://pos-yaimali.vercel.app";
     const title = checkboxLabels.join(", ");
@@ -28,6 +29,7 @@ export function NotesDialog() {
         console.log("✅ บันทึกลง DB สำเร็จ");
         clearSelection();
         await fetchNodesOrders(); // ดึงข้อมูลใหม่มาใส่ selectedItems
+        setIsLoading(true);
       }
     } catch (err) {
       console.error("❌ บันทึกไม่สำเร็จ", err);
