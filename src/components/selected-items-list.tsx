@@ -26,8 +26,10 @@ const SelectedItemsList = () => {
 
       // อัปเดตรายการหลังจากลบ
       setSelectedItems(selectedItems.filter((item) => item._id !== id));
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
     } finally {
       setIsLoading(true);
     }
@@ -43,13 +45,17 @@ const SelectedItemsList = () => {
           key={index}
           className="border border-gray-200 rounded-lg p-4 shadow-sm text-start"
         >
-          <p className="font-medium text-sm text-zinc-900 dark:text-zinc-200">🍜 {item.title}</p>
+          <p className="font-medium text-sm text-zinc-900 dark:text-zinc-200">
+            🍜 {item.title}
+          </p>
           {item.detail && (
             <p className="text-sm text-zinc-900 dark:text-zinc-200">
               📝รายละเอียด : {item.detail}
             </p>
           )}
-          <p className="text-sm text-zinc-900 dark:text-zinc-200">🔢 จำนวน : {item.quantity}</p>
+          <p className="text-sm text-zinc-900 dark:text-zinc-200">
+            🔢 จำนวน : {item.quantity}
+          </p>
           <div className="flex justify-end">
             <button
               className="button-navbar btn-navbar"
