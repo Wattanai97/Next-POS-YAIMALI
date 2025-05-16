@@ -1,10 +1,11 @@
-// hooks/useSalesReport.ts
+// hooks/useSalesReportPagination.ts
 import { useOrderStore } from "@/lib/store/useorders-hold-orders";
 import { useMemo, useState } from "react";
-import { IOrder } from "@/lib/store/useorders-hold-orders";
-const ORDERS_PER_PAGE = 10;
-export type DateRangeType = "daily" | "weekly" | "monthly" | "all";
-export const useSalesReport = () => {
+import { IOrder } from "@/lib/store/useorders-hold-orders"; // Type IOrder
+const ORDERS_PER_PAGE = 10; // Static ORDERS_PER_PAGE
+export type DateRangeType = "daily" | "weekly" | "monthly" | "all"; // DateRange Type
+
+export const useSalesReportPagination = () => {
   const orders: IOrder[] = useOrderStore((state) => state.orders);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [tempDate, setTempDate] = useState<Date | null>(null);
@@ -27,11 +28,13 @@ export const useSalesReport = () => {
     endDate.setHours(23, 59, 59, 999); // ครอบคลุมทั้งวันที่เลือก
 
     const startDate = new Date(selectedDate);
+
     const rangeMap = {
       daily: 1,
       weekly: 7,
       monthly: 30,
     };
+
     const days = rangeMap[dateRange];
 
     startDate.setDate(startDate.getDate() - (days - 1));
@@ -56,9 +59,11 @@ export const useSalesReport = () => {
     (sum, o) => sum + o.customerCount,
     0
   );
+
   const totalOrders = filteredOrders.length;
 
   const totalPages = Math.ceil(totalOrders / ORDERS_PER_PAGE);
+
   const displayedOrders = filteredOrders.slice(
     (currentPage - 1) * ORDERS_PER_PAGE,
     currentPage * ORDERS_PER_PAGE

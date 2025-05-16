@@ -15,6 +15,7 @@ import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import AuthLoading from "@/components/auth-loading";
+
 export default function POSPage() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
@@ -59,12 +60,12 @@ export default function POSPage() {
           ${isAnimatingOut ? "animate-slideOutRight" : "animate-slideInRight"}`}
           onAnimationEnd={finishAnimation}
         >
-          {/* HoldOrders Component */}
+          {/* HoldOrders SlideWindow Component */}
           <MainwindowHoldOrders />
         </div>
       )}
 
-      {/* FilterType Button */}
+      {/* Filter Product Menu ByType Button Component */}
       <BtnFilterMenuByType />
 
       {/* Menu and Cart */}
@@ -78,7 +79,7 @@ export default function POSPage() {
       </div>
 
       <div className="xxs:flex xxs:flex-col sm:grid sm:grid-cols-2 gap-4 mt-4 relative">
-        {/* Product-Menu */}
+        {/* Product-Menu Component*/}
         <ProductMenu />
         <div className="flex flex-col min-h-0 max-h-[400px] overflow-auto border-2 border-black dark:border-white rounded-md p-2">
           <div className="flex justify-center">
@@ -86,9 +87,8 @@ export default function POSPage() {
               Cart
             </span>
           </div>
-          {/* ตะกร้าสินค้า */}
+          {/* CartSection-Component && BtnActionCart-Component */}
           <CartSection />
-          {/* ปุ่มควบคุมการพัก - ซื้อขาย ออเดอร์ */}
           <BtnActionCart />
         </div>
       </div>

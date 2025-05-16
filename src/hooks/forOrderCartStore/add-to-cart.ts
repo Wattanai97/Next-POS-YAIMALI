@@ -11,7 +11,6 @@ export const addToCart =
       (item) =>
         item.product.productId.toString() === product.productId.toString()
     );
-
     if (exists) {
       set({
         cart: current.map((item) =>

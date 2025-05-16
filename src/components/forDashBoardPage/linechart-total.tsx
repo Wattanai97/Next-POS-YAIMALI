@@ -11,6 +11,7 @@ import {
 } from "recharts";
 const LineChartTotal = () => {
   const { orders } = useOrderStore();
+
   const salesChartData = useMemo(() => {
     return orders.map((order) => ({
       date: formatThaiShortDateForReport(order.createdAt), // แปลงวันที่ให้อยู่ในรูปแบบไทย

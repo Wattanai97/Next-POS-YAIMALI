@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useOrderStore } from "@/lib/store/useorders-hold-orders";
-import { useSalesReport } from "@/hooks/forSaleReports/use-report-pagination";
+import { useSalesReportPagination } from "@/hooks/forSaleReports/use-report-pagination";
 import { RestoreAndUpdate } from "../../../hooks/forPosPage/restore-update-order";
 import DetailOrdersHold from "./detail-order-hold";
 
 const MainWindowHoldOrders = () => {
-  const { expandedOrders, toggleDetails } = useSalesReport();
+  const { expandedOrders, toggleDetails } = useSalesReportPagination();
   const { holdorders } = useOrderStore();
   return (
     <div className="bg-slate-300 dark:bg-black/80 mx-auto max-w-4xl  lg:max-h-[800px] lg:overflow-auto my-3  p-2 rounded-lg">

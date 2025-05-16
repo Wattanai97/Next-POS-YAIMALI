@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { DialogTitle, DialogDescription } from "@/components/ui/dialog"; // ✅ Import DialogTitle, DialogDescription
 import { ThemeToggle } from "./theme-toggle";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-// import { redirect } from "next/navigation";
 
 export default function Navbar() {
   const { setIsAuthLoading, isAuthLoading, isLoading } = useLoadingStore();
@@ -48,7 +47,7 @@ export default function Navbar() {
           onClick={() => {
             router.push("/pos");
           }}
-          className="btn-navbar button-navbar mx-2 absolute right-4 bottom-1"
+          className="btn-navbar button-navbar mx-2 absolute left-16 bottom-3.5"
         >
           <Link className="italic" href="/pos">
             {" "}
@@ -77,6 +76,12 @@ export default function Navbar() {
               <span className="mx-3">Role :</span>
               <span>{session.user.role}</span>
             </div>
+            <button
+              className="button-navbar btn-navbar mb-2.5 top-0"
+              onClick={() => router.push(`/notes`)}
+            >
+              Notes
+            </button>
             <button
               className="button-navbar btn-navbar mb-2.5 top-0"
               onClick={() => router.push(`/`)}
@@ -126,6 +131,15 @@ export default function Navbar() {
           ) : (
             <>
               <span className="text-lg">ยินดีต้อนรับ</span>
+              <button
+                className="button-navbar btn-navbar my-1.5"
+                onClick={() => {
+                  router.push(`/notes`);
+                  handleClose();
+                }}
+              >
+                Notes
+              </button>
               <button
                 className="button-navbar btn-navbar my-1.5"
                 onClick={() => {

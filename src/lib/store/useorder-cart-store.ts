@@ -6,7 +6,7 @@ import { calculateTotal } from "@/utils/calculate-total";
 import { handlerBuy } from "@/hooks/forOrderCartStore/handler-buy";
 import { holdOrder } from "@/hooks/forOrderCartStore/hold-order";
 import { updateOrder } from "@/hooks/forOrderCartStore/update-order";
-// import { shouldRefetchOrder } from "./forOrderCartStore/shouldRefetchOrders";
+
 export interface Cart {
   product: Product;
   quantity: number;
@@ -14,7 +14,7 @@ export interface Cart {
 
 export interface CartStore {
   cart: Cart[];
-  setCart: (data: Cart[]) => void;
+  setCart: (ItemCart: Cart[]) => void;
   clearCart: () => void;
   triggerRefetch: number;
   setTriggerRefetch: (data: number) => void;
@@ -32,11 +32,11 @@ export interface CartStore {
 
 export const useOrderCartStore = create<CartStore>((set, get) => ({
   cart: [],
-  setCart: (data: Cart[]) => set({ cart: data }),
+  setCart: (ItemCart: Cart[]) => set({ cart: ItemCart }),
   clearCart: () => set({ cart: [] }),
   addToCart: addToCart(get, set),
   triggerRefetch: 0,
-  setTriggerRefetch: (data: number) => set({ triggerRefetch: data }),
+  setTriggerRefetch: (num: number) => set({ triggerRefetch: num }),
   holdMode: false,
   setHoldMode: (mode) => set({ holdMode: mode }),
   setHoldOrderNum: (num) => set({ holdOrderNum: num }),

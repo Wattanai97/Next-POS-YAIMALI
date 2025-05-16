@@ -1,13 +1,13 @@
 "use client";
-import "react-datepicker/dist/react-datepicker.css";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSalesReport } from "../hooks/forSaleReports/use-report-pagination";
+import "react-datepicker/dist/react-datepicker.css"; // Date-Picker
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Card ShadCNUI
+import { useSalesReportPagination } from "../hooks/forSaleReports/use-report-pagination"; // SaleReportPagination
 
 import DateFilterToolbar from "./forSaleReportPage/date-filter";
 import PaginationControls from "./forSaleReportPage/report-page-control";
 import OrderCard from "./forSaleReportPage/order-card";
 
-export default function SalesReportPage() {
+export default function SalesReport() {
   const {
     dateRange,
     setDateRange,
@@ -23,7 +23,7 @@ export default function SalesReportPage() {
     totalCustomers,
     totalOrders,
     totalPages, // from daily/all
-  } = useSalesReport();
+  } = useSalesReportPagination();
 
   return (
     <div className="p-5 max-w-4xl mx-auto">

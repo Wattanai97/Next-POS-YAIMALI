@@ -1,3 +1,4 @@
+// Product Store เรียกใช้ใน Menu-Component บน /pos
 export interface Product {
   productId: string;
   name: string;

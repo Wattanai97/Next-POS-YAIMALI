@@ -1,5 +1,5 @@
 import TubeLoading from "./tube-loding";
-import "../app/loading.css";
+import "@/app/css/loading.css";
 export default function LoadingSpinner() {
   return (
     <div className="grid grid-cols-1">

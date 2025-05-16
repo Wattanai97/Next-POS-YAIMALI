@@ -7,7 +7,7 @@ import AuthLoading from "@/components/auth-loading";
 interface AnimatedLabelProps {
   text: string;
 }
-
+// CSS Form
 const AnimatedLabel: React.FC<AnimatedLabelProps> = ({ text }) => {
   return (
     <label>
@@ -19,13 +19,12 @@ const AnimatedLabel: React.FC<AnimatedLabelProps> = ({ text }) => {
     </label>
   );
 };
-
+// Main Login Page
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isAuthLoading, setIsAuthLoading } = useLoadingStore();
   const router = useRouter();
-
   const handleLogin = async () => {
     setIsAuthLoading(false);
     try {

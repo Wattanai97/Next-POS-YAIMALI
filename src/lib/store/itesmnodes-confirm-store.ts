@@ -11,7 +11,7 @@ type ConfirmStore = {
   close: () => void;
 };
 
-export const useConfirmStore = create<ConfirmStore>((set) => ({
+export const useItemsNodesConfirmStore = create<ConfirmStore>((set) => ({
   isOpen: false,
   message: "",
   onConfirm: null,
