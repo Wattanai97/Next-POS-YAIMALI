@@ -1,17 +1,17 @@
 // หน้าหลักแสดง DashBoard Component
 "use client";
-import Dashboard from "@/components/dash-board";
+import Dashboard from "@/components/dashboard/dash-board";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import useFetchOrders from "@/hooks/use-fetch-orders";
+import { AppSidebar } from "@/components/nav-side-bar/app-sidebar";
+import useFetchOrders from "@/hooks/fetchdata/use-fetch-orders";
 import { useEffect } from "react";
-import LoadingSpinner from "@/components/loading-spiner";
-import ErrorMessage from "@/components/error-message";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
+import ErrorMessage from "@/components/loading-error/error-message";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
-import AuthLoading from "@/components/auth-loading";
+import AuthLoading from "@/components/loading-error/auth-loading";
 export default function Home() {
   // const { selectedItems } = useNodesStore();
   const pathname = usePathname();
@@ -28,10 +28,6 @@ export default function Home() {
       redirect("/auth/login");
     }
   }, [status, pathname, session?.user.username]);
-  // useEffect(() => {
-  //   console.log(selectedItems);
-  // }, [selectedItems]);
-  // Loading Check
   if (isLoading) return <LoadingSpinner />;
   if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;

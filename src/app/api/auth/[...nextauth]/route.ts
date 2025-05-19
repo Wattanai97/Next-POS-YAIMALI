@@ -1,5 +1,5 @@
 import NextAuth from "next-auth"; // Import NextAuth
-import { authOptions } from "@/lib/authOptions"; // import authOptions ที่แยกไว้
+import { authOptions } from "@/lib/auth/authOptions"; // import authOptions ที่แยกไว้
 
 const handler = NextAuth(authOptions); // สร้างตัวแปร handler เรียกใช้ NextAuth และส่ง authOptions เข้าไป
 

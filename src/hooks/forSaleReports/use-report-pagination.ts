@@ -1,7 +1,7 @@
 // hooks/useSalesReportPagination.ts
-import { useOrderStore } from "@/lib/store/useorders-hold-orders";
+import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
 import { useMemo, useState } from "react";
-import { IOrder } from "@/lib/store/useorders-hold-orders"; // Type IOrder
+import { IOrder } from "@/lib/store/orders/hold-orders/useorders-hold-orders"; // Type IOrder
 const ORDERS_PER_PAGE = 10; // Static ORDERS_PER_PAGE
 export type DateRangeType = "daily" | "weekly" | "monthly" | "all"; // DateRange Type
 

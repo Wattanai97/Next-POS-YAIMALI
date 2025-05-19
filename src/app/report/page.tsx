@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
-import SalesReport from "@/components/sale-report";
+import SalesReport from "@/components/sale-report/sale-report";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import AuthLoading from "@/components/auth-loading";
-import LoadingSpinner from "@/components/loading-spiner";
+import AuthLoading from "@/components/loading-error/auth-loading";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
 const ReportPage = () => {
   const { isAuthLoading, isLoading } = useLoadingStore();
   const pathname = usePathname();

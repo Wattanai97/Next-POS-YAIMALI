@@ -3,7 +3,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import AuthLoading from "@/components/auth-loading";
+import AuthLoading from "@/components/loading-error/auth-loading";
 interface AnimatedLabelProps {
   text: string;
 }

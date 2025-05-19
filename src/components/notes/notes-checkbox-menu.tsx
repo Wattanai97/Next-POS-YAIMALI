@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import SelectedCheckbox from "../ui/selected-checkbox";
-import { useNodesStore } from "@/lib/store/use-nodes-store";
+import { useNodesStore } from "@/lib/store/orders/notes/use-nodes-store";
 // รายการเมนูอาหาร
 import {
   checkboxMeatItem,

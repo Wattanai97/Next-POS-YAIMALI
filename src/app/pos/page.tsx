@@ -1,20 +1,20 @@
 "use client";
 import { useEffect } from "react";
-import BtnFilterMenuByType from "@/components/forPosPage/btn-filtermenu-bytype";
-import BtnActionCart from "@/components/forPosPage/btn-action-cart";
-import ProductMenu from "@/components/forPosPage/product-menu";
-import CartSection from "@/components/forPosPage/cart-section";
-import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/flying-window-hold-orders";
-import useFetchHoldOrders from "@/hooks/use-fetch-hold-orders";
-import LoadingSpinner from "@/components/loading-spiner";
-import ErrorMessage from "@/components/error-message";
-import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
-import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
-import FetchOrders from "@/hooks/use-fetch-orders";
+import BtnFilterMenuByType from "@/components/pos/btn-filtermenu-bytype";
+import BtnActionCart from "@/components/pos/btn-action-cart";
+import ProductMenu from "@/components/pos/product-menu";
+import CartSection from "@/components/pos/cart-section";
+import MainwindowHoldOrders from "@/components/pos/hold-orders/flying-window-hold-orders";
+import useFetchHoldOrders from "@/hooks/fetchdata/use-fetch-hold-orders";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
+import ErrorMessage from "@/components/loading-error/error-message";
+import { useHoldOrderStore } from "@/lib/store/orders/hold-orders/useanimate-hold-orders-window";
+import { useOrderCartStore } from "@/lib/store/orders/useorder-cart-store";
+import FetchOrders from "@/hooks/fetchdata/use-fetch-orders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import AuthLoading from "@/components/auth-loading";
+import AuthLoading from "@/components/loading-error/auth-loading";
 
 export default function POSPage() {
   const { data: session, status } = useSession();

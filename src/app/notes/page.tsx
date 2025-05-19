@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { useNotesConfirmStore } from "@/lib/store/usenodes-dialog-store";
-import { useItemsNodesConfirmStore } from "@/lib/store/itesmnodes-confirm-store";
-import { useNodesStore } from "@/lib/store/use-nodes-store";
-import useFetchNodesOrders from "@/hooks/use-fetch-nodes-order";
+import { useNotesConfirmStore } from "@/lib/store/dialog/usenodes-dialog-store";
+import { useItemsNodesConfirmStore } from "@/lib/store/dialog/itesmnodes-confirm-store";
+import { useNodesStore } from "@/lib/store/orders/notes/use-nodes-store";
+import useFetchNodesOrders from "@/hooks/fetchdata/use-fetch-nodes-order";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
-import LoadingSpinner from "@/components/loading-spiner";
-import ErrorMessage from "@/components/error-message";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
+import ErrorMessage from "@/components/loading-error/error-message";
 const Notespage = () => {
   const { fetchNodesOrders } = useFetchNodesOrders();
   const { selectedItems } = useNodesStore();

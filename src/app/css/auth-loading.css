@@ -41,7 +41,6 @@
 #out3 {
   animation: rotate16 3s ease-in-out infinite alternate;
   transform-origin: center;
-  stroke: #ff0;
 }
 
 #inner3,
@@ -51,9 +50,36 @@
 }
 
 #center1 {
-  fill: #ff0;
   animation: rotate16 2s ease-in-out infinite alternate;
   transform-origin: center;
+}
+
+/* 🌚 DARK MODE (class="dark") */
+.dark #out3 {
+  stroke: #00bfff;
+}
+
+.dark #inner3,
+.dark #inner1 {
+  stroke: #87cefa;
+}
+
+.dark #center1 {
+  fill: #1e90ff;
+}
+
+/* 🌞 LIGHT MODE (class="light") */
+.light #out3 {
+  stroke: #ff5722;
+}
+
+.light #inner3,
+.light #inner1 {
+  stroke: #ff9800;
+}
+
+.light #center1 {
+  fill: #ffca28;
 }
 
 @keyframes rotate16 {
