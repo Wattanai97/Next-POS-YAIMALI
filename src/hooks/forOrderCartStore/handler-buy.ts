@@ -1,4 +1,4 @@
-import { CartStore } from "@/lib/store/useorder-cart-store";
+import { CartStore } from "@/lib/store/orders/useorder-cart-store";
 export const handlerBuy = async (get: () => CartStore) => {
   const cart = get().cart;
   const setHoldmode = get().setHoldMode;

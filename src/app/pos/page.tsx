@@ -1,23 +1,25 @@
 "use client";
 import { useEffect } from "react";
-import BtnFilterMenuByType from "@/components/forPosPage/btn-filtermenu-bytype";
-import BtnActionCart from "@/components/forPosPage/btn-action-cart";
-import ProductMenu from "@/components/forPosPage/product-menu";
-import CartSection from "@/components/forPosPage/cart-section";
-import MainwindowHoldOrders from "@/components/forPosPage/holdOrders/flying-window-hold-orders";
-import useFetchHoldOrders from "@/hooks/use-fetch-hold-orders";
-import LoadingSpinner from "@/components/loading-spiner";
-import ErrorMessage from "@/components/error-message";
-import { useHoldOrderStore } from "@/lib/store/useanimate-hold-orders-window";
-import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
-import FetchOrders from "@/hooks/use-fetch-orders";
+import BtnFilterMenuByType from "@/components/pos/btn-filtermenu-bytype";
+import BtnActionCart from "@/components/pos/btn-action-cart";
+import ProductMenu from "@/components/pos/product-menu";
+import CartSection from "@/components/pos/cart-section";
+import MainwindowHoldOrders from "@/components/pos/hold-orders/flying-window-hold-orders";
+import useFetchHoldOrders from "@/hooks/fetchdata/use-fetch-hold-orders";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
+import ErrorMessage from "@/components/loading-error/error-message";
+import { useHoldOrderStore } from "@/lib/store/orders/hold-orders/useanimate-hold-orders-window";
+import { useOrderCartStore } from "@/lib/store/orders/useorder-cart-store";
+import FetchOrders from "@/hooks/fetchdata/use-fetch-orders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import AuthLoading from "@/components/loading-error/auth-loading";
+
 export default function POSPage() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
-  const { error, isLoading } = useLoadingStore();
+  const { error, isLoading, isAuthLoading } = useLoadingStore();
   const { fetchHoldOrders } = useFetchHoldOrders();
   const { fetchOrders } = FetchOrders();
   const { closeHold, openHold, isVisible, isAnimatingOut, finishAnimation } =
@@ -33,15 +35,19 @@ export default function POSPage() {
       redirect("/auth/login");
     }
   }, [pathname, status, session?.user.username]);
+  useEffect(() => {
+    fetchHoldOrders();
+  }, []);
   if (isLoading) return <LoadingSpinner />;
+  if (isAuthLoading) return <AuthLoading />;
   if (error) return <ErrorMessage error={error} />;
   return (
     <div className="px-4 relative inset-0">
       {/* ปุ่มดูออเดอร์พัก  HoldOrders */}
-      <div className="flex justify-center xxs:my-3 my-2 xxs:right-3 sm:right-6 xxs:top-5 sm:top-0 absolute z-20">
+      <div className="flex justify-center xxs:top-4 my-2 xxs:right-5 sm:right-6 sm:top-0 absolute z-20">
         <button
           onClick={isVisible ? closeHold : openHold}
-          className="bg-violet-700 text-white xxs:px-0.5 xxs:py-0.5 sm:px-3 sm:py-1 rounded-md hover:scale-105 transition"
+          className="btn-navbar button-navbar"
         >
           ดูออเดอร์ที่พักไว้
         </button>
@@ -54,12 +60,12 @@ export default function POSPage() {
           ${isAnimatingOut ? "animate-slideOutRight" : "animate-slideInRight"}`}
           onAnimationEnd={finishAnimation}
         >
-          {/* HoldOrders Component */}
+          {/* HoldOrders SlideWindow Component */}
           <MainwindowHoldOrders />
         </div>
       )}
 
-      {/* FilterType Button */}
+      {/* Filter Product Menu ByType Button Component */}
       <BtnFilterMenuByType />
 
       {/* Menu and Cart */}
@@ -73,7 +79,7 @@ export default function POSPage() {
       </div>
 
       <div className="xxs:flex xxs:flex-col sm:grid sm:grid-cols-2 gap-4 mt-4 relative">
-        {/* Product-Menu */}
+        {/* Product-Menu Component*/}
         <ProductMenu />
         <div className="flex flex-col min-h-0 max-h-[400px] overflow-auto border-2 border-black dark:border-white rounded-md p-2">
           <div className="flex justify-center">
@@ -81,9 +87,8 @@ export default function POSPage() {
               Cart
             </span>
           </div>
-          {/* ตะกร้าสินค้า */}
+          {/* CartSection-Component && BtnActionCart-Component */}
           <CartSection />
-          {/* ปุ่มควบคุมการพัก - ซื้อขาย ออเดอร์ */}
           <BtnActionCart />
         </div>
       </div>

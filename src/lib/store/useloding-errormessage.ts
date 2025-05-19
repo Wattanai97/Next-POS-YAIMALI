@@ -1,3 +1,4 @@
+//  Loading , Authloading ,Error-Message Store
 import { create } from "zustand";
 
 interface ControlLodingStatus {
@@ -5,14 +6,15 @@ interface ControlLodingStatus {
   setIsLoading: (prev: boolean) => void;
   error: string | null;
   setError: (error: string) => void;
+  isAuthLoading: boolean;
+  setIsAuthLoading: (prev: boolean) => void;
 }
 
 export const useLoadingStore = create<ControlLodingStatus>((set) => ({
   isLoading: false,
-  setIsLoading: (prev) => set({ isLoading: !prev }),
+  isAuthLoading: false,
   error: null,
-  setError: (error: string) =>
-    set({
-      error: error,
-    }),
+  setIsLoading: (prev) => set({ isLoading: !prev }),
+  setIsAuthLoading: (prev) => set({ isAuthLoading: !prev }),
+  setError: (error: string) => set({ error: error }),
 }));

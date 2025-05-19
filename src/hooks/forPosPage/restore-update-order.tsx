@@ -1,5 +1,5 @@
-import { useOrderCartStore } from "@/lib/store/useorder-cart-store";
-import { HoldCheckoutButton } from "../../components/forPosPage/holdOrders/btn-checkout-holdorder";
+import { useOrderCartStore } from "@/lib/store/orders/useorder-cart-store";
+import { HoldCheckoutButton } from "../../components/pos/hold-orders/btn-checkout-holdorder";
 
 type HoldOrderCardProps = {
   orderNum: number;

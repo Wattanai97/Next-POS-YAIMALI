@@ -1,7 +1,6 @@
-import NextAuth from "next-auth";
-import { authOptions } from "@/lib/authOptions"; // import authOptions ที่แยกไว้
+import NextAuth from "next-auth"; // Import NextAuth
+import { authOptions } from "@/lib/auth/authOptions"; // import authOptions ที่แยกไว้
 
-// console.log("🔐 NEXTAUTH_SECRET =", process.env.NEXTAUTH_SECRET);
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions); // สร้างตัวแปร handler เรียกใช้ NextAuth และส่ง authOptions เข้าไป
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }; // export ตัว handler ให้เป็นได้ทั้งแบบ GET และ แบบ POST 

@@ -1,5 +1,5 @@
 //useOrderCartStore addToCart Logic
-import { CartStore } from "@/lib/store/useorder-cart-store";
+import { CartStore } from "@/lib/store/orders/useorder-cart-store";
 import { Product } from "@/lib/store/product";
 
 export const addToCart =
@@ -11,7 +11,6 @@ export const addToCart =
       (item) =>
         item.product.productId.toString() === product.productId.toString()
     );
-
     if (exists) {
       set({
         cart: current.map((item) =>

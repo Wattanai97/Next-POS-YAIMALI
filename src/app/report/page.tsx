@@ -1,21 +1,30 @@
 "use client";
 import React, { useEffect } from "react";
-import SalesReportPage from "@/components/sale-report";
+import SalesReport from "@/components/sale-report/sale-report";
 import { redirect, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-const Page = () => {
+import { useLoadingStore } from "@/lib/store/useloding-errormessage";
+import AuthLoading from "@/components/loading-error/auth-loading";
+import LoadingSpinner from "@/components/loading-error/loading-spiner";
+const ReportPage = () => {
+  const { isAuthLoading, isLoading } = useLoadingStore();
   const pathname = usePathname();
   const { data: session, status } = useSession();
+  // token , session , login Check
   useEffect(() => {
     if (status === "unauthenticated" && pathname === "/report") {
       redirect("/auth/login");
     }
   }, [session?.user.username, status, pathname]);
+  // Loading Check
+  if (isLoading) return <LoadingSpinner />;
+  if (isAuthLoading) return <AuthLoading />;
   return (
     <div>
-      <SalesReportPage />
+      {/* SaleReport-Component */}
+      <SalesReport />
     </div>
   );
 };
 
-export default Page;
+export default ReportPage;
