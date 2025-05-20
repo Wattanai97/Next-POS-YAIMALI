@@ -1,16 +1,7 @@
 import { create } from "zustand";
+import { NotesConfirmStoreType } from "@/app/types/zustand/dialog/confirm-store-type";
 
-interface ConfirmStore {
-  isOpen: boolean;
-  message: string;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  open: (message: string) => void;
-  close: () => void;
-  opennotes: (message: string, onConfirm: () => void) => void;
-}
-
-export const useNotesConfirmStore = create<ConfirmStore>((set) => ({
+export const useNotesConfirmStore = create<NotesConfirmStoreType>((set) => ({
   isOpen: false,
   message: "",
   onConfirm: undefined,

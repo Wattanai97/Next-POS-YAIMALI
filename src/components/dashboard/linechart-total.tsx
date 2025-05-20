@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { formatThaiShortDateForReport } from "../../utils/dashboard/format-date-dashboard";
 import {
   LineChart,
@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 const LineChartTotal = () => {
-  const { orders } = useOrderStore();
+  const { orders } = useOrder_HoldOrderStore();
 
   const salesChartData = useMemo(() => {
     return orders.map((order) => ({

@@ -1,7 +1,7 @@
 "use client";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useNotesConfirmStore } from "@/lib/store/dialog/usenodes-dialog-store";
+import { useItemsNotesConfirmStore } from "@/lib/store/dialog/itesmnotes-confirm-store";
 import NotesCheckboxMenu from "../../notes/notes-checkbox-menu";
 import { useNodesStore } from "@/lib/store/orders/notes/use-nodes-store";
 import useFetchNodesOrders from "@/hooks/fetchdata/use-fetch-nodes-order";
@@ -11,7 +11,7 @@ import ErrorMessage from "../../loading-error/error-message";
 export function NotesDialog() {
   const { error, isLoading, setIsLoading } = useLoadingStore();
   const { fetchNodesOrders } = useFetchNodesOrders();
-  const { isOpen, message, close } = useNotesConfirmStore();
+  const { isOpen, message, close } = useItemsNotesConfirmStore();
   const { checkboxLabels, detail, quantity, clearSelection } = useNodesStore();
   const handleConfirm = async () => {
     setIsLoading(false);

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { useNotesConfirmStore } from "@/lib/store/dialog/usenodes-dialog-store";
-import { useItemsNodesConfirmStore } from "@/lib/store/dialog/itesmnodes-confirm-store";
+import { useNotesConfirmStore } from "@/lib/store/dialog/usenotes-dialog-store";
+import { useItemsNotesConfirmStore } from "@/lib/store/dialog/itesmnotes-confirm-store";
 import { useNodesStore } from "@/lib/store/orders/notes/use-nodes-store";
 import useFetchNodesOrders from "@/hooks/fetchdata/use-fetch-nodes-order";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
@@ -12,7 +12,7 @@ const Notespage = () => {
   const { selectedItems } = useNodesStore();
   const { isLoading, error } = useLoadingStore();
   const { opennotes } = useNotesConfirmStore();
-  const { open } = useItemsNodesConfirmStore();
+  const { open } = useItemsNotesConfirmStore();
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} />;
   return (
@@ -20,7 +20,7 @@ const Notespage = () => {
       <div className="grid grid-cols-1 my-4">
         <button
           onClick={() => {
-            opennotes("บันทึกออเดอร์", () => {
+            open("บันทึกออเดอร์", () => {
               // callback หลังยืนยัน dialog (ถ้าอยากทำอะไรเพิ่มเติม)
               console.log("ยืนยันและบันทึกข้อมูลสำเร็จ");
             });
@@ -33,7 +33,7 @@ const Notespage = () => {
           <button
             onClick={() => {
               fetchNodesOrders();
-              open("ดูออเดอร์ที่บันทึก", () => {
+              opennotes("ดูออเดอร์ที่บันทึก", () => {
                 // callback หลังยืนยัน dialog (ถ้าอยากทำอะไรเพิ่มเติม)
                 console.log("ยืนยันและบันทึกข้อมูลสำเร็จ");
               });

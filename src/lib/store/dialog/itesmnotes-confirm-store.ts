@@ -1,17 +1,8 @@
 // Confirm-Store ใช้กับ Custom Confirm Dialog
-//
 import { create } from "zustand";
+import { ConfirmStoreType } from "@/app/types/zustand/dialog/confirm-store-type";
 
-type ConfirmStore = {
-  isOpen: boolean;
-  message: string;
-  onConfirm: (() => void) | null;
-  onCancel: (() => void) | null;
-  open: (message: string, onConfirm: () => void, onCancel?: () => void) => void;
-  close: () => void;
-};
-
-export const useItemsNodesConfirmStore = create<ConfirmStore>((set) => ({
+export const useItemsNotesConfirmStore = create<ConfirmStoreType>((set) => ({
   isOpen: false,
   message: "",
   onConfirm: null,

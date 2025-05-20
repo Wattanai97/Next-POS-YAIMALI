@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 import AuthLoading from "../../loading-error/auth-loading";
 import ErrorMessage from "../../loading-error/error-message";
-import { useItemsNodesConfirmStore } from "@/lib/store/dialog/itesmnodes-confirm-store";
+import { useNotesConfirmStore } from "@/lib/store/dialog/usenotes-dialog-store";
 
 import SelectedItemsList from "../../notes/selected-items-list";
 export function ItemsNotesDialog() {
   const { isLoading, error } = useLoadingStore();
-  const { isOpen, close, message } = useItemsNodesConfirmStore();
+  const { isOpen, close, message } = useNotesConfirmStore();
 
   const handleCancel = () => {
     close(); // ✅ ปิด Dialog

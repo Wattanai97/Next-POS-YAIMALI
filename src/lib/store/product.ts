@@ -1,12 +1,7 @@
 // Product Store เรียกใช้ใน Menu-Component บน /pos
-export interface Product {
-  productId: string;
-  name: string;
-  price: number;
-  category: "All" | "Foods" | "Drinks";
-}
+import { ProductType } from "@/app/types/product-type";
 
-export const products: Product[] = [
+export const products: ProductType[] = [
   {
     productId: "Noodle-Beef",
     category: "Foods",

@@ -1,12 +1,12 @@
 // hooks/useSalesReportPagination.ts
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { useMemo, useState } from "react";
-import { IOrder } from "@/lib/store/orders/hold-orders/useorders-hold-orders"; // Type IOrder
+import { OrderType } from "@/app/types/zustand/orders/use-order-holdorder-store-type";
 const ORDERS_PER_PAGE = 10; // Static ORDERS_PER_PAGE
 export type DateRangeType = "daily" | "weekly" | "monthly" | "all"; // DateRange Type
 
 export const useSalesReportPagination = () => {
-  const orders: IOrder[] = useOrderStore((state) => state.orders);
+  const orders: OrderType[] = useOrder_HoldOrderStore((state) => state.orders);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [tempDate, setTempDate] = useState<Date | null>(null);
   const [dateRange, setDateRange] = useState<DateRangeType>("all");

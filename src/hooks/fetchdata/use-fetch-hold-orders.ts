@@ -1,10 +1,10 @@
 "use client";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 
 // useFetchOrders.ts
 export default function useFetchHoldOrders() {
-  const { setHoldOrders } = useOrderStore();
+  const { setHoldOrders } = useOrder_HoldOrderStore();
   const { setError, setIsLoading } = useLoadingStore();
   async function fetchHoldOrders() {
     const API_BASE_URL =

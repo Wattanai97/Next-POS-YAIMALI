@@ -1,11 +1,14 @@
-import { Cart, CartStore } from "@/lib/store/orders/useorder-cart-store";
+import {
+  CartType,
+  CartStoreType,
+} from "@/app/types/zustand/orders/use-order-cart-store-type";
 
 export const deleteToCart =
-  (get: () => CartStore, set: ({}) => void) => (productId: string) => {
+  (get: () => CartStoreType, set: ({}) => void) => (productId: string) => {
     const current = get().cart;
     const exists = current.find(
-      (item: Cart) => item.product.productId === productId
-    ) as Cart;
+      (item: CartType) => item.product.productId === productId
+    ) as CartType;
     if (exists) {
       set({
         cart: current

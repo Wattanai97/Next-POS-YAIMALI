@@ -1,24 +1,19 @@
 // lib/store/holdOrderStore.ts
 import { create } from "zustand";
+import { HoldOrderStoreFlyinWindowType } from "@/app/types/zustand/orders/use-order-holdorder-store-type";
 
-type HoldOrderStore = {
-  isVisible: boolean;
-  isAnimatingOut: boolean;
-  openHold: () => void;
-  closeHold: () => void;
-  finishAnimation: () => void;
-};
+export const useHoldOrderStore = create<HoldOrderStoreFlyinWindowType>(
+  (set) => ({
+    isVisible: false,
+    isAnimatingOut: false,
 
-export const useHoldOrderStore = create<HoldOrderStore>((set) => ({
-  isVisible: false,
-  isAnimatingOut: false,
+    openHold: () => set({ isVisible: true }),
+    closeHold: () => set({ isAnimatingOut: true }),
 
-  openHold: () => set({ isVisible: true }),
-  closeHold: () => set({ isAnimatingOut: true }),
-
-  finishAnimation: () =>
-    set((state) => ({
-      isVisible: state.isAnimatingOut ? false : state.isVisible,
-      isAnimatingOut: false,
-    })),
-}));
+    finishAnimation: () =>
+      set((state) => ({
+        isVisible: state.isAnimatingOut ? false : state.isVisible,
+        isAnimatingOut: false,
+      })),
+  })
+);

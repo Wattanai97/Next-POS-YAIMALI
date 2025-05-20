@@ -2,12 +2,12 @@
 import LineChartCustomer from "./linechart-customer";
 import LineChartTotal from "./linechart-total";
 import { Card, CardContent } from "@/components/ui/card";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import TableViewTransactions from "./tableview-transactions";
 import CardViewTransactions from "./cardview-transactions";
 import LoadingSpinner from "../loading-error/loading-spiner";
 export default function Dashboard() {
-  const { orders } = useOrderStore();
+  const { orders } = useOrder_HoldOrderStore();
   if (orders.length === 0 || !orders) <LoadingSpinner />;
   return (
     <div>

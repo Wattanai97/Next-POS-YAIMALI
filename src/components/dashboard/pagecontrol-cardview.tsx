@@ -1,10 +1,10 @@
 import { useOrdersPagination } from "../../hooks/forDashBoard/use-order-pagination";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { useOrderCardViewPaginationStore } from "@/lib/store/orders/useorder-pagination-store";
 import { Button } from "../ui/button";
 
 const Pagecontrolcardview = () => {
-  const { orders } = useOrderStore();
+  const { orders } = useOrder_HoldOrderStore();
   const { currentPage, setPage, itemsPerPage } =
     useOrderCardViewPaginationStore(); // ✅ ดึง itemsPerPage
   const { totalPages } = useOrdersPagination(orders, currentPage, itemsPerPage); // ✅ ส่งเข้าไป
