@@ -1,12 +1,12 @@
 import React from "react";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { formatThaiShortDate } from "../../utils/dashboard/format-date-dashboard";
 import { useOrdersPagination } from "../../hooks/forDashBoard/use-order-pagination";
 import { Card, CardContent } from "@/components/ui/card";
 import Pagecontrolcardview from "./pagecontrol-cardview";
 import { useOrderCardViewPaginationStore } from "@/lib/store/orders/useorder-pagination-store";
 const Cardviewtransactions = () => {
-  const { orders } = useOrderStore();
+  const { orders } = useOrder_HoldOrderStore();
   const { currentPage, itemsPerPage } = useOrderCardViewPaginationStore();
   const { displayedOrders } = useOrdersPagination(
     orders,

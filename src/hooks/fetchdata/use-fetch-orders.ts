@@ -1,12 +1,12 @@
 "use client";
-import { useOrderStore } from "@/lib/store/orders/hold-orders/useorders-hold-orders";
+import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { useLoadingStore } from "@/lib/store/useloding-errormessage";
 
 // useFetchOrders.ts
 export default function useFetchOrders() {
-  const { setOrders } = useOrderStore();
+  const { setOrders } = useOrder_HoldOrderStore();
   const { setError, setIsLoading } = useLoadingStore();
-  
+
   async function fetchOrders() {
     const API_BASE_URL =
       process.env.NEXT_PUBLIC_API_URL || "https://pos-yaimali.vercel.app";
@@ -24,12 +24,12 @@ export default function useFetchOrders() {
       setOrders(data.orders);
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message)
+        setError(error.message);
       }
       console.error("❌ ดึงข้อมูลไม่สำเร็จ", error);
     } finally {
       setIsLoading(true);
     }
   }
-  return { fetchOrders,};
+  return { fetchOrders };
 }

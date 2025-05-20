@@ -1,5 +1,5 @@
 import React from "react";
-import { useOrderCartStore } from "@/lib/store/orders/useorder-cart-store";
+import { useOrderCartStore } from "@/lib/store/orders/orders-carts/useorder-cart-store";
 import { Card, CardContent } from "@/components/ui/card";
 const CartSection = () => {
   const { cart, deleteToCart, addToCart } = useOrderCartStore();

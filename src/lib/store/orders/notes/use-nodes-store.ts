@@ -1,6 +1,8 @@
 // lib/store/useNotesStore.ts
 import { create } from "zustand";
-import { v4 as uuid } from "uuid";
+import { saveSelected_ItemToLocalState } from "@/hooks/forNotesStore/save-selecteditems";
+import { handleCheckboxChange } from "@/hooks/forNotesStore/checkbox-chance";
+
 export interface SelectedItemType {
   _id: string;
   title: string;
@@ -8,7 +10,7 @@ export interface SelectedItemType {
   quantity: number;
 }
 
-interface useNodesStoreType {
+export interface useNodesStoreType {
   checkboxLabels: string[];
   detail: string;
   quantity: number;
@@ -27,39 +29,12 @@ export const useNodesStore = create<useNodesStoreType>((set, get) => ({
   detail: "",
   quantity: 1,
   selectedItems: [],
-
-  handleCheckboxChange: (label, checked) => {
-    set((state) => ({
-      checkboxLabels: checked
-        ? [...state.checkboxLabels, label]
-        : state.checkboxLabels.filter((item) => item !== label),
-    }));
-  },
-
+  handleCheckboxChange: handleCheckboxChange(set),
   setDetail: (text) => set({ detail: text }),
-
   incrementQuantity: () => set((state) => ({ quantity: state.quantity + 1 })),
-
   decrementQuantity: () =>
     set((state) => ({ quantity: Math.max(1, state.quantity - 1) })),
-
-  saveSelectedItemToLocalState: () => {
-    const { checkboxLabels, detail, quantity } = get();
-    const title = checkboxLabels.join(", ");
-    const GenarateId = uuid();
-    const newItem: SelectedItemType = {
-      _id: GenarateId,
-      title,
-      detail,
-      quantity,
-    };
-    set((state) => ({
-      selectedItems: [...state.selectedItems, newItem],
-      checkboxLabels: [],
-      detail: "",
-      quantity: 1,
-    }));
-  },
+  saveSelectedItemToLocalState: saveSelected_ItemToLocalState(get, set),
   clearSelection: () => set({ checkboxLabels: [], detail: "", quantity: 1 }),
   setSelectedItems: (items) => set({ selectedItems: items }),
 }));

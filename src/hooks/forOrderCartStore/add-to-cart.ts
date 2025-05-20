@@ -1,10 +1,10 @@
 //useOrderCartStore addToCart Logic
-import { CartStore } from "@/lib/store/orders/useorder-cart-store";
-import { Product } from "@/lib/store/product";
+import { ProductType } from "@/app/types/product-type";
+import { CartStoreType } from "@/app/types/zustand/orders/use-order-cart-store-type";
 
 export const addToCart =
-  (get: () => CartStore, set: ({}) => void) =>
-  (product: Product, quantity: number = 1) => {
+  (get: () => CartStoreType, set: ({}) => void) =>
+  (product: ProductType, quantity: number = 1) => {
     const current = get().cart;
     const isHoldMode = get().holdMode;
     const exists = current.find(
@@ -27,7 +27,6 @@ export const addToCart =
         cart: [...current, { product, quantity }],
       });
     }
-
     // ✨ ตัวอย่าง: log ดูตอน hold mode
     if (isHoldMode) {
       console.log(`[Hold Mode] เพิ่ม ${product.name} จำนวน ${quantity}`);

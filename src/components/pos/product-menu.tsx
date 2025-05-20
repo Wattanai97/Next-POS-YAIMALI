@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { FilteredByType } from "@/hooks/forPosPage/filtered-product-bytype";
-import { useOrderCartStore } from "@/lib/store/orders/useorder-cart-store";
+import { useOrderCartStore } from "@/lib/store/orders/orders-carts/useorder-cart-store";
 const ProductMenu = () => {
   const { addToCart } = useOrderCartStore();
   const { filteredProducts } = FilteredByType();

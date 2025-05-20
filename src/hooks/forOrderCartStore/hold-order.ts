@@ -1,5 +1,5 @@
-import { CartStore } from "@/lib/store/orders/useorder-cart-store";
-export const holdOrder = async (get: () => CartStore) => {
+import { CartStoreType } from "@/app/types/zustand/orders/use-order-cart-store-type";
+export const holdOrder = async (get: () => CartStoreType) => {
   const setHoldMode = get().setHoldMode;
   const setHoldOrderNum = get().setHoldOrderNum;
   const cart = get().cart;
