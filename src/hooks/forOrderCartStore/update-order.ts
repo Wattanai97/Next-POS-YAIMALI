@@ -3,10 +3,7 @@ export const updateOrder = async (
   orderNum: number,
   get: () => CartStoreType
 ) => {
-  const setHoldOrderNum = get().setHoldOrderNum;
-  const setHoldMode = get().setHoldMode;
-  const cart = get().cart;
-  const setTriggleRefetch = get().setTriggerRefetch;
+  const { cart, setHoldMode, setTriggerRefetch, setHoldOrderNum } = get();
   if (cart.length === 0) return alert("Cart is empty!");
   const BASE_API_URL =
     process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
@@ -29,7 +26,7 @@ export const updateOrder = async (
     });
 
     if (!res.ok) throw new Error("Failed to update order");
-    setTriggleRefetch(Date.now());
+    setTriggerRefetch(Date.now());
     alert("อัปเดตออเดอร์และจ่ายเงินสำเร็จ!");
     setHoldOrderNum(null);
     setHoldMode(false);

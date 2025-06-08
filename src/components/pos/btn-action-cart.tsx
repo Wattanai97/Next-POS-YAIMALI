@@ -7,7 +7,8 @@ import BtnPaynow from "./btn-paynow";
 const BtnActionCart = () => {
   const { setIsLoading, isLoading } = useLoadingStore();
   const { open } = useConfirmStore();
-  const { clearCart, cart, calculateTotal, holdOrder } = useOrderCartStore();
+  const { clearCart, cart, calculateTotal, holdOrder, holdOrderNum } =
+    useOrderCartStore();
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
@@ -35,9 +36,18 @@ const BtnActionCart = () => {
 
           <button
             onClick={() => {
-              open("ยืนยันการพักออเดอร์ไหม ?", () => {
-                setIsLoading(false);
-                holdOrder();
+              open("ยืนยันการพักออเดอร์ไหม ?", async () => {
+                try {
+                  setIsLoading(false);
+                  holdOrder(holdOrderNum);
+                } catch (error) {
+                  if (error instanceof Error) {
+                    console.log(
+                      `ไม่พบหมายเลขออเดอร์ Error => ${error.message}`
+                    );
+                    console.warn(error.message);
+                  }
+                }
               });
             }}
             className=" btn flex-1 xxs:text-lg xxs:font-medium"

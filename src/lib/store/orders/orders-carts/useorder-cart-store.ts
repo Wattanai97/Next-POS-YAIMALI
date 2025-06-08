@@ -19,11 +19,11 @@ export const useOrderCartStore = create<CartStoreType>((set, get) => ({
   setTriggerRefetch: (num: number) => set({ triggerRefetch: num }),
   holdMode: false,
   setHoldMode: (mode) => set({ holdMode: mode }),
-  setHoldOrderNum: (num) => set({ holdOrderNum: num }),
   holdOrderNum: null,
+  setHoldOrderNum: (num) => set({ holdOrderNum: num }),
   deleteToCart: deleteToCart(get, set),
   calculateTotal: calculateTotal(get),
   handlerBuy: () => handlerBuy(get),
-  holdOrder: () => holdOrder(get),
+  holdOrder: (orderNum: number | null) => holdOrder(get, orderNum),
   updateOrder: (orderNum: number) => updateOrder(orderNum, get),
 }));
