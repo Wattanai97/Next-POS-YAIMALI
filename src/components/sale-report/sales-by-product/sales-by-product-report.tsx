@@ -70,7 +70,7 @@ export default function SalesByProductReport() {
             </div>
           ) : filteredItems.length === 0 ? (
             <div className="text-center text-gray-500 mt-4">
-              ❌ ไม่มีสินค้าตรงกับช่วงเวลาหรือหมวดหมู่ที่เลือก
+              ❌ ไม่มีสินค้าตรงกับช่วงเวลาหรือหมวดหมู่ที่เลือก ❌
             </div>
           ) : (
             <>
@@ -97,7 +97,7 @@ export default function SalesByProductReport() {
                               ยอดขายเมนู {category_Product} ระหว่างช่วงวันที่
                             </p>
                             <p>
-                              {startDate.toLocaleDateString("th-TH")} -{" "}
+                              {startDate.toLocaleDateString("th-TH")} -
                               {endDate.toLocaleDateString("th-TH")}
                             </p>
                           </>
