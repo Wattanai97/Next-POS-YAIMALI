@@ -1,7 +1,6 @@
 "use client";
 import { useOrder_HoldOrderStore } from "@/lib/store/orders/hold-orders/useorders-holdorders";
 import { useMemo, useState } from "react";
-import { OrderType } from "@/app/types/zustand/orders/use-order-holdorder-store-type";
 
 const ORDERS_PER_PAGE = 10;
 
@@ -16,8 +15,6 @@ export const useSalesReportPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedOrders, setExpandedOrders] = useState<number[]>([]);
 
-  const [productPrefix, setProductPrefix] = useState<string>(""); // แทน category
-
   const filteredOrders = useMemo(() => {
     if (!Array.isArray(orders)) return [];
 
@@ -25,12 +22,6 @@ export const useSalesReportPagination = () => {
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
-
-    if (productPrefix) {
-      sorted = sorted.filter((order) =>
-        order.items.some((item) => item.product.startsWith(productPrefix))
-      );
-    }
 
     if (!selectedDate || dateRange === "all") return sorted;
 
@@ -51,7 +42,7 @@ export const useSalesReportPagination = () => {
       const orderDate = new Date(order.createdAt);
       return orderDate >= startDate && orderDate <= endDate;
     });
-  }, [orders, selectedDate, dateRange, productPrefix]);
+  }, [orders, selectedDate, dateRange]);
 
   // toggle expand order details
   const toggleDetails = (orderNum: number) => {
@@ -81,8 +72,6 @@ export const useSalesReportPagination = () => {
     setSelectedDate,
     dateRange,
     setDateRange,
-    productPrefix,
-    setProductPrefix,
     currentPage,
     setCurrentPage,
     expandedOrders,

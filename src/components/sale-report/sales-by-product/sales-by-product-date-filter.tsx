@@ -1,30 +1,29 @@
-import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@/components/ui/button";
 import { DateRangeType } from "@/hooks/forSaleReports/use-report-pagination";
+import CategoryFilterToolbar from "./category-filter-toolbar";
+import { CategoryFilterType } from "@/hooks/forSaleReports/forSaleByProduct/sales-by-product";
 
 type Props = {
   tempDate: Date | null;
   setTempDate: (date: Date | null) => void;
-  selectedDate: Date | null; // ✅ เพิ่มบรรทัดนี้
-  setSelectedDate: (date: Date | null) => void;
-  setCurrentPage: (page: number) => void;
-  dateRange: DateRangeType;
-  setDateRange: (range: DateRangeType) => void;
-  productPrefix: string;
-  setProductPrefix: (category: string) => void;
+  tempRange: DateRangeType;
+  setTempRange: (range: DateRangeType) => void;
+  tempCategory: CategoryFilterType;
+  setTempCategory: (cat: CategoryFilterType) => void;
+  onConfirm: () => void;
 };
 
 export default function DateFilterToolbar({
   tempDate,
   setTempDate,
-  setSelectedDate,
-  setCurrentPage,
-  dateRange,
-  setDateRange,
-  productPrefix,
-  setProductPrefix,
+
+  tempRange,
+  setTempRange,
+  tempCategory,
+  setTempCategory,
+  onConfirm,
 }: Props) {
   return (
     <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
@@ -37,8 +36,8 @@ export default function DateFilterToolbar({
           className="border p-2 rounded w-full md:w-auto"
         />
         <select
-          value={dateRange}
-          onChange={(e) => setDateRange(e.target.value as DateRangeType)}
+          value={tempRange}
+          onChange={(e) => setTempRange(e.target.value as DateRangeType)}
           className="border p-2 rounded"
         >
           <option value="daily">📅 รายวัน</option>
@@ -46,22 +45,13 @@ export default function DateFilterToolbar({
           <option value="monthly">🗓 30 วันย้อนหลัง</option>
           <option value="all">🌐 ดูทั้งหมด</option>
         </select>
-
-        <select
-          value={productPrefix}
-          onChange={(e) => setProductPrefix(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">ทั้งหมด</option>
-          <option value="ก๋วยเตี๋ยว">ก๋วยเตี๋ยว</option>
-          <option value="เครื่องดื่ม">เครื่องดื่ม</option>
-          {/* เพิ่ม category ตามที่มีในข้อมูลจริง */}
-        </select>
-
+        <CategoryFilterToolbar
+          tempCategory={tempCategory}
+          setTempCategory={setTempCategory}
+        />
         <Button
           onClick={() => {
-            setSelectedDate(tempDate);
-            setCurrentPage(1);
+            onConfirm();
           }}
         >
           ✅ ยืนยันช่วง
@@ -70,11 +60,11 @@ export default function DateFilterToolbar({
       <Button
         variant="outline"
         onClick={() => {
-          setSelectedDate(null);
           setTempDate(null);
-          setDateRange("all");
-          setProductPrefix("");
-          setCurrentPage(1);
+          setTempRange("all");
+          setTempCategory("ทั้งหมด");
+
+          onConfirm();
         }}
       >
         🔄 รีเซต
