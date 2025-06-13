@@ -42,14 +42,14 @@ export const useSalesByProductPagination = () => {
     start.setDate(start.getDate() - (rangeMap[dateRange] - 1));
     start.setHours(0, 0, 0, 0);
     return start;
-  }, [selectedDate, dateRange]);
+  }, [selectedDate, dateRange, confirmed, rangeMap]);
 
   const endDate = useMemo(() => {
     if (!confirmed) return null;
     const end = new Date(selectedDate!);
     end.setHours(23, 59, 59, 999);
     return end;
-  }, [selectedDate]);
+  }, [selectedDate, confirmed]);
 
   const filteredOrders = useMemo(() => {
     if (!Array.isArray(orders)) return [];

@@ -18,7 +18,7 @@ export const useSalesReportPagination = () => {
   const filteredOrders = useMemo(() => {
     if (!Array.isArray(orders)) return [];
 
-    let sorted = [...orders].sort(
+    const sorted = [...orders].sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );

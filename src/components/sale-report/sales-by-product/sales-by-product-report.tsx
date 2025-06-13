@@ -51,7 +51,7 @@ export default function SalesByProductReport() {
     <div className="p-5 max-w-4xl mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle>📊 รายงานยอดขาย</CardTitle>
+          <CardTitle>📊 รายงานยอดขายเฉพาะหมวดหมู่</CardTitle>
         </CardHeader>
         <CardContent>
           <DateFilterToolbar
@@ -75,8 +75,8 @@ export default function SalesByProductReport() {
           ) : (
             <>
               <div className="bg-gray-100 dark:text-slate-950 p-4 rounded-lg text-center font-semibold text-lg">
-                📦 {category_Product} : 💰 ฿{totalAmount.toLocaleString()} | 🧮{" "}
-                {totalQty} รายการ
+                📦 ยอดขาย : {category_Product} : 💰 ฿
+                {totalAmount.toLocaleString()} | 🧮 {totalQty} รายการ
               </div>
 
               <Card className="mt-4">
@@ -86,18 +86,21 @@ export default function SalesByProductReport() {
                     {startDate && endDate && (
                       <div className="text-center text-lg font-bold dark:text-slate-50 text-zinc-900 my-2">
                         {dateRange === "daily" ? (
-                          <p>
-                            ยอดขายเมนู {category_Product} <br />
-                            วันที่ &nbsp;&nbsp;{" "}
-                            {endDate.toLocaleDateString("th-TH")}
-                          </p>
+                          <>
+                            <p>ยอดขายเมนู {category_Product}</p>
+
+                            <p>วันที่ {endDate.toLocaleDateString("th-TH")}</p>
+                          </>
                         ) : (
-                          <p>
-                            ยอดขายเมนู {category_Product} <br />
-                            ระหว่างช่วงวันที่ &nbsp; &nbsp;
-                            {startDate.toLocaleDateString("th-TH")} -{" "}
-                            {endDate.toLocaleDateString("th-TH")}
-                          </p>
+                          <>
+                            <p>
+                              ยอดขายเมนู {category_Product} ระหว่างช่วงวันที่
+                            </p>
+                            <p>
+                              {startDate.toLocaleDateString("th-TH")} -{" "}
+                              {endDate.toLocaleDateString("th-TH")}
+                            </p>
+                          </>
                         )}
                       </div>
                     )}
