@@ -4,7 +4,11 @@ import { sendNotification } from "@/lib/notify";
 import { formatDateNoti } from "@/lib/formatdate-noti";
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
-
+interface ItemType {
+  product: string;
+  quantity: number;
+  price: number;
+}
 export async function POST(req: NextRequest) {
   console.log(`... เริ่มทำงานที่ Api orderpay ...`);
   console.log(`... กำลังเชื่อมต่อฐานข้อมูล ...`);
@@ -32,7 +36,7 @@ export async function POST(req: NextRequest) {
 - ลูกค้า: ${order.customerCount} คน
 ${items
   .map(
-    (item: any, i: number) =>
+    (item: ItemType, i: number) =>
       `  ${i + 1}. ${item.product} (${item.quantity} x ${item.price}฿)`
   )
   .join("\n")}

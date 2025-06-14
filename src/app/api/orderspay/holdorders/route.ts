@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
 import { sendNotification } from "@/lib/notify";
-import { formatDateNoti } from "@/lib/formatdate-noti";
 export async function PUT(req: NextRequest) {
   console.log(`เริ่มต้นทำงานที่ Api holdorders...`);
   await connectDB();
