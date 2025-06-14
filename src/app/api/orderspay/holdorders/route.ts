@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
 import { sendNotification } from "@/lib/notify";
+import { ItemType } from "../route";
 export async function PUT(req: NextRequest) {
   console.log(`เริ่มต้นทำงานที่ Api holdorders...`);
   await connectDB();
@@ -27,7 +28,7 @@ export async function PUT(req: NextRequest) {
     - สถานะรายการ = พักออเดอร์ : ยังไม่คิดเงิน
     ${items
       .map(
-        (item: any, i: number) =>
+        (item: ItemType, i: number) =>
           `  ${i + 1}. ${item.product} (${item.quantity} x ${item.price}฿)`
       )
       .join("\n")}

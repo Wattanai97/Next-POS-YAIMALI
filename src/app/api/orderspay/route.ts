@@ -4,7 +4,7 @@ import { sendNotification } from "@/lib/notify";
 import { formatDateNoti } from "@/lib/formatdate-noti";
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
-interface ItemType {
+export interface ItemType {
   product: string;
   quantity: number;
   price: number;
