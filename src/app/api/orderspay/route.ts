@@ -17,7 +17,11 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
 
-  const { items, total, status } = body;
+  const { items, total, status } = body as {
+    items: ItemType[];
+    total: number;
+    status: string;
+  };
 
   if (
     !Array.isArray(items) ||
