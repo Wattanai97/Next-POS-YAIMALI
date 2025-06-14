@@ -15,7 +15,7 @@ import {
 const items = [
   { title: "แดชบอร์ด", url: "/", icon: Home },
   { title: "ดูออเดอร์ตามวัน", url: "/report", icon: Inbox },
-  { title: "สรุปยอดขายตามวัน", url: "/", icon: Calendar },
+  { title: "ยอดขายตามหมวดหมู่", url: "/report/sales-by-product", icon: Calendar },
   { title: "Settings", url: "/", icon: Settings },
 ];
 
