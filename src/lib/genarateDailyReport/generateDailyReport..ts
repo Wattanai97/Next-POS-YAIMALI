@@ -44,7 +44,7 @@ export async function generateDailyReport() {
   const itemList = allItems
     .map(
       (item) =>
-        `${item.name} : (x${item.qty}) รายได้ : ${item.total.toLocaleString()}`
+        `${item.name} : (x${item.qty}) รายได้ : ${item.total.toLocaleString()}฿`
     )
     .join("\n");
 
