@@ -1,5 +1,8 @@
 // Api สำหรับบันทึกคำสั่งซื้อ orders ลง database
 import { NextRequest, NextResponse } from "next/server";
+import { sendNotification } from "@/lib/notify";
+import { formatDateNoti } from "@/lib/formatdate-noti";
+import { formatDate } from "@/utils/sale-report/format-datetime-salereport";
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
 
@@ -25,6 +28,19 @@ export async function POST(req: NextRequest) {
   try {
     const order = new Order({ items, total, status });
     await order.save();
+    await sendNotification(`🧾 มีคำสั่งซื้อใหม่ :
+- รายการ: ${items.length} รายการ
+- ลูกค้า: ${order.customerCount} คน
+${items
+  .map(
+    (item: any, i: number) =>
+      `  ${i + 1}. ${item.product} (${item.quantity} x ${item.price}฿)`
+  )
+  .join("\n")}
+- ยอดรวม: ${total} บาท
+- สถานะ: ${status}
+- เวลาทำรายการ : ${formatDateNoti(order.createdAt)}
+`);
     console.log(`... จบการทำงานที่ Api orderspay ...`);
 
     return NextResponse.json(
