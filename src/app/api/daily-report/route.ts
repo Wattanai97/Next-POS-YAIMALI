@@ -7,9 +7,10 @@ export async function GET(req: NextRequest) {
   if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
+  console.log(`เริ่มเตรียมรายงานสรุปยอดวันนี้`);
 
   const message = await generateDailyReport(); // ดึงข้อความรายงาน
   await sendNotification(message);
-  
+
   return NextResponse.json({ ok: true });
 }
