@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendNotification } from "@/lib/notify";
 import { formatDateNoti } from "@/lib/formatdate-noti";
-import { formatDate } from "@/utils/sale-report/format-datetime-salereport";
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
 

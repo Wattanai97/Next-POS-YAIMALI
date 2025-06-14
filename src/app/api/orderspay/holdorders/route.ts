@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/order";
-
+import { sendNotification } from "@/lib/notify";
+import { formatDateNoti } from "@/lib/formatdate-noti";
 export async function PUT(req: NextRequest) {
   console.log(`เริ่มต้นทำงานที่ Api holdorders...`);
   await connectDB();
@@ -22,6 +23,18 @@ export async function PUT(req: NextRequest) {
       { status: "hold", items, total },
       { new: true, upsert: false }
     );
+    await sendNotification(`🧾 มีคำสั่งซื้อใหม่ :
+    - รายการ: ${items.length} รายการ
+    - สถานะรายการ = พักออเดอร์ : ยังไม่คิดเงิน
+    ${items
+      .map(
+        (item: any, i: number) =>
+          `  ${i + 1}. ${item.product} (${item.quantity} x ${item.price}฿)`
+      )
+      .join("\n")}
+    - ยอดรวม: ${total} บาท
+    - สถานะ: "hold" 
+    `);
     if (!holdorderUpdate) {
       console.log(`can't not find OrderNum = ${num}`);
       return NextResponse.json(
