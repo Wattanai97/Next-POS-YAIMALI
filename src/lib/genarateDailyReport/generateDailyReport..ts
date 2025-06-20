@@ -1,9 +1,7 @@
 // lib/report/generateDailyReport.ts
 import Order from "@/models/order";
 import { connectDB } from "@/lib/db";
-import { format } from "date-fns";
-import { th } from "date-fns/locale";
-
+import { formatDateTimeTH } from "@/utils/cronsjob/formatDateReport";
 export async function generateDailyReport() {
   await connectDB();
 
@@ -49,11 +47,9 @@ export async function generateDailyReport() {
     .join("\n");
 
   const now = new Date();
-  const time = format(now, "HH:mm:ss");
-  const date = format(now, "dd/MM/yyyy", { locale: th });
 
   const message = `
-📊 รายงานยอดขายประจำวันที่ ${date}
+📊 รายงานยอดขายประจำวันที่ ${formatDateTimeTH(now)}
 
 🧾 ยอดรวม: ${totalSales.toLocaleString()} บาท
 👥 ลูกค้า: ${totalCustomers} คน
@@ -74,7 +70,7 @@ ${topItems
 ยอดขายตามรายการ ❤️
 ${itemList}
 
-🕓 เวลาสรุปรายงาน: ${time} - ${date}
+🕓 เวลาสรุปรายงาน: ${formatDateTimeTH(now)}
   `.trim();
 
   return message;
